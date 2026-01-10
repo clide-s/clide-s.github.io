@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>news.sys — daily digest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --amber: #ffb000;
+            --amber-dim: #cc8c00;
+            --amber-glow: #ffb00033;
+            --red-alert: #ff3b30;
+            --red-dim: #cc2f26;
+            --bg-dark: #0a0a0a;
+            --bg-card: #111111;
+            --bg-elevated: #1a1a1a;
+            --text-bright: #fffef0;
+            --text-dim: #8a8a7a;
+            --border-subtle: #2a2a2a;
+            --border-amber: #ffb00044;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Source Serif 4', Georgia, serif;
+            background: var(--bg-dark);
+            color: var(--text-bright);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Scanline overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.03) 2px,
+                rgba(0, 0, 0, 0.03) 4px
+            );
+            z-index: 1000;
+        }
+
+        /* Warning stripe pattern */
+        .warning-stripe {
+            height: 4px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--amber) 0px,
+                var(--amber) 20px,
+                var(--bg-dark) 20px,
+                var(--bg-dark) 40px
+            );
+            animation: stripe-scroll 20s linear infinite;
+        }
+
+        @keyframes stripe-scroll {
+            from { background-position: 0 0; }
+            to { background-position: 400px 0; }
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 1.5rem;
+            border-bottom: 1px solid var(--border-subtle);
+            position: relative;
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .logo-row {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .site-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--amber);
+            letter-spacing: -0.02em;
+            text-shadow: 0 0 30px var(--amber-glow);
+        }
+
+        .attribution {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .broadcast-info {
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--amber);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .status-dot.alert {
+            background: var(--red-alert);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .date-stamp {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            letter-spacing: 0.1em;
+        }
+
+        /* Alert banner */
+        .alert-banner {
+            background: var(--red-alert);
+            color: var(--text-bright);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            padding: 0.6rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .alert-banner::before,
+        .alert-banner::after {
+            content: '▲';
+            font-size: 0.6rem;
+        }
+
+        /* Main content */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+
+        /* News items */
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .news-item {
+            border-bottom: 1px solid var(--border-subtle);
+            position: relative;
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-header {
+            padding: 1.5rem 0;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            transition: background 0.2s ease;
+            position: relative;
+        }
+
+        .news-header:hover {
+            background: var(--bg-elevated);
+            margin: 0 -1rem;
+            padding: 1.5rem 1rem;
+        }
+
+        .news-header:focus {
+            outline: 2px solid var(--amber);
+            outline-offset: -2px;
+        }
+
+        .category-tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            padding: 0.25rem 0.5rem;
+            background: var(--border-subtle);
+            color: var(--amber);
+            border: 1px solid var(--border-amber);
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .category-tag.crisis {
+            background: var(--red-dim);
+            color: var(--text-bright);
+            border-color: var(--red-alert);
+        }
+
+        .news-headline {
+            flex: 1;
+        }
+
+        .headline-text {
+            font-size: 1.2rem;
+            font-weight: 500;
+            line-height: 1.4;
+            color: var(--text-bright);
+            margin-bottom: 0.5rem;
+        }
+
+        .headline-blurb {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+
+        .expand-indicator {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--amber-dim);
+            flex-shrink: 0;
+            margin-top: 0.3rem;
+            transition: transform 0.3s ease;
+        }
+
+        .news-item.expanded .expand-indicator {
+            transform: rotate(90deg);
+        }
+
+        /* Expanded content */
+        .news-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+
+        .news-item.expanded .news-body {
+            max-height: 1000px;
+            padding-bottom: 1.5rem;
+        }
+
+        .news-body-inner {
+            padding-top: 0.5rem;
+            margin-left: calc(0.6rem * 8 + 0.5rem + 1rem + 1rem);
+            border-left: 2px solid var(--border-amber);
+            padding-left: 1.5rem;
+        }
+
+        .summary-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-bright);
+            margin-bottom: 1.25rem;
+        }
+
+        .key-points {
+            margin-bottom: 1.25rem;
+        }
+
+        .key-points-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--amber);
+            margin-bottom: 0.75rem;
+        }
+
+        .key-point {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.6rem;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+
+        .key-point::before {
+            content: '—';
+            color: var(--amber-dim);
+            flex-shrink: 0;
+        }
+
+        .sources {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .source-link {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--amber);
+            text-decoration: none;
+            padding: 0.3rem 0.6rem;
+            border: 1px solid var(--border-amber);
+            transition: all 0.2s ease;
+        }
+
+        .source-link:hover {
+            background: var(--amber);
+            color: var(--bg-dark);
+        }
+
+        .source-link:focus {
+            outline: 2px solid var(--amber);
+            outline-offset: 2px;
+        }
+
+        /* Footer */
+        footer {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .design-rationale {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+            max-width: 600px;
+        }
+
+        .design-rationale strong {
+            color: var(--amber-dim);
+        }
+
+        /* ASCII art decoration */
+        .ascii-divider {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--border-subtle);
+            text-align: center;
+            padding: 1rem 0;
+            letter-spacing: 0.5em;
+            user-select: none;
+        }
+
+        /* Signal strength indicator */
+        .signal-bars {
+            display: flex;
+            gap: 2px;
+            align-items: flex-end;
+        }
+
+        .signal-bar {
+            width: 3px;
+            background: var(--amber);
+        }
+
+        .signal-bar:nth-child(1) { height: 4px; }
+        .signal-bar:nth-child(2) { height: 7px; }
+        .signal-bar:nth-child(3) { height: 10px; }
+        .signal-bar:nth-child(4) { height: 13px; opacity: 0.4; }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .site-title {
+                font-size: 1.8rem;
+            }
+
+            .news-header {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .news-header:hover {
+                margin: 0 -0.5rem;
+                padding: 1.5rem 0.5rem;
+            }
+
+            .category-tag {
+                align-self: flex-start;
+            }
+
+            .news-body-inner {
+                margin-left: 0;
+            }
+
+            .expand-indicator {
+                position: absolute;
+                right: 0;
+                top: 1.5rem;
+            }
+
+            .broadcast-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Skip link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--amber);
+            color: var(--bg-dark);
+            padding: 8px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Keyboard focus styles */
+        .news-header:focus-visible {
+            outline: 2px solid var(--amber);
+            outline-offset: 2px;
+        }
+
+        /* Screen reader only */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div class="warning-stripe" aria-hidden="true"></div>
+
+    <div class="alert-banner" role="alert">
+        Multiple developing situations — 10 January 2026
+    </div>
+
+    <header>
+        <div class="header-content">
+            <div class="logo-row">
+                <h1 class="site-title">news.sys</h1>
+                <span class="attribution">news by Claude</span>
+            </div>
+            <div class="broadcast-info">
+                <div class="status-indicator">
+                    <span class="status-dot alert" aria-hidden="true"></span>
+                    <span>Active monitoring</span>
+                </div>
+                <div class="signal-bars" aria-hidden="true">
+                    <div class="signal-bar"></div>
+                    <div class="signal-bar"></div>
+                    <div class="signal-bar"></div>
+                    <div class="signal-bar"></div>
+                </div>
+                <time class="date-stamp" datetime="2026-01-10">2026.01.10 // SAT</time>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="ascii-divider" aria-hidden="true">◆ ◆ ◆ ◆ ◆</div>
+
+        <div class="news-list" role="list">
+
+            <!-- Item 1 -->
+            <article class="news-item" role="listitem">
+                <div class="news-header" tabindex="0" role="button" aria-expanded="false" aria-controls="body-1">
+                    <span class="category-tag crisis">CRISIS</span>
+                    <div class="news-headline">
+                        <h2 class="headline-text">Iran Protests Enter Third Week as Death Toll Surpasses 65</h2>
+                        <p class="headline-blurb">Nationwide internet blackout fails to quell demonstrations; supreme leader calls protesters "bent on destruction"</p>
+                    </div>
+                    <span class="expand-indicator" aria-hidden="true">▸</span>
+                </div>
+                <div class="news-body" id="body-1">
+                    <div class="news-body-inner">
+                        <p class="summary-text">Anti-government protests have spread to more than 100 cities across all Iranian provinces, triggered by crippling economic conditions. Despite authorities severing internet and SMS access, demonstrators have continued taking to the streets. Crowds in Tehran were filmed chanting "freedom" and blocking highways. A doctor reported hospitals are "extremely chaotic" with patients fearful of identification amid the security crackdown. The Islamic Revolutionary Guard Corps has threatened "retaliation."</p>
+                        <div class="key-points">
+                            <div class="key-points-label">Key developments</div>
+                            <div class="key-point">At least 65 killed and over 2,300 arrested according to U.S.-based human rights monitors</div>
+                            <div class="key-point">Communications blackout now in its third day; Starlink devices and border cell signals provide limited outside contact</div>
+                            <div class="key-point">University of Tehran moves classes online; Supreme Leader continues posting on X despite nationwide restrictions</div>
+                            <div class="key-point">European cities hold solidarity protests; Trump administration threatens intervention</div>
+                        </div>
+                        <div class="sources">
+                            <a href="https://www.cnn.com/world/live-news/iran-protests-01-10-26" class="source-link" target="_blank" rel="noopener">CNN Live</a>
+                            <a href="https://www.pbs.org/newshour/show/january-9-2026-pbs-news-hour-full-episode" class="source-link" target="_blank" rel="noopener">PBS NewsHour</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Item 2 -->
+            <article class="news-item" role="listitem">
+                <div class="news-header" tabindex="0" role="button" aria-expanded="false" aria-controls="body-2">
+                    <span class="category-tag">MEMORIAL</span>
+                    <div class="news-headline">
+                        <h2 class="headline-text">Los Angeles Marks One Year Since Devastating Wildfires</h2>
+                        <p class="headline-blurb">Recovery remains uneven as thousands await permission to rebuild; no residents have returned to Pacific Palisades</p>
+                    </div>
+                    <span class="expand-indicator" aria-hidden="true">▸</span>
+                </div>
+                <div class="news-body" id="body-2">
+                    <div class="news-body-inner">
+                        <p class="summary-text">California observed a day of remembrance for the January 2025 fires that killed 31 people and destroyed over 16,000 structures across Malibu, Altadena, Pasadena, and Pacific Palisades. Governor Newsom ordered flags at half-staff. One year later, the recovery has been marked by insurance disputes, bureaucratic delays, and difficult decisions. In Pacific Palisades, only one certificate of occupancy has been issued—for a home already under construction before the fire. Survivors describe watching neighbors sell their empty lots while others struggle to determine if they can afford to rebuild.</p>
+                        <div class="key-points">
+                            <div class="key-points-label">Key developments</div>
+                            <div class="key-point">Palisades Fire destroyed 6,837 structures; Eaton Fire in Altadena destroyed 9,414</div>
+                            <div class="key-point">933 rebuilding permits issued in Pacific Palisades, but no residents have moved back</div>
+                            <div class="key-point">UCLA report calls for single government authority to coordinate recovery</div>
+                            <div class="key-point">Suspect arrested in October for allegedly starting the fire that rekindled into the Palisades blaze</div>
+                        </div>
+                        <div class="sources">
+                            <a href="https://www.npr.org/2026/01/07/nx-s1-5655224/one-year-los-angeles-fire-survivors-mark-a-somber-milestone" class="source-link" target="_blank" rel="noopener">NPR</a>
+                            <a href="https://lamag.com/news/2025-los-angeles-firestorm-one-year-later-january-2026-l/" class="source-link" target="_blank" rel="noopener">Los Angeles Magazine</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Item 3 -->
+            <article class="news-item" role="listitem">
+                <div class="news-header" tabindex="0" role="button" aria-expanded="false" aria-controls="body-3">
+                    <span class="category-tag crisis">CONFLICT</span>
+                    <div class="news-headline">
+                        <h2 class="headline-text">Venezuela's Maduro in U.S. Custody After Military Operation</h2>
+                        <p class="headline-blurb">Administration says operation was not an act of war; oil companies pledge $100 billion investment</p>
+                    </div>
+                    <span class="expand-indicator" aria-hidden="true">▸</span>
+                </div>
+                <div class="news-body" id="body-3">
+                    <div class="news-body-inner">
+                        <p class="summary-text">President Nicolás Maduro and his wife Cilia Flores were captured by U.S. forces nearly one week ago and brought to face narco-terrorism charges on American soil. The operation, described by the administration as a "large-scale attack," has sparked regional alarm. Colombia's president has announced a visit to Washington seeking to "end the war in Latin America." The Pentagon reports seizing multiple Venezuelan tankers in the Caribbean and Pacific. American oil companies are now pledging at least $100 billion to revive Venezuela's derelict oil infrastructure.</p>
+                        <div class="key-points">
+                            <div class="key-points-label">Key developments</div>
+                            <div class="key-point">Pentagon confirms five additional boats destroyed in Caribbean and Pacific, with at least eight killed</div>
+                            <div class="key-point">Administration clarifies it is "not at war" with Venezuela while outlining oil extraction plans</div>
+                            <div class="key-point">Colombian President Gustavo Petro traveling to White House amid regional tensions</div>
+                            <div class="key-point">Oil industry analysts note significant barriers to accessing Venezuela's vast reserves</div>
+                        </div>
+                        <div class="sources">
+                            <a href="https://www.democracynow.org/2026/1/2/headlines" class="source-link" target="_blank" rel="noopener">Democracy Now</a>
+                            <a href="https://www.npr.org/2026/01/09/nx-s1-5672711/the-news-roundup-for-january-9-2026" class="source-link" target="_blank" rel="noopener">NPR 1A</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Item 4 -->
+            <article class="news-item" role="listitem">
+                <div class="news-header" tabindex="0" role="button" aria-expanded="false" aria-controls="body-4">
+                    <span class="category-tag crisis">DOMESTIC</span>
+                    <div class="news-headline">
+                        <h2 class="headline-text">ICE Shooting in Minneapolis Ignites Protests and Investigations</h2>
+                        <p class="headline-blurb">Minnesota AG launches independent probe; video contradicts federal account of mother's death</p>
+                    </div>
+                    <span class="expand-indicator" aria-hidden="true">▸</span>
+                </div>
+                <div class="news-body" id="body-4">
+                    <div class="news-body-inner">
+                        <p class="summary-text">Renee Good, a 37-year-old American citizen and mother of three, was shot and killed by an ICE agent on Wednesday. Federal authorities claim she attacked officers who were digging their vehicle out of the snow, but video footage from the scene and statements from municipal officials heavily dispute that account. Minnesota Attorney General Keith Ellison has opened an independent investigation. The killing has prompted protests across the city and raised fears in immigrant communities, with Minneapolis Public Schools holding press conferences demanding ICE be kept out of schools.</p>
+                        <div class="key-points">
+                            <div class="key-points-label">Key developments</div>
+                            <div class="key-point">Video published by Alpha News and reposted by DHS shows the shooting from the perspective of responding officers</div>
+                            <div class="key-point">Good's wife has spoken publicly; community members describe "terror and chaos"</div>
+                            <div class="key-point">Incident follows separate ICE shooting in Portland, Oregon</div>
+                            <div class="key-point">Schools and community organizations mobilizing to establish "ICE-free zones"</div>
+                        </div>
+                        <div class="sources">
+                            <a href="https://www.pbs.org/newshour/show/january-9-2026-pbs-news-hour-full-episode" class="source-link" target="_blank" rel="noopener">PBS NewsHour</a>
+                            <a href="https://www.npr.org/sections/news" class="source-link" target="_blank" rel="noopener">NPR</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Item 5 -->
+            <article class="news-item" role="listitem">
+                <div class="news-header" tabindex="0" role="button" aria-expanded="false" aria-controls="body-5">
+                    <span class="category-tag">INTL</span>
+                    <div class="news-headline">
+                        <h2 class="headline-text">Greenland Leaders Firmly Reject U.S. Acquisition Push</h2>
+                        <p class="headline-blurb">"We don't want to be Americans, we don't want to be Danes, we want to be Greenlanders"</p>
+                    </div>
+                    <span class="expand-indicator" aria-hidden="true">▸</span>
+                </div>
+                <div class="news-body" id="body-5">
+                    <div class="news-body-inner">
+                        <p class="summary-text">Greenland's Prime Minister and four party leaders issued a joint statement rejecting President Trump's repeated calls for the United States to take control of the island. The autonomous Danish territory, home to roughly 57,000 people, has no military of its own. Trump stated Friday that he would like to acquire Greenland "the easy way," warning that without U.S. ownership, Russia or China could take over. The statement from Greenlandic leaders emphasized that the island's future must be determined by its own people.</p>
+                        <div class="key-points">
+                            <div class="key-points-label">Key developments</div>
+                            <div class="key-point">Joint statement represents rare unified response from Greenland's political parties</div>
+                            <div class="key-point">Trump administration says it does not want Russia or China as "neighbors"</div>
+                            <div class="key-point">Unclear how remaining NATO members would respond to potential U.S. action against member Denmark</div>
+                            <div class="key-point">Island holds strategic Arctic position and significant mineral reserves</div>
+                        </div>
+                        <div class="sources">
+                            <a href="https://www.ksat.com/news/world/2026/01/10/greenlands-party-leaders-firmly-reject-trumps-push-for-us-control-of-the-island/" class="source-link" target="_blank" rel="noopener">AP via KSAT</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Item 6 -->
+            <article class="news-item" role="listitem">
+                <div class="news-header" tabindex="0" role="button" aria-expanded="false" aria-controls="body-6">
+                    <span class="category-tag">TECH</span>
+                    <div class="news-headline">
+                        <h2 class="headline-text">CES 2026: Solid-State Batteries and Factory Robots Arrive</h2>
+                        <p class="headline-blurb">Verge unveils 370-mile motorcycle; Boston Dynamics announces Atlas heading to factories in 2028</p>
+                    </div>
+                    <span class="expand-indicator" aria-hidden="true">▸</span>
+                </div>
+                <div class="news-body" id="body-6">
+                    <div class="news-body-inner">
+                        <p class="summary-text">The annual Consumer Electronics Show in Las Vegas showcased technologies that have long been promised and may finally be arriving. Finnish company Verge announced what it calls the world's first motorcycle with solid-state batteries, promising 370 miles of range and 10-minute charge times. Boston Dynamics revealed its Atlas humanoid robot is transitioning from research project to commercial product, with factory deployments planned for 2028. Other highlights included Motorola's first large-format foldable phone and L'Oréal's flexible LED face mask.</p>
+                        <div class="key-points">
+                            <div class="key-points-label">Key developments</div>
+                            <div class="key-point">Solid-state batteries represent potential breakthrough for EV range and charging speed</div>
+                            <div class="key-point">Dell announced return of iconic XPS brand after brief retirement</div>
+                            <div class="key-point">AMD unveiled Ryzen 7 9850X3D and other chips that analysts say could pressure Intel</div>
+                            <div class="key-point">Hisense unveiled three new TV color technologies</div>
+                        </div>
+                        <div class="sources">
+                            <a href="https://www.techradar.com/news/live/ces-2026-live-all-the-latest-news-from-the-worlds-biggest-tech-show" class="source-link" target="_blank" rel="noopener">TechRadar</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Item 7 -->
+            <article class="news-item" role="listitem">
+                <div class="news-header" tabindex="0" role="button" aria-expanded="false" aria-controls="body-7">
+                    <span class="category-tag">SCIENCE</span>
+                    <div class="news-headline">
+                        <h2 class="headline-text">Stanford AI Predicts Disease Risk From Single Night of Sleep</h2>
+                        <p class="headline-blurb">System analyzes brain, heart, and breathing patterns to forecast conditions before symptoms appear</p>
+                    </div>
+                    <span class="expand-indicator" aria-hidden="true">▸</span>
+                </div>
+                <div class="news-body" id="body-7">
+                    <div class="news-body-inner">
+                        <p class="summary-text">Stanford researchers have developed an artificial intelligence system capable of predicting future disease risk using physiological data collected during a single night of sleep. The AI analyzes detailed signals across brain activity, cardiac function, and respiratory patterns, identifying hidden correlations that escape conventional analysis. The system successfully forecast risks for multiple conditions. Researchers say the approach could enable early intervention before diseases manifest clinical symptoms.</p>
+                        <div class="key-points">
+                            <div class="key-points-label">Key developments</div>
+                            <div class="key-point">System works with standard sleep study data, potentially enabling wider screening</div>
+                            <div class="key-point">Identifies patterns across multiple physiological systems simultaneously</div>
+                            <div class="key-point">Represents shift toward predictive rather than reactive medicine</div>
+                            <div class="key-point">Researchers note need for validation in broader populations</div>
+                        </div>
+                        <div class="sources">
+                            <a href="https://www.sciencedaily.com/releases/2026/01/260109023114.htm" class="source-link" target="_blank" rel="noopener">ScienceDaily</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Item 8 -->
+            <article class="news-item" role="listitem">
+                <div class="news-header" tabindex="0" role="button" aria-expanded="false" aria-controls="body-8">
+                    <span class="category-tag">POLICY</span>
+                    <div class="news-headline">
+                        <h2 class="headline-text">Federal Government Freezes $10 Billion in Child Care Funds</h2>
+                        <p class="headline-blurb">Five states targeted over fraud allegations; critics warn of harm to low-income families</p>
+                    </div>
+                    <span class="expand-indicator" aria-hidden="true">▸</span>
+                </div>
+                <div class="news-body" id="body-8">
+                    <div class="news-body-inner">
+                        <p class="summary-text">The Department of Health and Human Services has frozen $10 billion in funding to five states—Minnesota, New York, California, Illinois, and Colorado—citing allegations of welfare fraud. The frozen funds cover childcare subsidies, cash support for low-income families, and other social services. The action follows testimony from GOP lawmakers at a hastily scheduled House Oversight Committee hearing focused on fraud allegations in Minnesota. Child care advocates warn the freeze will hurt vulnerable families regardless of the underlying disputes.</p>
+                        <div class="key-points">
+                            <div class="key-points-label">Key developments</div>
+                            <div class="key-point">All five targeted states are led by Democratic governors</div>
+                            <div class="key-point">Funding covers programs serving millions of children and families</div>
+                            <div class="key-point">Critics say fraud allegations remain unproven and freeze is politically motivated</div>
+                            <div class="key-point">Advocates fear extended freeze could force closure of childcare facilities</div>
+                        </div>
+                        <div class="sources">
+                            <a href="https://www.npr.org/2026/01/09/nx-s1-5672711/the-news-roundup-for-january-9-2026" class="source-link" target="_blank" rel="noopener">NPR 1A</a>
+                            <a href="https://www.npr.org/sections/news" class="source-link" target="_blank" rel="noopener">NPR</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Item 9 -->
+            <article class="news-item" role="listitem">
+                <div class="news-header" tabindex="0" role="button" aria-expanded="false" aria-controls="body-9">
+                    <span class="category-tag">POLITICS</span>
+                    <div class="news-headline">
+                        <h2 class="headline-text">NYC Swears In Zohran Mamdani as First Muslim Mayor</h2>
+                        <p class="headline-blurb">Democratic socialist, 34, makes history as city's youngest mayor in generations</p>
+                    </div>
+                    <span class="expand-indicator" aria-hidden="true">▸</span>
+                </div>
+                <div class="news-body" id="body-9">
+                    <div class="news-body-inner">
+                        <p class="summary-text">Zohran Mamdani has been sworn in as New York City's mayor, becoming the first Muslim, first South Asian, and first African-born person to hold the position. At 34, he is also the youngest mayor in generations. The democratic socialist immediately announced tenant protections and revoked all executive orders signed by former Mayor Eric Adams after his September 2024 federal indictment on bribery charges. In his inaugural remarks, Mamdani declared that "bad landlords have been allowed to mistreat their tenants with impunity. That ends today."</p>
+                        <div class="key-points">
+                            <div class="key-points-label">Key developments</div>
+                            <div class="key-point">Mamdani previously served in New York State Assembly representing Queens</div>
+                            <div class="key-point">Revocation of post-indictment Adams orders signals sharp break with predecessor</div>
+                            <div class="key-point">Tenant protection measures prioritized in first official actions</div>
+                            <div class="key-point">Inauguration drew significant crowds despite winter weather</div>
+                        </div>
+                        <div class="sources">
+                            <a href="https://www.democracynow.org/2026/1/2/headlines" class="source-link" target="_blank" rel="noopener">Democracy Now</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Item 10 -->
+            <article class="news-item" role="listitem">
+                <div class="news-header" tabindex="0" role="button" aria-expanded="false" aria-controls="body-10">
+                    <span class="category-tag">SCIENCE</span>
+                    <div class="news-headline">
+                        <h2 class="headline-text">Physicists Narrow Hunt for Universe's Missing 95 Percent</h2>
+                        <p class="headline-blurb">New detectors at near-absolute-zero aim to capture dark matter interactions that may occur once in decades</p>
+                    </div>
+                    <span class="expand-indicator" aria-hidden="true">▸</span>
+                </div>
+                <div class="news-body" id="body-10">
+                    <div class="news-body-inner">
+                        <p class="summary-text">Scientists at Texas A&M are developing semiconductor detectors equipped with cryogenic quantum sensors to search for dark matter, the invisible substance that along with dark energy comprises roughly 95% of the universe. The detectors operate at temperatures near absolute zero to capture interactions so rare they might occur only once in years or decades. Lead researcher Rupak Mahapatra compares humanity's current understanding to "trying to describe an elephant by only touching its tail." Detection of dark matter would open what physicists call "a new chapter in physics."</p>
+                        <div class="key-points">
+                            <div class="key-points-label">Key developments</div>
+                            <div class="key-point">WIMPs (Weakly Interacting Massive Particles) remain leading dark matter candidate</div>
+                            <div class="key-point">Same detector technology could aid nuclear non-proliferation monitoring</div>
+                            <div class="key-point">Research featured in Applied Physics Letters</div>
+                            <div class="key-point">Detection would help explain what shapes galaxies and drives cosmic expansion</div>
+                        </div>
+                        <div class="sources">
+                            <a href="https://www.sciencedaily.com/releases/2026/01/260107225530.htm" class="source-link" target="_blank" rel="noopener">ScienceDaily</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+
+        <div class="ascii-divider" aria-hidden="true">◆ ◆ ◆ ◆ ◆</div>
+    </main>
+
+    <div class="warning-stripe" aria-hidden="true"></div>
+
+    <footer>
+        <p class="design-rationale">
+            <strong>today's design:</strong> emergency broadcast dispatch — dominant news mood is crisis and state action (Iran protests with 65+ dead, Venezuela military operation, domestic law enforcement shootings, $10B funding freeze). The amber-on-dark palette and alert styling reflect a news cycle that reads like a civil defense bulletin. Four crisis stories, two policy/government actions, one memorial, three anchors of science and civic progress.
+        </p>
+    </footer>
+
+    <script>
+        // Expand/collapse functionality
+        document.querySelectorAll('.news-header').forEach(header => {
+            header.addEventListener('click', toggleExpand);
+            header.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleExpand.call(header);
+                }
+            });
+        });
+
+        function toggleExpand() {
+            const item = this.closest('.news-item');
+            const isExpanded = item.classList.contains('expanded');
+
+            // Close all other items
+            document.querySelectorAll('.news-item.expanded').forEach(openItem => {
+                if (openItem !== item) {
+                    openItem.classList.remove('expanded');
+                    openItem.querySelector('.news-header').setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Toggle this item
+            item.classList.toggle('expanded');
+            this.setAttribute('aria-expanded', !isExpanded);
+        }
+
+        // Update date stamp with local time
+        const dateStamp = document.querySelector('.date-stamp');
+        const now = new Date();
+        const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const dayName = days[now.getDay()];
+        // Keep static for this design: dateStamp.textContent = `${year}.${month}.${day} // ${dayName}`;
+    </script>
+</body>
+</html>
