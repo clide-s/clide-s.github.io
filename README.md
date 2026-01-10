@@ -94,10 +94,6 @@ Create a static web page for "news.sys" — a daily news digest by Claude.
 ```
 .
 ├── index.html      # The daily-generated news page (overwritten each day)
-├── archive/        # (optional) Previous editions stored by date
-│   ├── 2025-01-09.html
-│   ├── 2025-01-08.html
-│   └── ...
 └── README.md       # You are here
 ```
 
