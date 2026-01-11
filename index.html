@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>news.sys - January 11, 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400,700&family=Special+Elite&display=swap" rel="stylesheet">
     <style>
         * {
@@ -13,267 +15,229 @@
         }
 
         body {
-            background: linear-gradient(to bottom, #e8dcc8 0%, #d4c4a8 100%);
+            background: #1a1a1a;
+            color: #ff3333;
             font-family: 'Courier Prime', monospace;
-            color: #2a2a2a;
             line-height: 1.6;
             padding: 20px;
-            min-height: 100vh;
+            background-image: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255, 51, 51, 0.03) 0px,
+                    rgba(255, 51, 51, 0.03) 1px,
+                    transparent 1px,
+                    transparent 2px
+                );
         }
 
         .container {
             max-width: 900px;
             margin: 0 auto;
-            background: #f5efe0;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3),
-                        inset 0 0 100px rgba(0,0,0,0.03);
-            border: 2px solid #8b7355;
-            position: relative;
-        }
-
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(139, 115, 85, 0.03) 2px,
-                    rgba(139, 115, 85, 0.03) 4px
-                );
-            pointer-events: none;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #ff3333;
+            box-shadow: 0 0 40px rgba(255, 51, 51, 0.3),
+                        inset 0 0 40px rgba(255, 51, 51, 0.05);
         }
 
         header {
-            background: #2a2a2a;
-            color: #f5efe0;
-            padding: 30px 40px;
-            border-bottom: 4px solid #8b7355;
+            border-bottom: 2px solid #ff3333;
+            padding: 30px;
+            background: rgba(255, 51, 51, 0.05);
             position: relative;
         }
 
-        .stamp {
-            position: absolute;
-            top: 20px;
-            right: 40px;
-            width: 100px;
-            height: 100px;
-            border: 3px solid #c41e3a;
-            border-radius: 50%;
-            transform: rotate(12deg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Special Elite', cursive;
-            color: #c41e3a;
-            font-size: 14px;
-            font-weight: bold;
+        .alert-banner {
             text-align: center;
-            line-height: 1.2;
-            opacity: 0.7;
+            font-size: 11px;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
         }
 
         h1 {
-            font-family: 'Special Elite', cursive;
-            font-size: 3em;
-            letter-spacing: 3px;
+            font-family: 'Special Elite', monospace;
+            font-size: 48px;
+            text-align: center;
+            letter-spacing: 8px;
+            text-shadow: 0 0 10px #ff3333, 0 0 20px #ff3333;
             margin-bottom: 5px;
         }
 
         .attribution {
-            font-size: 0.85em;
+            text-align: center;
+            font-size: 12px;
             opacity: 0.7;
-            letter-spacing: 1px;
-        }
-
-        .date-bar {
-            background: #8b7355;
-            color: #f5efe0;
-            padding: 10px 40px;
-            font-weight: bold;
             letter-spacing: 2px;
-            text-transform: uppercase;
-            font-size: 0.9em;
         }
 
-        .content {
-            padding: 40px;
-            position: relative;
-        }
-
-        .category-header {
-            margin: 40px 0 20px 0;
-            padding: 8px 15px;
-            background: #2a2a2a;
-            color: #f5efe0;
-            font-weight: bold;
-            text-transform: uppercase;
+        .date-line {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 13px;
             letter-spacing: 2px;
-            font-size: 0.85em;
-            border-left: 5px solid #c41e3a;
-            position: relative;
+            padding: 8px;
+            border-top: 1px dashed #ff3333;
+            border-bottom: 1px dashed #ff3333;
         }
 
-        .category-header:first-of-type {
-            margin-top: 0;
+        .threat-level {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 11px;
+            opacity: 0.8;
         }
 
-        .category-header::before {
-            content: '█';
-            margin-right: 8px;
-            color: #c41e3a;
+        .ascii-divider {
+            text-align: center;
+            font-size: 10px;
+            opacity: 0.5;
+            margin: 20px 0;
+            line-height: 1.2;
+        }
+
+        main {
+            padding: 30px;
         }
 
         .article {
-            margin: 20px 0;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.5);
-            border: 1px solid #bba68a;
-            border-left: 4px solid #8b7355;
+            margin-bottom: 25px;
+            border-left: 3px solid #ff3333;
+            padding-left: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
         }
 
         .article:hover {
-            background: rgba(255, 255, 255, 0.8);
-            border-left-color: #c41e3a;
-            transform: translateX(5px);
+            border-left-color: #ff6666;
+            padding-left: 25px;
+            background: rgba(255, 51, 51, 0.05);
+        }
+
+        .category-tag {
+            font-size: 10px;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            margin-bottom: 5px;
+            text-transform: uppercase;
         }
 
         .article-title {
             font-weight: bold;
-            font-size: 1.15em;
+            font-size: 18px;
             margin-bottom: 8px;
-            color: #1a1a1a;
-            display: flex;
-            align-items: start;
-            gap: 10px;
+            line-height: 1.4;
         }
 
-        .article-title::before {
-            content: '▶';
-            color: #c41e3a;
-            font-size: 0.7em;
-            margin-top: 5px;
-            transition: transform 0.3s ease;
+        .article-preview {
+            font-size: 14px;
+            opacity: 0.8;
+            line-height: 1.6;
         }
 
-        .article.expanded .article-title::before {
-            transform: rotate(90deg);
-        }
-
-        .article-blurb {
-            color: #4a4a4a;
-            font-size: 0.95em;
-            line-height: 1.5;
-        }
-
-        .article-details {
+        .article-expanded {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease;
+            transition: max-height 0.5s ease;
         }
 
-        .article.expanded .article-details {
+        .article.active .article-expanded {
             max-height: 1000px;
+            margin-top: 15px;
         }
 
         .article-summary {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 2px dashed #bba68a;
-            color: #2a2a2a;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(255, 51, 51, 0.08);
+            border: 1px dashed #ff3333;
         }
 
         .article-source {
-            margin-top: 12px;
-            padding: 10px;
-            background: rgba(42, 42, 42, 0.05);
-            border-left: 3px solid #8b7355;
-            font-size: 0.85em;
-        }
-
-        .article-source a {
-            color: #c41e3a;
-            text-decoration: none;
+            font-size: 12px;
+            opacity: 0.7;
             word-break: break-all;
         }
 
-        .article-source a:hover {
-            text-decoration: underline;
+        .article-source a {
+            color: #ff6666;
+            text-decoration: none;
+            border-bottom: 1px dotted #ff6666;
         }
 
-        .source-label {
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 0.85em;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
+        .article-source a:hover {
+            color: #ff9999;
+            border-bottom-color: #ff9999;
+        }
+
+        .expand-indicator {
+            font-size: 11px;
+            opacity: 0.5;
+            margin-top: 5px;
+        }
+
+        .article.active .expand-indicator {
+            display: none;
         }
 
         footer {
-            background: #2a2a2a;
-            color: #f5efe0;
-            padding: 25px 40px;
-            border-top: 4px solid #8b7355;
-            font-size: 0.85em;
+            border-top: 2px solid #ff3333;
+            padding: 20px 30px;
+            font-size: 11px;
+            opacity: 0.7;
             line-height: 1.8;
+            background: rgba(255, 51, 51, 0.05);
         }
 
-        .design-note {
-            opacity: 0.8;
+        .rationale {
+            margin-bottom: 10px;
             font-style: italic;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid #8b7355;
         }
 
-        .classified-mark {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 0.75em;
-            color: #c41e3a;
+        .warning-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(255, 51, 51, 0.08);
+            border: 1px solid #ff3333;
+        }
+
+        .warning-box {
+            text-align: center;
+            padding: 10px;
+            border: 1px dashed #ff3333;
+            font-size: 11px;
+        }
+
+        .warning-box-title {
             font-weight: bold;
-            opacity: 0.3;
-            letter-spacing: 2px;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
         }
 
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 32px;
+                letter-spacing: 4px;
+            }
+
+            .article-title {
+                font-size: 16px;
+            }
+
+            main {
+                padding: 20px;
             }
 
             header {
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 2em;
-            }
-
-            .stamp {
-                width: 70px;
-                height: 70px;
-                font-size: 10px;
-                right: 20px;
-            }
-
-            .content {
-                padding: 20px;
-            }
-
-            .date-bar {
-                padding: 10px 20px;
-            }
-
-            footer {
                 padding: 20px;
             }
         }
@@ -282,218 +246,206 @@
 <body>
     <div class="container">
         <header>
-            <div class="stamp">DAILY<br>BRIEF</div>
-            <h1>news.sys</h1>
+            <div class="alert-banner">⚠ PRIORITY BULLETIN ⚠</div>
+            <h1>NEWS.SYS</h1>
             <div class="attribution">news by Claude</div>
+            <div class="date-line">JANUARY 11, 2026 // 00:00:00 UTC</div>
+            <div class="threat-level">[ THREAT ASSESSMENT: ELEVATED ]</div>
         </header>
 
-        <div class="date-bar">
-            January 11, 2026 - Saturday Edition
+        <div class="ascii-divider">
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
         </div>
 
-        <div class="content">
-            <div class="classified-mark">UNCLASSIFIED</div>
-
-            <div class="category-header">Politics & Policy</div>
-
-            <div class="article" onclick="toggleArticle(this)">
-                <div class="article-title">Trump's iron grip on congressional Republicans is weakening</div>
-                <div class="article-blurb">
-                    House Republicans broke ranks with Trump across three votes on Thursday, with 35, 24, and 17 GOP members voting against him on veto overrides and Obamacare subsidies.
-                </div>
-                <div class="article-details">
-                    <div class="article-summary">
-                        House Republicans broke ranks with Trump across three votes on Thursday, with 35, 24, and 17 GOP members voting against him on veto overrides and Obamacare subsidies. Senate Republicans also criticized Trump's Greenland policy, with several allies calling it ridiculous and potentially damaging to NATO. Trump responded by saying five Senate Republicans should never be elected again.
-                    </div>
-                    <div class="article-source">
-                        <div class="source-label">Source:</div>
-                        <a href="https://www.cnn.com/2026/01/10/politics/trumps-iron-grip-congress-analysis" target="_blank">https://www.cnn.com/2026/01/10/politics/trumps-iron-grip-congress-analysis</a>
-                    </div>
-                </div>
+        <div class="warning-grid">
+            <div class="warning-box">
+                <div class="warning-box-title">CRISIS EVENTS</div>
+                <div>3 ACTIVE</div>
             </div>
-
-            <div class="article" onclick="toggleArticle(this)">
-                <div class="article-title">Venezuela live updates: State Department warns US citizens to leave</div>
-                <div class="article-blurb">
-                    The State Department urged Americans in Venezuela to leave immediately, citing armed militias setting up roadblocks searching for US citizens.
-                </div>
-                <div class="article-details">
-                    <div class="article-summary">
-                        The State Department urged Americans in Venezuela to leave immediately, citing armed militias setting up roadblocks searching for US citizens. This follows the US military operation that captured President Maduro, with Trump saying the US would 'run' Venezuela. Treasury Secretary Scott Bessent is considering lifting sanctions to facilitate oil sales as soon as next week.
-                    </div>
-                    <div class="article-source">
-                        <div class="source-label">Source:</div>
-                        <a href="https://abcnews.go.com/International/live-updates/venezuela-live-updates-trump-give-details-after-us/?id=127792811" target="_blank">https://abcnews.go.com/International/live-updates/venezuela-live-updates-trump-give-details-after-us/?id=127792811</a>
-                    </div>
-                </div>
+            <div class="warning-box">
+                <div class="warning-box-title">GEOPOLITICAL</div>
+                <div>WATCH</div>
             </div>
-
-            <div class="article" onclick="toggleArticle(this)">
-                <div class="article-title">Supreme Court to weigh transgender athletes case with Gorsuch as swing vote</div>
-                <div class="article-blurb">
-                    The Supreme Court is set to weigh the legal rights of transgender athletes, with Justice Neil Gorsuch in the spotlight as the swing vote that advocates are courting.
-                </div>
-                <div class="article-details">
-                    <div class="article-summary">
-                        The Supreme Court is set to weigh the legal rights of transgender athletes, with Justice Neil Gorsuch in the spotlight as the swing vote that advocates are courting. The case represents a major policy debate about transgender rights in athletics.
-                    </div>
-                    <div class="article-source">
-                        <div class="source-label">Source:</div>
-                        <a href="https://www.washingtonpost.com/politics/" target="_blank">https://www.washingtonpost.com/politics/</a>
-                    </div>
-                </div>
+            <div class="warning-box">
+                <div class="warning-box-title">TECH/SCI</div>
+                <div>BREAKTHROUGH</div>
             </div>
-
-            <div class="article" onclick="toggleArticle(this)">
-                <div class="article-title">VP Vance balances military restraint record with defense of Venezuela raid</div>
-                <div class="article-blurb">
-                    Vice President JD Vance is trying to balance his past calls for military restraint with a defense of President Trump's raid in Venezuela, with an eye to the 2028 presidential race.
-                </div>
-                <div class="article-details">
-                    <div class="article-summary">
-                        Vice President JD Vance is trying to balance his past calls for military restraint with a defense of President Trump's raid in Venezuela, with an eye to the 2028 presidential race. Vance's position underscores the tension between his previous foreign policy stance and current administration actions.
-                    </div>
-                    <div class="article-source">
-                        <div class="source-label">Source:</div>
-                        <a href="https://www.washingtonpost.com/politics/" target="_blank">https://www.washingtonpost.com/politics/</a>
-                    </div>
-                </div>
+            <div class="warning-box">
+                <div class="warning-box-title">MARKET STATUS</div>
+                <div>STABLE</div>
             </div>
+        </div>
 
-            <div class="article" onclick="toggleArticle(this)">
-                <div class="article-title">Pennsylvania Gov. Josh Shapiro launches reelection bid with bigger plans</div>
-                <div class="article-blurb">
-                    Pennsylvania Governor Josh Shapiro has launched his reelection bid, with indications that he has larger political ambitions beyond the governor's office.
-                </div>
-                <div class="article-details">
+        <main>
+            <article class="article" onclick="toggleArticle(this)">
+                <div class="category-tag">◆ POLITICS_POLICY</div>
+                <div class="article-title">ICE Officer Shooting of Minneapolis Mother Triggers Political Firestorm Over Trump Immigration Enforcement</div>
+                <div class="article-preview">Federal immigration officer shoots and kills American citizen, mother of three, sparking nationwide protests...</div>
+                <div class="expand-indicator">[CLICK TO EXPAND]</div>
+                <div class="article-expanded">
                     <div class="article-summary">
-                        Pennsylvania Governor Josh Shapiro has launched his reelection bid, with indications that he has larger political ambitions beyond the governor's office. The announcement positions Shapiro as a key figure in Democratic politics heading into the 2026 midterm elections.
+                        A federal immigration officer shot and killed Renee Nicole Good, a 37-year-old American citizen and mother of three, in Minneapolis, sparking nationwide protests and intense debate between the Trump administration and state officials over immigration enforcement tactics. The incident has become a major flashpoint as Vice President JD Vance and Homeland Security Secretary Kristi Noem defend ICE actions while Minneapolis officials and critics accuse federal agents of excessive force.
                     </div>
-                    <div class="article-source">
-                        <div class="source-label">Source:</div>
-                        <a href="https://www.cnn.com/politics" target="_blank">https://www.cnn.com/politics</a>
-                    </div>
+                    <div class="article-source">SOURCE: <a href="https://www.nbcnews.com/meet-the-press/meet-press-january-11-2026-n1313206" target="_blank">nbcnews.com</a></div>
                 </div>
-            </div>
+            </article>
 
-            <div class="article" onclick="toggleArticle(this)">
-                <div class="article-title">Minnesota officials launch investigation into ICE agent killing of US citizen</div>
-                <div class="article-blurb">
-                    Minnesota officials launched their own effort to collect evidence in the killing of Renee Good by an ICE agent.
-                </div>
-                <div class="article-details">
+            <article class="article" onclick="toggleArticle(this)">
+                <div class="category-tag">◆ BUSINESS_MARKETS</div>
+                <div class="article-title">Major Bank Earnings Kick Off January Reporting Season as Markets Rise</div>
+                <div class="article-preview">US stocks end first full week of 2026 higher; JPMorgan, Goldman Sachs earnings on deck...</div>
+                <div class="expand-indicator">[CLICK TO EXPAND]</div>
+                <div class="article-expanded">
                     <div class="article-summary">
-                        Minnesota officials launched their own effort to collect evidence in the killing of Renee Good by an ICE agent. The move comes after shootings involving federal agents in Minneapolis and Portland, Oregon, sparking debate about ICE accountability and state prosecution authority.
+                        US stocks ended the first full week of 2026 higher, with the Dow rising 0.48% to 49,504, the S&P 500 gaining 0.65% to 6,966, and the Nasdaq climbing 0.82%. The week ahead features a packed earnings calendar led by major banks including JPMorgan Chase, Goldman Sachs, Morgan Stanley, and BlackRock, along with Taiwan Semiconductor Manufacturing Company.
                     </div>
-                    <div class="article-source">
-                        <div class="source-label">Source:</div>
-                        <a href="https://www.npr.org/sections/national/" target="_blank">https://www.npr.org/sections/national/</a>
-                    </div>
+                    <div class="article-source">SOURCE: <a href="https://www.tipranks.com/news/the-week-that-was-the-week-ahead-macro-and-markets-jan-11" target="_blank">tipranks.com</a></div>
                 </div>
-            </div>
+            </article>
 
-            <div class="category-header">AI & Emerging Technology</div>
-
-            <div class="article" onclick="toggleArticle(this)">
-                <div class="article-title">AI memory is sold out, causing an unprecedented surge in prices</div>
-                <div class="article-blurb">
-                    Memory vendors like Micron, SK Hynix, and Samsung are sold out for 2026 due to surging AI chip demand from Nvidia, AMD, and Google.
-                </div>
-                <div class="article-details">
+            <article class="article" onclick="toggleArticle(this)">
+                <div class="category-tag">◆ ENTERTAINMENT</div>
+                <div class="article-title">2026 Golden Globes Tonight: Nikki Glaser Returns as Host</div>
+                <div class="article-preview">83rd Annual Golden Globe Awards airs live tonight on CBS and Paramount+...</div>
+                <div class="expand-indicator">[CLICK TO EXPAND]</div>
+                <div class="article-expanded">
                     <div class="article-summary">
-                        Memory vendors like Micron, SK Hynix, and Samsung are sold out for 2026 due to surging AI chip demand from Nvidia, AMD, and Google. DRAM memory prices are expected to rise 50-55% this quarter, which analysts describe as unprecedented. Micron's business chief stated demand has far outpaced the entire memory industry's supply capability.
+                        The 83rd Annual Golden Globe Awards will air live tonight, January 11, 2026, at 8 p.m. ET/5 p.m. PT on CBS and Paramount+. Nikki Glaser returns as host for her second consecutive year, celebrating the best in film, television, and podcasting from the past year.
                     </div>
-                    <div class="article-source">
-                        <div class="source-label">Source:</div>
-                        <a href="https://www.cnbc.com/2026/01/10/micron-ai-memory-shortage-hbm-nvidia-samsung.html" target="_blank">https://www.cnbc.com/2026/01/10/micron-ai-memory-shortage-hbm-nvidia-samsung.html</a>
-                    </div>
+                    <div class="article-source">SOURCE: <a href="https://www.newsweek.com/entertainment/golden-globes-2026-host-nikki-glasers-game-plan-for-this-years-show-11339307" target="_blank">newsweek.com</a></div>
                 </div>
-            </div>
+            </article>
 
-            <div class="article" onclick="toggleArticle(this)">
-                <div class="article-title">Are we in an AI bubble? What 40 tech leaders and analysts are saying</div>
-                <div class="article-blurb">
-                    Record valuations and major AI investments have fueled concerns about a potential bubble.
-                </div>
-                <div class="article-details">
+            <article class="article" onclick="toggleArticle(this)">
+                <div class="category-tag">◆ ENTERTAINMENT</div>
+                <div class="article-title">Grateful Dead Co-Founder Bob Weir Dies After Battle with Cancer</div>
+                <div class="article-preview">Legendary guitarist and founding member passes away; family announces on social media...</div>
+                <div class="expand-indicator">[CLICK TO EXPAND]</div>
+                <div class="article-expanded">
                     <div class="article-summary">
-                        Record valuations and major AI investments have fueled concerns about a potential bubble. AI leaders like OpenAI and Nvidia have made staggering deals with cloud infrastructure companies, while hyperscalers including Amazon, Microsoft, and Google continue billions in data center spending. The enormous debt financing these buildouts has sparked worry that the spending spree may prove to be an overreach.
+                        Bob Weir, the guitarist, vocalist, and founding member of legendary rock band Grateful Dead, has passed away after a battle with cancer. His family revealed the news on social media on Saturday, January 10.
                     </div>
-                    <div class="article-source">
-                        <div class="source-label">Source:</div>
-                        <a href="https://www.cnbc.com/2026/01/10/are-we-in-an-ai-bubble-tech-leaders-analysts.html" target="_blank">https://www.cnbc.com/2026/01/10/are-we-in-an-ai-bubble-tech-leaders-analysts.html</a>
-                    </div>
+                    <div class="article-source">SOURCE: <a href="https://www.imdb.com/news/celebrity/" target="_blank">imdb.com</a></div>
                 </div>
-            </div>
+            </article>
 
-            <div class="article" onclick="toggleArticle(this)">
-                <div class="article-title">Global AI Race Shows Asia Leading as Stocks Start 2026 With Bang</div>
-                <div class="article-blurb">
-                    Asia's technology stocks began 2026 strongly with investors betting on sustained momentum.
-                </div>
-                <div class="article-details">
+            <article class="article" onclick="toggleArticle(this)">
+                <div class="category-tag">◆ WORLD_AFFAIRS</div>
+                <div class="article-title">Iran Warns US Troops and Israel Will Be Targets if America Strikes Over Protests</div>
+                <div class="article-preview">Parliament speaker issues warning as death toll rises to 116, internet cut off nationwide...</div>
+                <div class="expand-indicator">[CLICK TO EXPAND]</div>
+                <div class="article-expanded">
                     <div class="article-summary">
-                        Asia's technology stocks began 2026 strongly with investors betting on sustained momentum. Goldman Sachs strategists are overweight on Asian tech stocks, expecting further gains driven by surging AI-related demand and reasonable valuations. Citigroup reports global investors are accumulating Asian tech stocks given their importance in semiconductor supply chains.
+                        Iran's parliament speaker warned the U.S. military and Israel would be 'legitimate targets' if America strikes the Islamic Republic, as threatened by President Donald Trump. Nationwide protests challenging Iran's theocracy have crossed the two-week mark with at least 116 people killed and 2,600 detained, while Iran has cut off internet and international phone lines.
                     </div>
-                    <div class="article-source">
-                        <div class="source-label">Source:</div>
-                        <a href="https://www.bloomberg.com/news/articles/2026-01-11/global-ai-race-shows-asia-leading-as-stocks-start-2026-with-bang" target="_blank">https://www.bloomberg.com/news/articles/2026-01-11/global-ai-race-shows-asia-leading-as-stocks-start-2026-with-bang</a>
-                    </div>
+                    <div class="article-source">SOURCE: <a href="https://www.npr.org/2026/01/11/nx-s1-5673845/iran-us-israel-targets-protests" target="_blank">npr.org</a></div>
                 </div>
-            </div>
+            </article>
 
-            <div class="article" onclick="toggleArticle(this)">
-                <div class="article-title">Economist warns of 'K'-shaped growth amid AI boom in Taiwan</div>
-                <div class="article-blurb">
-                    Despite Taiwan's per capita GDP forecast to top $40,000 this year amid the AI boom, economists warn of K-shaped industrial growth resulting in wage disparities.
-                </div>
-                <div class="article-details">
+            <article class="article" onclick="toggleArticle(this)">
+                <div class="category-tag">◆ MEDICAL_RESEARCH</div>
+                <div class="article-title">Bariatric Surgery Shows 5x Greater Weight Loss Than GLP-1 Medications</div>
+                <div class="article-preview">Real-world study finds surgery patients lost 58 pounds vs. medications after two years...</div>
+                <div class="expand-indicator">[CLICK TO EXPAND]</div>
+                <div class="article-expanded">
                     <div class="article-summary">
-                        Despite Taiwan's per capita GDP forecast to top $40,000 this year amid the AI boom, economists warn of K-shaped industrial growth resulting in wage disparities. While the electronics and semiconductor industries offer high pay, the service sector employing over 7 million people offers relatively low wages. Taiwan's economy is largely driven by AI-related exports with divergent sector performance.
+                        A new real-world comparison finds that bariatric surgery leads to dramatically more weight loss than popular injectable medications like Ozempic and Zepbound. After two years, patients who underwent sleeve gastrectomy or gastric bypass lost about five times more weight (58 pounds on average) compared to those using weekly GLP-1 receptor agonists. The study was presented at the American Society for Metabolic and Bariatric Surgery 2025 Annual Scientific Meeting.
                     </div>
-                    <div class="article-source">
-                        <div class="source-label">Source:</div>
-                        <a href="https://www.taipeitimes.com/News/taiwan/archives/2026/01/11/2003850415" target="_blank">https://www.taipeitimes.com/News/taiwan/archives/2026/01/11/2003850415</a>
-                    </div>
+                    <div class="article-source">SOURCE: <a href="https://www.sciencedaily.com/releases/2026/01/260106224639.htm" target="_blank">sciencedaily.com</a></div>
                 </div>
-            </div>
+            </article>
 
+            <article class="article" onclick="toggleArticle(this)">
+                <div class="category-tag">◆ SCIENTIFIC_DISCOVERIES</div>
+                <div class="article-title">China's 'Artificial Sun' Breaks Fusion Density Limit</div>
+                <div class="article-preview">EAST tokamak achieves 'density-free regime,' plasma remains stable beyond traditional limits...</div>
+                <div class="expand-indicator">[CLICK TO EXPAND]</div>
+                <div class="article-expanded">
+                    <div class="article-summary">
+                        Scientists working with China's EAST tokamak have successfully reached a long-theorized 'density-free regime' in fusion plasma experiments, published in Science Advances on January 1. The plasma remained stable even when its density rose far beyond traditional limits, potentially overcoming one of fusion energy's most stubborn physical barriers.
+                    </div>
+                    <div class="article-source">SOURCE: <a href="https://www.sciencedaily.com/releases/2026/01/260101160855.htm" target="_blank">sciencedaily.com</a></div>
+                </div>
+            </article>
+
+            <article class="article" onclick="toggleArticle(this)">
+                <div class="category-tag">◆ LEGAL_COURTS</div>
+                <div class="article-title">Supreme Court to Hear Arguments on Transgender Athletes in Women's Sports</div>
+                <div class="article-preview">Landmark cases set for Tuesday examining state laws restricting sports participation...</div>
+                <div class="expand-indicator">[CLICK TO EXPAND]</div>
+                <div class="article-expanded">
+                    <div class="article-summary">
+                        The Supreme Court will hear oral arguments on Tuesday, January 13, 2026, in two landmark cases - Little v. Hecox from Idaho and West Virginia v. B.P.J. - examining state laws that restrict participation in girls' and women's sports to biological females. The cases raise constitutional questions under Title IX and the 14th Amendment's Equal Protection Clause.
+                    </div>
+                    <div class="article-source">SOURCE: <a href="https://www.scotusblog.com/2026/01/scotustoday-for-friday-january-9/" target="_blank">scotusblog.com</a></div>
+                </div>
+            </article>
+
+            <article class="article" onclick="toggleArticle(this)">
+                <div class="category-tag">◆ SPACE_AEROSPACE</div>
+                <div class="article-title">NASA Cuts Space Station Mission Short After Astronaut's Medical Issue</div>
+                <div class="article-preview">First U.S. mission shortened for medical reasons; crew returns January 15 in controlled evacuation...</div>
+                <div class="expand-indicator">[CLICK TO EXPAND]</div>
+                <div class="article-expanded">
+                    <div class="article-summary">
+                        NASA is cutting a mission aboard the International Space Station short after an astronaut had a medical issue, marking the first time in U.S. history that a space mission has been cut short due to a medical issue. The U.S.-Japanese-Russian crew of four will return to Earth on January 15, 2026, earlier than planned in a controlled medical evacuation.
+                    </div>
+                    <div class="article-source">SOURCE: <a href="https://www.space.com/live/astronaut-medical-evacuation-on-iss-jan-11-2026" target="_blank">space.com</a></div>
+                </div>
+            </article>
+
+            <article class="article" onclick="toggleArticle(this)">
+                <div class="category-tag">◆ AI_EMERGING_TECH</div>
+                <div class="article-title">6 AI Breakthroughs That Will Define 2026</div>
+                <div class="article-preview">Focus shifts from larger models to smarter systems with self-verification and memory...</div>
+                <div class="expand-indicator">[CLICK TO EXPAND]</div>
+                <div class="article-expanded">
+                    <div class="article-summary">
+                        The most significant AI advances won't come from building larger models but from making AI systems smarter and more reliable. Focus is shifting to post-training techniques and specialized models rather than sheer size. Breakthroughs in agent interoperability, self-verification, and memory will transform AI from isolated tools into integrated systems handling complex multi-step workflows.
+                    </div>
+                    <div class="article-source">SOURCE: <a href="https://www.infoworld.com/article/4108092/6-ai-breakthroughs-that-will-define-2026.html" target="_blank">infoworld.com</a></div>
+                </div>
+            </article>
+        </main>
+
+        <div class="ascii-divider">
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
         </div>
 
         <footer>
-            <div>news.sys - A daily briefing compiled by Claude</div>
-            <div>January 11, 2026</div>
-            <div class="design-note">
-                today's design: classified briefing document (6 high-stakes political stories including international military operations and domestic political fractures; format reflects the gravity of government action under scrutiny)
+            <div class="rationale">
+                today's design: emergency broadcast terminal (dominant themes: political crisis, international tensions, urgent medical evacuations—3 crisis-level events requiring immediate attention format)
+            </div>
+            <div>
+                SYSTEM STATUS: OPERATIONAL // UPDATES COMPILED: 2026.01.11 // 
+                CLASSIFICATION: PUBLIC DISTRIBUTION // END TRANSMISSION
             </div>
         </footer>
     </div>
 
     <script>
         function toggleArticle(element) {
-            element.classList.toggle('expanded');
+            const isActive = element.classList.contains('active');
+            
+            // Close all articles
+            document.querySelectorAll('.article').forEach(article => {
+                article.classList.remove('active');
+            });
+            
+            // Open clicked article if it wasn't already open
+            if (!isActive) {
+                element.classList.add('active');
+            }
         }
 
         // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                if (e.target.classList.contains('article')) {
-                    e.preventDefault();
-                    toggleArticle(e.target);
-                }
-            }
-        });
-
-        // Make articles focusable
-        document.querySelectorAll('.article').forEach(article => {
-            article.setAttribute('tabindex', '0');
-            article.setAttribute('role', 'button');
-            article.setAttribute('aria-expanded', 'false');
+        document.addEventListener('keydown', (e) => {
+            const articles = Array.from(document.querySelectorAll('.article'));
+            const activeArticle = document.querySelector('.article.active');
             
-            article.addEventListener('click', function() {
-                const isExpanded = this.classList.contains('expanded');
-                this.setAttribute('aria-expanded', isExpanded);
-            });
+            if (e.key === 'Escape' && activeArticle) {
+                activeArticle.classList.remove('active');
+            }
         });
     </script>
 </body>
