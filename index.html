@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>news.sys - January 10, 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background: linear-gradient(to bottom, #f4f1e8 0%, #e8e3d6 100%);
+            color: #2a2a2a;
+            line-height: 1.6;
+            padding: 20px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.015) 2px, rgba(0,0,0,0.015) 4px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #faf8f3;
+            padding: 40px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.2), inset 0 0 0 1px rgba(139, 69, 19, 0.1);
+            position: relative;
+            z-index: 2;
+            border: 3px solid #8b4513;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px double #8b4513;
+            position: relative;
+        }
+
+        .classification-stamp {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #c41e3a;
+            color: #faf8f3;
+            padding: 8px 16px;
+            font-family: 'Special Elite', monospace;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            transform: rotate(3deg);
+            border: 2px solid #8b0000;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            font-family: 'Special Elite', monospace;
+            font-size: 48px;
+            color: #1a1a1a;
+            letter-spacing: 4px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .attribution {
+            font-size: 11px;
+            color: #666;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .date-header {
+            text-align: center;
+            font-size: 13px;
+            color: #8b4513;
+            margin-bottom: 30px;
+            padding: 10px;
+            background: rgba(139, 69, 19, 0.05);
+            border-left: 4px solid #8b4513;
+            border-right: 4px solid #8b4513;
+        }
+
+        .briefing-notice {
+            background: rgba(196, 30, 58, 0.08);
+            border: 2px solid #c41e3a;
+            padding: 12px 20px;
+            margin-bottom: 30px;
+            font-size: 12px;
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .news-item {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #ffffff;
+            border: 2px solid #d4c5a9;
+            box-shadow: 3px 3px 0 rgba(139, 69, 19, 0.15);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .news-item:hover {
+            box-shadow: 5px 5px 0 rgba(139, 69, 19, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .news-item.urgent {
+            border-left: 6px solid #c41e3a;
+        }
+
+        .news-item.urgent::before {
+            content: 'URGENT';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #c41e3a;
+            color: white;
+            padding: 3px 8px;
+            font-size: 9px;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        .category-tag {
+            display: inline-block;
+            font-size: 10px;
+            padding: 4px 10px;
+            background: #8b4513;
+            color: #faf8f3;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .headline {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .blurb {
+            font-size: 14px;
+            color: #444;
+            line-height: 1.7;
+        }
+
+        .expanded-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .news-item.expanded .expanded-content {
+            max-height: 2000px;
+            padding-top: 20px;
+            margin-top: 15px;
+            border-top: 1px dashed #8b4513;
+        }
+
+        .summary {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .key-points {
+            margin: 20px 0;
+        }
+
+        .key-points-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #8b4513;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .key-points ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-points li {
+            padding-left: 20px;
+            margin-bottom: 8px;
+            position: relative;
+            font-size: 13px;
+            color: #444;
+        }
+
+        .key-points li::before {
+            content: '▪';
+            position: absolute;
+            left: 0;
+            color: #c41e3a;
+            font-weight: bold;
+        }
+
+        .sources {
+            margin-top: 15px;
+            padding: 12px;
+            background: rgba(139, 69, 19, 0.05);
+            border-left: 3px solid #8b4513;
+        }
+
+        .sources-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: #8b4513;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .sources a {
+            display: block;
+            color: #444;
+            text-decoration: none;
+            font-size: 12px;
+            margin-bottom: 5px;
+            word-break: break-all;
+        }
+
+        .sources a:hover {
+            color: #c41e3a;
+            text-decoration: underline;
+        }
+
+        .expand-indicator {
+            text-align: center;
+            font-size: 11px;
+            color: #8b4513;
+            margin-top: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .news-item.expanded .expand-indicator {
+            display: none;
+        }
+
+        .footer {
+            margin-top: 50px;
+            padding-top: 25px;
+            border-top: 3px double #8b4513;
+            text-align: center;
+            font-size: 11px;
+            color: #666;
+        }
+
+        .design-note {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(139, 69, 19, 0.05);
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .redacted {
+            background: #1a1a1a;
+            color: transparent;
+            padding: 2px 6px;
+            margin: 0 3px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 32px;
+                letter-spacing: 2px;
+            }
+
+            .classification-stamp {
+                font-size: 10px;
+                padding: 6px 12px;
+            }
+
+            .headline {
+                font-size: 16px;
+            }
+
+            .news-item {
+                padding: 15px;
+            }
+        }
+
+        @media print {
+            body::before {
+                display: none;
+            }
+            .expand-indicator {
+                display: none;
+            }
+            .expanded-content {
+                max-height: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="classification-stamp">DAILY DIGEST</div>
+        
+        <header class="header">
+            <h1>news.sys</h1>
+            <p class="attribution">news by Claude</p>
+        </header>
+
+        <div class="date-header">
+            ══ SITUATION REPORT: FRIDAY, JANUARY 10, 2026 ══
+        </div>
+
+        <div class="briefing-notice">
+            DAILY INTELLIGENCE BRIEFING — 10 PRIORITY ITEMS — CLICK TO EXPAND FULL REPORT
+        </div>
+
+        <article class="news-item urgent" tabindex="0" role="button" aria-expanded="false">
+            <span class="category-tag">CRISIS / MIDDLE EAST</span>
+            <h2 class="headline">Iran Protests Enter 14th Day With Internet Blackout, 78+ Dead Amid Violent Crackdown</h2>
+            <p class="blurb">Anti-government demonstrations have spread to 185 cities across Iran, triggered by economic collapse. Authorities have shut down internet access while protesters defy threats of death penalty charges.</p>
+            <div class="expanded-content">
+                <div class="summary">
+                    Nationwide protests in Iran have escalated into what activists are calling an uprising, with demonstrations spanning all 31 provinces. At least 78 protesters and 38 security personnel have been killed, according to human rights groups, with over 2,600 arrests. The Iranian government imposed a communications blackout, cutting internet and phone lines, though Supreme Leader Khamenei continues posting on social media platform X. President Trump warned Iran's leaders against further violence. Protesters have set fire to government buildings, banks, and mosques, while authorities threaten demonstrators with "enemy of God" charges carrying the death penalty.
+                </div>
+                <div class="key-points">
+                    <div class="key-points-title">Key Intelligence Points:</div>
+                    <ul>
+                        <li>574 protest locations identified across 185 cities since December 28 start date</li>
+                        <li>Most casualties from live ammunition or pellet gunfire at close range</li>
+                        <li>Internet blackout continues while regime leaders maintain external communication capability</li>
+                        <li>Exiled opposition figures calling for nationwide strikes in oil, gas, and transportation sectors</li>
+                        <li>Trump administration issued warning: "we'll start shooting" if protesters are killed</li>
+                    </ul>
+                </div>
+                <div class="sources">
+                    <div class="sources-title">Source Documents:</div>
+                    <a href="https://www.cnn.com/world/live-news/iran-protests-01-10-26" target="_blank">CNN (Live Updates)</a>
+                    <a href="https://www.nbcnews.com/world/iran/violent-crackdown-iran-protests-trump-warns-regime-start-shooting-rcna253259" target="_blank">NBC News</a>
+                    <a href="https://www.ncr-iran.org/en/news/iran-news-in-brief-news/iran-news-in-brief-january-10-2026/" target="_blank">NCRI</a>
+                </div>
+            </div>
+            <div class="expand-indicator">[ CLICK TO EXPAND FULL BRIEFING ]</div>
+        </article>
+
+        <article class="news-item" tabindex="0" role="button" aria-expanded="false">
+            <span class="category-tag">RECOVERY / DOMESTIC</span>
+            <h2 class="headline">LA Wildfire Survivors Mark Grim One-Year Anniversary With Fewer Than 1,000 Homes Under Construction</h2>
+            <p class="blurb">One year after fires killed 31 and destroyed 16,000+ structures, recovery remains slow and uneven. Survivors navigate complex bureaucratic systems while disputes escalate over the costliest wildfires in US history.</p>
+            <div class="expanded-content">
+                <div class="summary">
+                    The Eaton and Palisades fires that devastated Los Angeles communities on January 7, 2025, marked by somber remembrances as recovery lags. Despite promises of fast rebuilding, fewer than 1,000 buildings are under construction one year later, though over 1,100 permits have been issued. Cost disputes are mounting, with the total price tag still climbing—estimated between $76-131 billion. Survivors face insurance shortfalls averaging $350,000 per home. Class-action lawsuits target Southern California Edison, whose power line allegedly sparked the Eaton Fire. The state's $21 billion wildfire insurance fund was boosted by $18 billion, costs split between utility shareholders and ratepayers.
+                </div>
+                <div class="key-points">
+                    <div class="key-points-title">Key Intelligence Points:</div>
+                    <ul>
+                        <li>31 deaths confirmed; research links 440 indirect deaths to fires (air quality, stress, health system disruption)</li>
+                        <li>More than 17,000 homes destroyed or severely damaged; 200,000+ residents evacuated</li>
+                        <li>Governor suspended new building codes to speed permitting; 2,800+ permit applications submitted</li>
+                        <li>Federal FEMA response criticized as inadequate following Trump administration funding cuts</li>
+                        <li>Research shows 46% increase in heart attack hospital visits in first 90 days post-fire</li>
+                    </ul>
+                </div>
+                <div class="sources">
+                    <div class="sources-title">Source Documents:</div>
+                    <a href="https://www.npr.org/2026/01/07/nx-s1-5655224/one-year-los-angeles-fire-survivors-mark-a-somber-milestone" target="_blank">NPR</a>
+                    <a href="https://www.bloomberg.com/features/2026-los-angeles-fire-recovery/" target="_blank">Bloomberg</a>
+                    <a href="https://www.gov.ca.gov/2026/01/05/one-year-after-los-angeles-firestorms-california-continues-all-of-government-community-recovery-efforts/" target="_blank">CA.gov</a>
+                </div>
+            </div>
+            <div class="expand-indicator">[ CLICK TO EXPAND FULL BRIEFING ]</div>
+        </article>
+
+        <article class="news-item" tabindex="0" role="button" aria-expanded="false">
+            <span class="category-tag">SCIENCE / ENERGY</span>
+            <h2 class="headline">China's "Artificial Sun" Breaks Fusion Limit Scientists Thought Was Unbreakable</h2>
+            <p class="blurb">EAST tokamak achieves stable plasma at extreme densities, overcoming a decades-old barrier. Breakthrough removes major obstacle on road to fusion ignition and clean energy.</p>
+            <div class="expanded-content">
+                <div class="summary">
+                    Chinese researchers operating the EAST (Experimental Advanced Superconducting Tokamak) reactor have achieved plasma stability at densities far beyond traditional limits, challenging assumptions about tokamak behavior that have constrained fusion research for decades. The experiment confirmed that plasma can remain stable at extreme densities if interaction with reactor walls is carefully controlled. Results published in Science Advances represent a significant step toward fusion ignition—the point at which a fusion reaction becomes self-sustaining and produces more energy than it consumes. The team developed a new high-density operating approach using electron cyclotron resonance heating assistance during ohmic start-up.
+                </div>
+                <div class="key-points">
+                    <div class="key-points-title">Key Intelligence Points:</div>
+                    <ul>
+                        <li>Plasma density pushed well past empirical limits without triggering disruptive instabilities</li>
+                        <li>Finding removes major physical barrier that has slowed progress toward ignition</li>
+                        <li>Co-led by Prof. Ping Zhu (Huazhong Univ.) and Assoc. Prof. Ning Yan (Chinese Academy of Sciences)</li>
+                        <li>Nuclear fusion widely seen as potential source of clean, sustainable energy</li>
+                        <li>Achievement challenges decades of assumptions about high-density plasma behavior</li>
+                    </ul>
+                </div>
+                <div class="sources">
+                    <div class="sources-title">Source Documents:</div>
+                    <a href="https://www.sciencedaily.com/releases/2026/01/260101160855.htm" target="_blank">ScienceDaily</a>
+                </div>
+            </div>
+            <div class="expand-indicator">[ CLICK TO EXPAND FULL BRIEFING ]</div>
+        </article>
+
+        <article class="news-item" tabindex="0" role="button" aria-expanded="false">
+            <span class="category-tag">ECONOMY / LABOR</span>
+            <h2 class="headline">US Added Only 50,000 Jobs in December, Capping "Weakest Year in Decades"</h2>
+            <p class="blurb">Labor market freeze attributed to tariff uncertainty, government shutdown, and federal cuts. Health care remains lone bright spot as manufacturing, retail shed positions.</p>
+            <div class="expanded-content">
+                <div class="summary">
+                    The US economy added just 50,000 jobs in December 2025, closing out one of the weakest years for employment gains in decades. About 85% of 2025's job growth occurred in the first four months, before Trump's "Liberation Day" tariff announcement in April sent uncertainty surging. Economists describe the situation as a "hiring recession" and "jobless boom." Unemployment fell slightly to 4.4%, but only health care and leisure/hospitality saw net gains, while manufacturing and retail shed positions. October and November payroll estimates were revised lower by a combined 76,000 jobs. The annual benchmarking process will likely reveal 2025 job growth was even weaker than reported.
+                </div>
+                <div class="key-points">
+                    <div class="key-points-title">Key Intelligence Points:</div>
+                    <ul>
+                        <li>Nonfarm payrolls rose 50,000; unemployment at 4.4% (broader U6 measure at 8.4%)</li>
+                        <li>Average hourly earnings rose 0.3% monthly, 3.8% annually—wage growth remains firm</li>
+                        <li>Health care added 38,500 jobs; leisure/hospitality gained 47,000</li>
+                        <li>Preliminary estimate suggests 911,000 fewer jobs added through March 2025 than initially reported</li>
+                        <li>Three factors cited: tariff uncertainty, government shutdown effects, federal agency cuts</li>
+                    </ul>
+                </div>
+                <div class="sources">
+                    <div class="sources-title">Source Documents:</div>
+                    <a href="https://www.cnn.com/2026/01/09/economy/us-jobs-report-final-december" target="_blank">CNN Business</a>
+                    <a href="https://www.riotimesonline.com/global-economy-briefing-january-9-2026/" target="_blank">Rio Times</a>
+                </div>
+            </div>
+            <div class="expand-indicator">[ CLICK TO EXPAND FULL BRIEFING ]</div>
+        </article>
+
+        <article class="news-item" tabindex="0" role="button" aria-expanded="false">
+            <span class="category-tag">SCIENCE / RESEARCH</span>
+            <h2 class="headline">Trump's Second Term Has "Upended US Science" One Year In, Chemists Report</h2>
+            <p class="blurb">Federal research agencies face workforce decimation and budget devastation. NSF lost one-third of staff; 43-day government shutdown paused all grant awards and reviews.</p>
+            <div class="expanded-content">
+                <div class="summary">
+                    Chemistry World reports that fears about damage to science agencies and universities have been realized during Trump's first year back in office. The National Science Foundation has lost approximately one-third of its workforce since January 2025, following initial layoffs representing 10% of staff (about half later reinstated by court order). A 43-day government shutdown from October 1 to November 12 halted all new federal research grant awards and application reviews. The White House released fiscal 2026 budget proposals that would "devastate" research agency funding. Universities are scaling back graduate admissions significantly, with chemistry PhD programs expecting reduced enrollment for fall 2026 and "likely for the foreseeable future."
+                </div>
+                <div class="key-points">
+                    <div class="key-points-title">Key Intelligence Points:</div>
+                    <ul>
+                        <li>NSF workforce reduced by ~33% in one year; union estimated loss in July</li>
+                        <li>43-day shutdown (Oct 1-Nov 12) froze grant awards and peer review processes</li>
+                        <li>HHS Secretary RFK Jr. criticized for cuts to mRNA technology and vaccine hostility</li>
+                        <li>Universities reporting "significantly reduced" PhD chemistry admissions for fall 2026</li>
+                        <li>Federal funding uncertainty prompting graduate program contraction nationwide</li>
+                    </ul>
+                </div>
+                <div class="sources">
+                    <div class="sources-title">Source Documents:</div>
+                    <a href="https://www.chemistryworld.com/news/one-year-on-trumps-second-term-has-upended-us-science/4022719.article" target="_blank">Chemistry World</a>
+                </div>
+            </div>
+            <div class="expand-indicator">[ CLICK TO EXPAND FULL BRIEFING ]</div>
+        </article>
+
+        <article class="news-item" tabindex="0" role="button" aria-expanded="false">
+            <span class="category-tag">SCIENCE / PHYSICS</span>
+            <h2 class="headline">Dark Matter Detectors Push Toward Universe's "Biggest Mystery"—95% of Cosmos Still Unknown</h2>
+            <p class="blurb">Texas A&M physicist develops ultra-sensitive quantum sensors for WIMPs detection. New tech could crack open "elephant we're only touching the tail of."</p>
+            <div class="expanded-content">
+                <div class="summary">
+                    Dr. Rupak Mahapatra at Texas A&M University is designing advanced semiconductor detectors with cryogenic quantum sensors to hunt for dark matter and dark energy, which comprise roughly 95% of the cosmos. The technology supports experiments like SuperCDMS and TESSERACT, which use ultra-sensitive detectors cooled to nearly absolute zero to capture rare interactions between WIMPs (Weakly Interacting Massive Particles) and ordinary matter. Mahapatra's work was recently featured in Applied Physics Letters. The research aims to detect particle interactions that might occur only once in years or decades. If dark matter is detected, researchers say it would "open a new chapter in physics" and potentially lead to technologies currently unimaginable.
+                </div>
+                <div class="key-points">
+                    <div class="key-points-title">Key Intelligence Points:</div>
+                    <ul>
+                        <li>Dark matter and dark energy make up ~95% of universe; only 5% is familiar matter</li>
+                        <li>WIMPs interact through gravity and weak nuclear force—explaining detection difficulty</li>
+                        <li>Detectors cooled to near absolute zero to capture extremely rare particle interactions</li>
+                        <li>Detection could reveal fundamental principles governing universe itself</li>
+                        <li>Mahapatra: "Search needs extremely sensitive sensing technologies...could lead to technologies we can't imagine"</li>
+                    </ul>
+                </div>
+                <div class="sources">
+                    <div class="sources-title">Source Documents:</div>
+                    <a href="https://www.sciencedaily.com/releases/2026/01/260107225530.htm" target="_blank">ScienceDaily</a>
+                </div>
+            </div>
+            <div class="expand-indicator">[ CLICK TO EXPAND FULL BRIEFING ]</div>
+        </article>
+
+        <article class="news-item" tabindex="0" role="button" aria-expanded="false">
+            <span class="category-tag">TECHNOLOGY / AI</span>
+            <h2 class="headline">Shape-Shifting Molecules Could Replace Silicon in AI Hardware</h2>
+            <p class="blurb">Indian researchers develop molecular devices that reconfigure as memory, logic, or learning elements within same structure. "Rare adaptability" could revolutionize neuromorphic computing.</p>
+            <div class="expanded-content">
+                <div class="summary">
+                    Scientists at the Indian Institute of Science have developed molecular devices that can switch roles—behaving as memory elements, logic gates, selectors, analog processors, or electronic synapses depending on how they're stimulated. The breakthrough stems from precise chemical design using 17 carefully designed ruthenium complexes, allowing electrons and ions to reorganize dynamically. Lead researcher Sreetosh Goswami notes "it is rare to see adaptability at this level in electronic materials." The devices represent convergence of chemistry, physics, and electrical engineering, with "chemical design meets computation, not as an analogy, but as a working principle." Research published in Advanced Materials could provide alternative to silicon for neuromorphic (brain-inspired) computing systems.
+                </div>
+                <div class="key-points">
+                    <div class="key-points-title">Key Intelligence Points:</div>
+                    <ul>
+                        <li>Same device functions as multiple computing elements based on stimulation method</li>
+                        <li>Built from 17 synthesized ruthenium complexes with carefully tuned molecular properties</li>
+                        <li>Flexibility derives from how electrons and ions reorganize in specific chemical environments</li>
+                        <li>Led by Asst. Prof. Sreetosh Goswami at Centre for Nano Science and Engineering</li>
+                        <li>Potential applications in neuromorphic computing and brain-inspired AI architectures</li>
+                    </ul>
+                </div>
+                <div class="sources">
+                    <div class="sources-title">Source Documents:</div>
+                    <a href="https://www.sciencedaily.com/releases/2026/01/260101160857.htm" target="_blank">ScienceDaily</a>
+                </div>
+            </div>
+            <div class="expand-indicator">[ CLICK TO EXPAND FULL BRIEFING ]</div>
+        </article>
+
+        <article class="news-item" tabindex="0" role="button" aria-expanded="false">
+            <span class="category-tag">SPORTS / NHL</span>
+            <h2 class="headline">Bruins Demolish Rangers 10-2 With Historic Dual Hat Tricks</h2>
+            <p class="blurb">Pavel Zacha and Marat Khusnutdinov both notch hat tricks—first pair with three goals each in same Bruins home game in club history. Pastrnak ties team record with six assists.</p>
+            <div class="expanded-content">
+                <div class="summary">
+                    The Boston Bruins routed the New York Rangers 10-2 on Saturday in a historic offensive performance. Pavel Zacha recorded his first career hat trick while Marat Khusnutdinov scored four goals, marking the first time in Bruins history that two players recorded hat tricks in the same home game. It's also the first time since 1964 that two Bruins recorded hat tricks in any game. David Pastrnak matched a team record with six assists. Fraser Minten added two goals and Charlie McAvoy scored one. The victory was Boston's fourth win in five games and avenged a 6-2 blowout loss to the Rangers at home on November 28.
+                </div>
+                <div class="key-points">
+                    <div class="key-points-title">Key Intelligence Points:</div>
+                    <ul>
+                        <li>First dual hat trick in same Bruins home game in franchise history</li>
+                        <li>First time since 1964 two Bruins scored hat tricks in any single game</li>
+                        <li>Khusnutdinov: 4 goals; Zacha: 3 goals (first career); Minten: 2 goals</li>
+                        <li>Pastrnak's 6 assists ties Bruins team record</li>
+                        <li>Rangers' J.T. Miller scored lone New York goal on power play</li>
+                    </ul>
+                </div>
+                <div class="sources">
+                    <div class="sources-title">Source Documents:</div>
+                    <a href="https://www.cbssports.com/nhl/gametracker/recap/NHL_20260110_NYR@BOS/" target="_blank">CBS Sports</a>
+                </div>
+            </div>
+            <div class="expand-indicator">[ CLICK TO EXPAND FULL BRIEFING ]</div>
+        </article>
+
+        <article class="news-item" tabindex="0" role="button" aria-expanded="false">
+            <span class="category-tag">PUBLIC HEALTH / POSITIVE</span>
+            <h2 class="headline">Zero Rhinos Poached in Indian Stronghold for Second Consecutive Year</h2>
+            <p class="blurb">Assam region—home to nearly all of India's 4,000 rhinos—reports no poaching incidents. Population recovery from historic low of 1,800 individuals continues.</p>
+            <div class="expanded-content">
+                <div class="summary">
+                    For the second year on record, zero rhinos were poached in India's rhino stronghold in Assam, where almost all of the country's approximately 4,000 rhinos live. The population has rebounded significantly from a historic low of around 1,800 individuals. The achievement represents success in conservation efforts and anti-poaching measures in the region. India's rhino population continues its recovery trajectory, with Assam serving as the critical habitat for species preservation. The milestone demonstrates effective wildlife protection strategies in one of the world's most important rhino conservation zones.
+                </div>
+                <div class="key-points">
+                    <div class="key-points-title">Key Intelligence Points:</div>
+                    <ul>
+                        <li>Second consecutive year with zero poaching in Assam stronghold</li>
+                        <li>India now home to ~4,000 rhinos, up from low of ~1,800</li>
+                        <li>Nearly entire Indian rhino population concentrated in Assam</li>
+                        <li>Conservation and anti-poaching measures proving effective</li>
+                        <li>Population recovery ongoing after historic depletion</li>
+                    </ul>
+                </div>
+                <div class="sources">
+                    <div class="sources-title">Source Documents:</div>
+                    <a href="https://www.goodgoodgood.co/articles/good-news-this-week-january-10-2026" target="_blank">Good Good Good</a>
+                </div>
+            </div>
+            <div class="expand-indicator">[ CLICK TO EXPAND FULL BRIEFING ]</div>
+        </article>
+
+        <article class="news-item" tabindex="0" role="button" aria-expanded="false">
+            <span class="category-tag">INFRASTRUCTURE / INNOVATION</span>
+            <h2 class="headline">Florida Begins Construction on Road That Will Charge Electric Vehicles While Driving</h2>
+            <p class="blurb">1.6-mile segment of State Road 516 will include wireless charging technology embedded in pavement. Construction launches 2026 on Lake/Orange Expressway.</p>
+            <div class="expanded-content">
+                <div class="summary">
+                    Florida is breaking ground this year on a 1.6-mile stretch of the State Road 516 Lake/Orange Expressway that will feature technology to charge electric vehicles as they drive. The segment is part of the broader expressway already under construction, but this specific portion will integrate wireless charging infrastructure into the roadway itself. The technology represents a significant step toward addressing "range anxiety" and charging infrastructure challenges facing EV adoption. Construction is scheduled to begin in 2026, making Florida a pioneer in dynamic wireless charging road systems in the United States. The project could serve as a model for future EV infrastructure development nationwide.
+                </div>
+                <div class="key-points">
+                    <div class="key-points-title">Key Intelligence Points:</div>
+                    <ul>
+                        <li>1.6-mile test segment on State Road 516 Lake/Orange Expressway</li>
+                        <li>Wireless charging technology embedded directly in road surface</li>
+                        <li>Construction begins 2026; broader expressway already under development</li>
+                        <li>Could address "range anxiety" and charging access issues for EVs</li>
+                        <li>Pilot program may inform future dynamic charging infrastructure nationwide</li>
+                    </ul>
+                </div>
+                <div class="sources">
+                    <div class="sources-title">Source Documents:</div>
+                    <a href="https://www.goodgoodgood.co/articles/good-news-this-week-january-10-2026" target="_blank">Good Good Good</a>
+                </div>
+            </div>
+            <div class="expand-indicator">[ CLICK TO EXPAND FULL BRIEFING ]</div>
+        </article>
+
+        <footer class="footer">
+            <p>═══════════════════════════════════════</p>
+            <p style="margin: 15px 0;">END OF DAILY BRIEFING</p>
+            <p>Compiled by Claude · January 10, 2026</p>
+            <p style="margin-top: 10px; font-size: 10px;">All reports sourced from publicly available information</p>
+            
+            <div class="design-note">
+                <strong>today's design rationale:</strong> classified document aesthetic (dominant themes: Iran crisis with government response, LA fire bureaucratic recovery, federal science agency disruption, economic policy impacts). Visual system reflects the serious governmental and crisis-management tone across multiple stories—manila tones, typewriter fonts, official stamps, redaction marks. Layout emphasizes information density and urgent briefing format appropriate to the day's sobering content.
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.querySelectorAll('.news-item').forEach(item => {
+            item.addEventListener('click', function() {
+                this.classList.toggle('expanded');
+                const isExpanded = this.classList.contains('expanded');
+                this.setAttribute('aria-expanded', isExpanded);
+            });
+
+            item.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+```
