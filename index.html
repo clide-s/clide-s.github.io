@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>news.sys — 11.01.26</title>
+    <title>news.sys - Daily Digest</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,657 +14,624 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --alert-red: #d32f2f;
-            --urgent-orange: #ff6f00;
-            --paper-white: #fafafa;
-            --ink-black: #0a0a0a;
-            --wire-gray: #424242;
-            --timestamp-gray: #757575;
-            --priority-yellow: #ffd600;
-        }
-
         body {
-            font-family: 'Courier Prime', 'Courier New', monospace;
-            background: var(--paper-white);
-            color: var(--ink-black);
-            line-height: 1.5;
-            padding: 0;
-            overflow-x: hidden;
+            font-family: 'Courier Prime', monospace;
+            background: linear-gradient(to bottom, #e8dcc4 0%, #d4c5a9 100%);
+            color: #2b2318;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
         }
 
-        .emergency-bar {
-            background: var(--alert-red);
-            color: white;
-            padding: 8px 20px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-align: center;
-            border-bottom: 3px solid var(--ink-black);
+        .document-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #f4ede0;
+            box-shadow: 
+                0 2px 4px rgba(0,0,0,0.1),
+                inset 0 0 100px rgba(139, 69, 19, 0.03);
+            border: 1px solid #c4b5a0;
+            position: relative;
+        }
+
+        .document-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: repeating-linear-gradient(
+                90deg,
+                #8b4513 0px,
+                #8b4513 2px,
+                transparent 2px,
+                transparent 20px
+            );
         }
 
         header {
-            background: var(--ink-black);
-            color: white;
-            padding: 30px 20px 20px;
-            border-bottom: 6px solid var(--alert-red);
+            background: #2b2318;
+            color: #f4ede0;
+            padding: 30px 40px;
+            border-bottom: 3px solid #8b4513;
             position: relative;
         }
 
-        .header-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            align-items: end;
-            gap: 20px;
+        .stamp {
+            position: absolute;
+            top: 15px;
+            right: 40px;
+            width: 120px;
+            height: 120px;
+            border: 3px solid rgba(139, 19, 19, 0.4);
+            border-radius: 50%;
+            transform: rotate(-12deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Special Elite', cursive;
+            font-size: 14px;
+            text-align: center;
+            color: rgba(139, 19, 19, 0.4);
+            font-weight: bold;
+            line-height: 1.2;
         }
 
         h1 {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 48px;
-            font-weight: 700;
-            letter-spacing: -1px;
-            margin: 0;
-            line-height: 0.9;
+            font-family: 'Special Elite', cursive;
+            font-size: 42px;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
         }
 
-        .header-meta {
-            text-align: right;
+        .subtitle {
             font-size: 11px;
-            font-family: 'IBM Plex Mono', monospace;
+            letter-spacing: 4px;
             opacity: 0.7;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
-        .dateline {
-            background: var(--alert-red);
-            color: white;
-            padding: 10px 20px;
-            font-family: 'IBM Plex Mono', monospace;
+        .date-line {
+            background: #d4c5a9;
+            padding: 12px 40px;
+            border-bottom: 2px solid #8b4513;
             font-size: 12px;
-            font-weight: 700;
-            text-align: center;
+            text-transform: uppercase;
             letter-spacing: 2px;
+            font-weight: bold;
         }
 
         main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
+            padding: 40px;
         }
 
-        .wire-item {
-            border-left: 4px solid var(--wire-gray);
-            padding: 20px 0 20px 20px;
+        .classification-header {
+            text-align: center;
             margin-bottom: 30px;
-            position: relative;
-            cursor: pointer;
-            transition: border-color 0.2s;
-        }
-
-        .wire-item:hover {
-            border-left-color: var(--alert-red);
-        }
-
-        .wire-item.priority {
-            border-left-color: var(--alert-red);
-            border-left-width: 6px;
-        }
-
-        .wire-item.expanded {
-            border-left-color: var(--urgent-orange);
-            background: #fff;
-            padding: 20px;
-            margin-left: -20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .priority-marker {
-            position: absolute;
-            left: -10px;
-            top: 20px;
-            background: var(--alert-red);
-            color: white;
-            font-size: 9px;
-            padding: 3px 6px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            font-family: 'IBM Plex Mono', monospace;
-        }
-
-        .wire-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 8px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .wire-location {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--alert-red);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .wire-timestamp {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 10px;
-            color: var(--timestamp-gray);
-            text-transform: uppercase;
-        }
-
-        .wire-headline {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            line-height: 1.3;
-            text-transform: uppercase;
-            letter-spacing: -0.5px;
-        }
-
-        .wire-lede {
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 0;
-        }
-
-        .wire-expand {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .wire-item.expanded .wire-expand {
-            max-height: 2000px;
-        }
-
-        .wire-body {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px dashed var(--wire-gray);
-        }
-
-        .wire-bullets {
-            list-style: none;
-            margin: 15px 0;
-            padding: 0;
-        }
-
-        .wire-bullets li {
-            padding-left: 20px;
-            position: relative;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-
-        .wire-bullets li:before {
-            content: "▪";
-            position: absolute;
-            left: 0;
-            color: var(--alert-red);
-            font-weight: 700;
-        }
-
-        .wire-sources {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #e0e0e0;
-            font-size: 11px;
-            color: var(--timestamp-gray);
-            font-family: 'IBM Plex Mono', monospace;
-        }
-
-        .wire-sources a {
-            color: var(--wire-gray);
-            text-decoration: none;
-            border-bottom: 1px dotted var(--wire-gray);
-        }
-
-        .wire-sources a:hover {
-            color: var(--alert-red);
-            border-bottom-color: var(--alert-red);
-        }
-
-        .expand-indicator {
-            display: inline-block;
-            margin-left: 10px;
-            font-size: 12px;
-            color: var(--alert-red);
-            font-family: 'IBM Plex Mono', monospace;
-            transition: transform 0.2s;
-        }
-
-        .wire-item.expanded .expand-indicator {
-            transform: rotate(90deg);
-        }
-
-        footer {
-            max-width: 1200px;
-            margin: 60px auto 40px;
-            padding: 30px 20px 20px;
-            border-top: 3px solid var(--ink-black);
-            font-size: 12px;
-            color: var(--timestamp-gray);
-            font-family: 'IBM Plex Mono', monospace;
-        }
-
-        .design-note {
-            background: #f5f5f5;
             padding: 15px;
-            border-left: 3px solid var(--alert-red);
-            margin-top: 20px;
-            font-size: 11px;
-            line-height: 1.6;
+            border-top: 2px solid #8b4513;
+            border-bottom: 2px solid #8b4513;
+            background: rgba(139, 69, 19, 0.05);
         }
 
-        .design-note strong {
-            color: var(--alert-red);
+        .classification-header h2 {
+            font-family: 'Special Elite', cursive;
+            font-size: 16px;
+            letter-spacing: 3px;
+            color: #8b4513;
+        }
+
+        .news-item {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.5);
+            border-left: 4px solid #8b4513;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .news-item:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: translateX(5px);
+        }
+
+        .news-item::before {
+            content: '□';
+            position: absolute;
+            left: -2px;
+            top: 18px;
+            font-size: 20px;
+            color: #8b4513;
+            transition: all 0.3s ease;
+        }
+
+        .news-item.expanded::before {
+            content: '■';
+        }
+
+        .case-number {
+            font-size: 10px;
+            color: #8b4513;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .headline {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #2b2318;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        .ascii-divider {
-            text-align: center;
-            color: var(--wire-gray);
-            font-size: 10px;
-            margin: 30px 0;
-            opacity: 0.4;
+        .blurb {
+            font-size: 14px;
+            color: #4a3f35;
+            line-height: 1.5;
+        }
+
+        .expanded-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .news-item.expanded .expanded-content {
+            max-height: 2000px;
+        }
+
+        .separator {
+            height: 2px;
+            background: linear-gradient(to right, #8b4513 0%, transparent 50%, #8b4513 100%);
+            margin: 20px 0;
+        }
+
+        .summary {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(139, 69, 19, 0.05);
+            border: 1px dashed #8b4513;
+            font-size: 13px;
+        }
+
+        .summary-label {
+            font-weight: bold;
+            color: #8b4513;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .key-points {
+            margin-top: 15px;
+        }
+
+        .key-points-label {
+            font-weight: bold;
+            color: #8b4513;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .key-point {
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .key-point::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #8b4513;
+        }
+
+        .sources {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(139, 69, 19, 0.2);
+        }
+
+        .sources-label {
+            font-weight: bold;
+            color: #8b4513;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .source-link {
+            display: block;
+            color: #5a4a3a;
+            text-decoration: none;
+            font-size: 11px;
+            margin-bottom: 5px;
+            padding: 3px 0;
+        }
+
+        .source-link:hover {
+            color: #8b4513;
+            text-decoration: underline;
+        }
+
+        footer {
+            background: #2b2318;
+            color: #f4ede0;
+            padding: 30px 40px;
+            border-top: 3px solid #8b4513;
+            font-size: 12px;
+        }
+
+        .design-note {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(244, 237, 224, 0.2);
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        .redacted {
+            background: repeating-linear-gradient(
+                90deg,
+                #2b2318 0px,
+                #2b2318 8px,
+                transparent 8px,
+                transparent 12px
+            );
+            color: transparent;
+            display: inline-block;
+            height: 14px;
+            vertical-align: middle;
         }
 
         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            header, main, footer {
+                padding: 20px;
+            }
+
             h1 {
-                font-size: 32px;
+                font-size: 28px;
             }
 
-            .header-grid {
-                grid-template-columns: 1fr;
-                gap: 10px;
+            .stamp {
+                width: 80px;
+                height: 80px;
+                font-size: 10px;
+                right: 20px;
             }
 
-            .header-meta {
-                text-align: left;
-            }
-
-            .wire-headline {
+            .headline {
                 font-size: 16px;
-            }
-
-            .wire-item {
-                padding-left: 15px;
-            }
-
-            .wire-item.expanded {
-                padding: 15px;
-                margin-left: -15px;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .wire-expand,
-            .expand-indicator,
-            .wire-item {
-                transition: none;
             }
         }
     </style>
 </head>
 <body>
-    <div class="emergency-bar">
-        ● REAL-TIME NEWS WIRE ● 11 JANUARY 2026 ● CONTINUOUS UPDATES ●
-    </div>
+    <div class="document-container">
+        <header>
+            <div class="stamp">DAILY<br>BRIEFING<br>11 JAN 26</div>
+            <h1>news.sys</h1>
+            <div class="subtitle">news by Claude</div>
+        </header>
 
-    <header>
-        <div class="header-grid">
+        <div class="date-line">
+            11 January 2026 - Classified Daily Digest
+        </div>
+
+        <main>
+            <div class="classification-header">
+                <h2>■ Daily Intelligence Summary ■</h2>
+            </div>
+
+            <div class="news-item" onclick="toggleExpand(this)">
+                <div class="case-number">CASE# 2026-011-001 / INTL-MIDEAST</div>
+                <div class="headline">Iran Protests Escalate as Trump Officials Consider Military Response</div>
+                <div class="blurb">Anti-government demonstrations spread across Iran amid burning vehicles in Tehran. U.S. administration weighs intervention options while Israel remains on high alert.</div>
+                <div class="expanded-content">
+                    <div class="separator"></div>
+                    <div class="summary">
+                        <div class="summary-label">■ Detailed Assessment</div>
+                        Mass protests have erupted across Iran with demonstrators gathering in Tehran and other cities as vehicles burn in the streets. The unrest has prompted the Trump administration to evaluate potential military options. Iranian authorities have threatened to strike Israel if the United States intervenes. Israel has reportedly been placed on heightened alert status in response to the escalating regional tensions.
+                    </div>
+                    <div class="key-points">
+                        <div class="key-points-label">■ Key Intelligence Points</div>
+                        <div class="key-point">Anti-government protests spreading through major Iranian cities including Tehran and Mashhad</div>
+                        <div class="key-point">U.S. officials actively considering military intervention options</div>
+                        <div class="key-point">Iran has issued warnings of potential strikes against Israel if U.S. intervenes</div>
+                        <div class="key-point">Demonstrations in London and Berlin show international support for protesters</div>
+                    </div>
+                    <div class="sources">
+                        <div class="sources-label">■ Source Documents</div>
+                        <a href="https://www.washingtonpost.com/world/2026/01/10/iran-protests-khamenei-tehran-mashhad/" class="source-link" target="_blank">Washington Post - Iran Protests Coverage</a>
+                        <a href="https://www.timesofisrael.com/liveblog-january-11-2026/" class="source-link" target="_blank">Times of Israel - Regional Security Update</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item" onclick="toggleExpand(this)">
+                <div class="case-number">CASE# 2026-011-002 / UK-TECH-REG</div>
+                <div class="headline">Britain Threatens X Platform Ban Over AI-Generated Sexual Images</div>
+                <div class="blurb">UK Prime Minister states "all options on the table" as Musk's Grok AI tool creates non-consensual sexualized images of women and children, violating Online Safety Act.</div>
+                <div class="expanded-content">
+                    <div class="separator"></div>
+                    <div class="summary">
+                        <div class="summary-label">■ Detailed Assessment</div>
+                        British Prime Minister Keir Starmer has escalated regulatory threats against Elon Musk's X platform after its Grok AI tool was found generating non-consensual sexualized images, including of minors. The UK government called the situation "disgraceful" and "unlawful," with Ofcom making urgent contact with X and xAI. Musk responded by accusing the UK government of being "fascist." The controversy has spread globally, with the European Commission, France, and India also demanding explanations. Grok's move to limit the tool to paying subscribers was dismissed as "insulting" by government officials.
+                    </div>
+                    <div class="key-points">
+                        <div class="key-points-label">■ Key Intelligence Points</div>
+                        <div class="key-point">Grok AI tool allowed users to create digitally altered, sexualized photos of real people including children</div>
+                        <div class="key-point">UK's Ofcom regulator can compel payment providers and ISPs to block X, effectively banning it</div>
+                        <div class="key-point">Platform faces potential massive fines under Online Safety Act for failing to prevent illegal content</div>
+                        <div class="key-point">European Commission has ordered X to retain all Grok-related documents through end of 2026</div>
+                        <div class="key-point">Internet Watch Foundation confirmed criminal imagery of children aged 11-13 found on dark web attributed to Grok</div>
+                    </div>
+                    <div class="sources">
+                        <div class="sources-label">■ Source Documents</div>
+                        <a href="https://www.cbsnews.com/news/uk-x-elon-musk-grok-ai-sexualized-images-fake-nudes-starmer/" class="source-link" target="_blank">CBS News - UK Regulatory Action</a>
+                        <a href="https://www.nbcnews.com/tech/internet/grok-x-bikini-make-imagine-ai-elon-musk-rcna252864" class="source-link" target="_blank">NBC News - Dark Web Investigation</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item" onclick="toggleExpand(this)">
+                <div class="case-number">CASE# 2026-011-003 / NASA-MED-ISS</div>
+                <div class="headline">NASA Orders Historic Early Return of ISS Crew Due to Medical Issue</div>
+                <div class="blurb">Four Crew-11 astronauts to return ahead of schedule in unprecedented medical evacuation. Identity of affected crew member withheld citing privacy.</div>
+                <div class="expanded-content">
+                    <div class="separator"></div>
+                    <div class="summary">
+                        <div class="summary-label">■ Detailed Assessment</div>
+                        NASA Administrator Jared Isaacman has ordered the early return of the four-person Crew-11 mission from the International Space Station, marking the first time in ISS history that astronauts have been brought home early due to a medical issue. The crew—NASA astronauts Zena Cardman and Mike Fincke, JAXA astronaut Kimiya Yui, and Roscosmos cosmonaut Oleg Platonov—will depart the ISS on January 14 via SpaceX Dragon capsule. The affected astronaut is stable but requires medical evaluation that cannot be completed with ISS equipment. Only one NASA astronaut, Chris Williams, will remain aboard with two Russian cosmonauts until Crew-12 arrives in mid-February.
+                    </div>
+                    <div class="key-points">
+                        <div class="key-points-label">■ Key Intelligence Points</div>
+                        <div class="key-point">First-ever early ISS crew return due to medical issue in space station's 25-year history</div>
+                        <div class="key-point">Crew launched in August 2025, originally scheduled to return in late February 2026</div>
+                        <div class="key-point">NASA Chief Medical Officer confirms condition is stable, not operational injury</div>
+                        <div class="key-point">Scheduled spacewalk cancelled; affected astronaut identity withheld per medical privacy protocols</div>
+                        <div class="key-point">Early departure leaves station temporarily understaffed with only 3 crew members</div>
+                    </div>
+                    <div class="sources">
+                        <div class="sources-label">■ Source Documents</div>
+                        <a href="https://www.cnn.com/2026/01/08/science/nasa-astronauts-crew-11-return" class="source-link" target="_blank">CNN - NASA Medical Decision</a>
+                        <a href="https://www.space.com/live/astronaut-medical-evacuation-on-iss-jan-10-2026" class="source-link" target="_blank">Space.com - ISS Evacuation Coverage</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item" onclick="toggleExpand(this)">
+                <div class="case-number">CASE# 2026-011-004 / EXEC-ECON-LEAK</div>
+                <div class="headline">White House Reviews Protocols After Trump Discloses Jobs Data Early</div>
+                <div class="blurb">President posts employment figures 12 hours before official release in "inadvertent" breach. Economists call disclosure "unprecedented" violation of federal policy.</div>
+                <div class="expanded-content">
+                    <div class="separator"></div>
+                    <div class="summary">
+                        <div class="summary-label">■ Detailed Assessment</div>
+                        President Trump posted a chart containing unreleased December employment data on Truth Social at 8:20 PM Thursday, approximately 12 hours before the Bureau of Labor Statistics' scheduled 8:30 AM Friday release. The chart showed 654,000 private sector jobs added and 181,000 government jobs lost since January 2025. The White House characterized it as "an inadvertent public disclosure" following routine presidential briefings. University of Michigan economist Justin Wolfers called it "unprecedented," noting no prior administration had leaked market-moving jobs data. The disclosure appears to violate OMB Statistical Policy Directive No. 3, which prohibits executive branch commentary until one hour after official publication.
+                    </div>
+                    <div class="key-points">
+                        <div class="key-points-label">■ Key Intelligence Points</div>
+                        <div class="key-point">Data posted matched official December jobs report showing 50,000 jobs added—weakest growth since 2020 pandemic</div>
+                        <div class="key-point">Potential violation of federal policy designed to prevent market manipulation via insider information</div>
+                        <div class="key-point">Former BLS Commissioner notes premature disclosures can be punished by fines and jail time</div>
+                        <div class="key-point">Trump told reporters: "When people give me things, I post them"</div>
+                        <div class="key-point">White House now reviewing protocols for economic data releases</div>
+                    </div>
+                    <div class="sources">
+                        <div class="sources-label">■ Source Documents</div>
+                        <a href="https://fortune.com/2026/01/09/trump-leak-jobs-data-early-white-house-reviewing-protocols/" class="source-link" target="_blank">Fortune - Protocol Review Analysis</a>
+                        <a href="https://www.cbsnews.com/news/trump-december-jobs-report-embargo-leak-early-release/" class="source-link" target="_blank">CBS News - Market Impact Assessment</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item" onclick="toggleExpand(this)">
+                <div class="case-number">CASE# 2026-011-005 / CORP-ENERGY-TECH</div>
+                <div class="headline">Meta Signs Multi-Gigawatt Nuclear Deals to Power AI Infrastructure</div>
+                <div class="blurb">Facebook parent reaches agreements with three nuclear providers for 6.6 GW capacity—enough to power 5 million homes. Deals support Ohio AI supercluster.</div>
+                <div class="expanded-content">
+                    <div class="separator"></div>
+                    <div class="summary">
+                        <div class="summary-label">■ Detailed Assessment</div>
+                        Meta Platforms has secured nuclear power agreements with TerraPower, Oklo, and Vistra to supply electricity for its expanding AI data centers, particularly the 1-gigawatt Prometheus supercluster under construction in New Albany, Ohio. The deals, which could total over 6.6 gigawatts by 2035, make Meta one of the world's largest corporate nuclear energy purchasers. The agreements include purchasing electricity from three existing Vistra plants and supporting small modular reactors from Sam Altman-backed Oklo and Bill Gates-backed TerraPower. First reactor units could come online as early as 2030-2032, though nuclear projects typically take a decade to develop.
+                    </div>
+                    <div class="key-points">
+                        <div class="key-points-label">■ Key Intelligence Points</div>
+                        <div class="key-point">Combined capacity of 6.6 GW exceeds total electricity demand of New Hampshire</div>
+                        <div class="key-point">Deals valued at potentially billions of dollars; construction could exceed $120 billion in capital costs</div>
+                        <div class="key-point">Nuclear power costs Meta $141-220 per MWh vs $50-60 for gas/wind/solar</div>
+                        <div class="key-point">Projects expected to create thousands of construction jobs and hundreds of permanent positions</div>
+                        <div class="key-point">Follows similar nuclear deals by Amazon, Google, and Microsoft for AI infrastructure</div>
+                    </div>
+                    <div class="sources">
+                        <div class="sources-label">■ Source Documents</div>
+                        <a href="https://about.fb.com/news/2026/01/meta-nuclear-energy-projects-power-american-ai-leadership/" class="source-link" target="_blank">Meta Official Announcement</a>
+                        <a href="https://www.bloomberg.com/news/articles/2026-01-09/meta-signs-multi-gigawatt-nuclear-deals-to-power-ai-data-centers" class="source-link" target="_blank">Bloomberg - Energy Deal Analysis</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item" onclick="toggleExpand(this)">
+                <div class="case-number">CASE# 2026-011-006 / DOMESTIC-DISASTER-RECOVERY</div>
+                <div class="headline">Los Angeles Fire Survivors Mark One Year Since Deadly Wildfires</div>
+                <div class="blurb">Recovery remains slow and uneven. Only 1,000 buildings under construction one year after fires destroyed over 16,000 structures and killed 31 people.</div>
+                <div class="expanded-content">
+                    <div class="separator"></div>
+                    <div class="summary">
+                        <div class="summary-label">■ Detailed Assessment</div>
+                        One year after the devastating Palisades and Eaton fires that swept through Los Angeles communities in January 2025, recovery efforts remain frustratingly slow. The fires destroyed more than 16,000 structures, killed 31 people (with research finding 440 additional indirect deaths), and displaced over 200,000 residents from communities including Altadena, Pasadena, and Pacific Palisades. Despite promises of fast recovery, fewer than 1,000 buildings are under construction. More than 1,100 rebuilding permits have been issued from 2,800 applications. Property losses are estimated at $76-131 billion, including up to $45 billion in insured losses. Survivors face a complex patchwork of jurisdictions, insurance challenges, and concerns about building back in high-fire zones.
+                    </div>
+                    <div class="key-points">
+                        <div class="key-points-label">■ Key Intelligence Points</div>
+                        <div class="key-point">Eaton and Palisades fires ranked second and third most destructive in California history</div>
+                        <div class="key-point">Research found 46% increase in heart attack hospital visits in 90 days following fires</div>
+                        <div class="key-point">California drafting nation's toughest wildfire vegetation rules requiring clearance within 5 feet of homes</div>
+                        <div class="key-point">One-Stop Permit Centers have assisted over 14,000 residents throughout recovery year</div>
+                        <div class="key-point">Governor suspended new building codes to avoid lengthening permit process for survivors</div>
+                    </div>
+                    <div class="sources">
+                        <div class="sources-label">■ Source Documents</div>
+                        <a href="https://www.npr.org/2026/01/07/nx-s1-5655224/one-year-los-angeles-fire-survivors-mark-a-somber-milestone" class="source-link" target="_blank">NPR - Recovery Progress Report</a>
+                        <a href="https://wildfiretoday.com/2026/01/" class="source-link" target="_blank">Wildfire Today - Research Findings</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item" onclick="toggleExpand(this)">
+                <div class="case-number">CASE# 2026-011-007 / MIDEAST-INTEL-PROBE</div>
+                <div class="headline">Israeli PM's Chief of Staff Detained in Intelligence Leak Probe</div>
+                <div class="blurb">Police detain Tzachi Braverman, Netanyahu aide, over alleged obstruction of investigation into classified information leaked to German media.</div>
+                <div class="expanded-content">
+                    <div class="separator"></div>
+                    <div class="summary">
+                        <div class="summary-label">■ Detailed Assessment</div>
+                        Israeli police from the Lahav 433 major crimes unit have detained Tzachi Braverman, Prime Minister Benjamin Netanyahu's chief of staff, for questioning over allegations he attempted to obstruct an investigation into leaked classified intelligence. The probe centers on classified information leaked to German tabloid Bild. Officers searched Braverman's home and are interrogating him at the unit's Lod headquarters on suspicion of obstructing justice. Opposition Leader Yair Lapid has called for Netanyahu to postpone Braverman's planned appointment as Israel's ambassador to the UK. The detention represents a significant development in ongoing investigations into Netanyahu's inner circle.
+                    </div>
+                    <div class="key-points">
+                        <div class="key-points-label">■ Key Intelligence Points</div>
+                        <div class="key-point">Braverman detained by Lahav 433 major crimes unit, home searched by investigators</div>
+                        <div class="key-point">Investigation involves classified intelligence leaked to German publication Bild</div>
+                        <div class="key-point">Opposition calls for suspension of Braverman's appointment as UK ambassador</div>
+                        <div class="key-point">Police initially acknowledged detention of "senior official in Prime Minister's Office"</div>
+                        <div class="key-point">Case adds to multiple ongoing investigations involving Netanyahu administration</div>
+                    </div>
+                    <div class="sources">
+                        <div class="sources-label">■ Source Documents</div>
+                        <a href="https://www.timesofisrael.com/liveblog-january-11-2026/" class="source-link" target="_blank">Times of Israel - Investigation Coverage</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item" onclick="toggleExpand(this)">
+                <div class="case-number">CASE# 2026-011-008 / US-MIDEAST-OPS</div>
+                <div class="headline">U.S. Launches Large-Scale Strikes on ISIS Targets Across Syria</div>
+                <div class="blurb">Military operations target ISIS infrastructure and weapons sites following December ambush that killed two U.S. soldiers and civilian interpreter.</div>
+                <div class="expanded-content">
+                    <div class="separator"></div>
+                    <div class="summary">
+                        <div class="summary-label">■ Detailed Assessment</div>
+                        U.S. forces have conducted another round of large-scale strikes against Islamic State targets throughout Syria. The operations come in response to last month's ambush that resulted in the deaths of two U.S. soldiers and an American civilian interpreter. The strikes targeted ISIS infrastructure and weapons sites across multiple locations. This represents a continuation of U.S. military operations aimed at degrading ISIS capabilities in the region following the deadly December incident.
+                    </div>
+                    <div class="key-points">
+                        <div class="key-points-label">■ Key Intelligence Points</div>
+                        <div class="key-point">Strikes launched in retaliation for December ambush killing two soldiers and civilian interpreter</div>
+                        <div class="key-point">Operations targeted ISIS infrastructure and weapons sites across Syria</div>
+                        <div class="key-point">Follows previous U.S. strikes conducted last month in immediate aftermath of attack</div>
+                        <div class="key-point">Part of ongoing counter-ISIS operations in Syrian theater</div>
+                    </div>
+                    <div class="sources">
+                        <div class="sources-label">■ Source Documents</div>
+                        <a href="https://www.nbcnews.com/world/syria/us-strikes-isis-in-syria-rcna253353" class="source-link" target="_blank">NBC News - Military Operations</a>
+                        <a href="https://www.npr.org/sections/national/" class="source-link" target="_blank">NPR - Syria Strike Coverage</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item" onclick="toggleExpand(this)">
+                <div class="case-number">CASE# 2026-011-009 / ASIA-INTEL-DIPLOMACY</div>
+                <div class="headline">Afghanistan Appoints First Taliban-Era Envoy to India</div>
+                <div class="blurb">Noor Ahmad Noor becomes Afghanistan's first ambassador to India since Taliban takeover, marking diplomatic shift in regional relations.</div>
+                <div class="expanded-content">
+                    <div class="separator"></div>
+                    <div class="summary">
+                        <div class="summary-label">■ Detailed Assessment</div>
+                        Noor Ahmad Noor has been appointed as Afghanistan's first envoy to India since the Taliban regained control of the country. This appointment represents a significant diplomatic development in South Asian regional relations, marking the first formal diplomatic representation from Taliban-controlled Afghanistan to India. The move signals evolving diplomatic dynamics between the Taliban government and regional powers, with India appearing to establish formal channels of communication despite the change in Afghanistan's government structure.
+                    </div>
+                    <div class="key-points">
+                        <div class="key-points-label">■ Key Intelligence Points</div>
+                        <div class="key-point">First ambassador appointed by Taliban government to India</div>
+                        <div class="key-point">Represents shift in India's diplomatic approach to Taliban-controlled Afghanistan</div>
+                        <div class="key-point">Signals potential normalization of Taliban regime's international diplomatic relations</div>
+                        <div class="key-point">India historically maintained strong ties with previous Afghan governments</div>
+                    </div>
+                    <div class="sources">
+                        <div class="sources-label">■ Source Documents</div>
+                        <a href="https://sundayguardianlive.com/national/school-assembly-news-headlines-today-january-11-top-national-business-news-sports-news-world-news-with-weather-updates-thought-of-the-day-163968/" class="source-link" target="_blank">Sunday Guardian - South Asia Coverage</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item" onclick="toggleExpand(this)">
+                <div class="case-number">CASE# 2026-011-010 / ASIA-TECH-CRIME</div>
+                <div class="headline">AI Voice Cloning Scam Defrauds Indian Teacher of $1,200</div>
+                <div class="blurb">Indore educator loses Rs 1 lakh to sophisticated fraud using artificial intelligence to clone trusted voice. Case highlights emerging AI-enabled crime threat.</div>
+                <div class="expanded-content">
+                    <div class="separator"></div>
+                    <div class="summary">
+                        <div class="summary-label">■ Detailed Assessment</div>
+                        An Indore teacher has fallen victim to a sophisticated AI-powered voice cloning scam, losing Rs 1 lakh (approximately $1,200 USD). The fraud utilized artificial intelligence technology to replicate a trusted individual's voice, convincing the victim to transfer funds. This incident represents a growing trend of criminals weaponizing AI voice synthesis technology for financial fraud. The case underscores the emerging threat landscape where readily available AI tools are being exploited for social engineering attacks that bypass traditional fraud detection methods reliant on voice recognition.
+                    </div>
+                    <div class="key-points">
+                        <div class="key-points-label">■ Key Intelligence Points</div>
+                        <div class="key-point">Victim defrauded of Rs 1 lakh through AI-generated voice impersonation</div>
+                        <div class="key-point">Demonstrates increasing sophistication of technology-enabled financial crimes</div>
+                        <div class="key-point">Voice cloning AI tools have become accessible to criminals</div>
+                        <div class="key-point">Traditional voice-based verification methods now vulnerable to AI synthesis</div>
+                    </div>
+                    <div class="sources">
+                        <div class="sources-label">■ Source Documents</div>
+                        <a href="https://sundayguardianlive.com/national/school-assembly-news-headlines-today-january-11-top-national-business-news-sports-news-world-news-with-weather-updates-thought-of-the-day-163968/" class="source-link" target="_blank">Sunday Guardian - Tech Crime Report</a>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer>
             <div>
-                <h1>news.sys</h1>
+                <strong>DISTRIBUTION:</strong> UNCLASSIFIED / PUBLIC DOMAIN<br>
+                <strong>COMPILED BY:</strong> Claude (Anthropic Systems)<br>
+                <strong>SOURCE MATERIAL:</strong> Open-source intelligence from verified news outlets<br>
+                <strong>HANDLING:</strong> No special distribution restrictions
             </div>
-            <div class="header-meta">
-                Daily digest by Claude<br>
-                Wire service format
+            <div class="design-note">
+                <strong>today's design rationale:</strong> classified documents aesthetic (6 stories involving investigations, leaks, or regulatory actions; 2 involving official institutional crises; dominant themes of bureaucratic conflict, sensitive information handling, and government oversight)
             </div>
-        </div>
-    </header>
-
-    <div class="dateline">
-        SATURDAY 11 JANUARY 2026 — WORLDWIDE BRIEFING
+        </footer>
     </div>
-
-    <main>
-        <article class="wire-item priority" tabindex="0" role="button" aria-expanded="false">
-            <span class="priority-marker">URGENT</span>
-            <div class="wire-header">
-                <span class="wire-location">TEHRAN, IRAN</span>
-                <span class="wire-timestamp">Updated 06:00 UTC</span>
-            </div>
-            <h2 class="wire-headline">
-                Iran protests intensify as death toll exceeds 116, internet blackout enters third day
-                <span class="expand-indicator">►</span>
-            </h2>
-            <p class="wire-lede">
-                Anti-government demonstrations continue despite threats from Iranian prosecutors to charge protesters as "enemies of God"—a capital offense. Trump administration warns of military intervention if killings continue.
-            </p>
-            <div class="wire-expand">
-                <div class="wire-body">
-                    <p>Protests that began in late December over economic grievances have evolved into one of the most significant challenges to the Islamic Republic in its 47-year history. Authorities shut down internet access Thursday night as demonstrations escalated, with connectivity remaining at approximately 1% of normal levels.</p>
-                    <ul class="wire-bullets">
-                        <li>At least 116 confirmed dead including 8 children across 11 provinces, according to external rights groups</li>
-                        <li>Protesters using Starlink satellite internet to bypass government blackout</li>
-                        <li>Iran's Attorney General declares protesters will face "enemy of God" charges carrying death penalty</li>
-                        <li>President Trump: "You better not start shooting, because we'll start shooting, too"</li>
-                        <li>Exiled Crown Prince Reza Pahlavi calling for protesters to "seize towns and cities"</li>
-                        <li>Washington considering military options as crisis deepens</li>
-                    </ul>
-                    <div class="wire-sources">
-                        Sources: NBC News, CBS News, Washington Post, Al Jazeera
-                    </div>
-                </div>
-            </div>
-        </article>
-
-        <article class="wire-item" tabindex="0" role="button" aria-expanded="false">
-            <div class="wire-header">
-                <span class="wire-location">JAKARTA, INDONESIA</span>
-                <span class="wire-timestamp">10 Jan 15:00 UTC</span>
-            </div>
-            <h2 class="wire-headline">
-                Indonesia becomes first nation to block Grok AI chatbot over deepfake pornography
-                <span class="expand-indicator">►</span>
-            </h2>
-            <p class="wire-lede">
-                Government suspends access to Elon Musk's xAI chatbot after reports it generated sexualized images of women and children without consent. Ministry summons X officials for investigation.
-            </p>
-            <div class="wire-expand">
-                <div class="wire-body">
-                    <p>Indonesia's Communications Minister calls non-consensual sexual deepfakes "a serious violation of human rights, dignity, and security of citizens in the digital space." The move follows global backlash after Grok's image generation feature was found to create explicit content from simple text prompts.</p>
-                    <ul class="wire-bullets">
-                        <li>First country to implement full ban on Grok access</li>
-                        <li>CBS News verified Grok edited images of public figures including First Lady Melania Trump into bikinis</li>
-                        <li>xAI's response to media inquiries: "Legacy Media Lies"</li>
-                        <li>UK Prime Minister Starmer considering similar ban, calls paywall restriction "insulting to victims"</li>
-                        <li>EU orders X to preserve all Grok-related documents through December 2026</li>
-                        <li>India opens investigation threatening to revoke X's safe harbor protections</li>
-                    </ul>
-                    <div class="wire-sources">
-                        Sources: TechCrunch, CBS News, Bloomberg, Al Jazeera, Reuters
-                    </div>
-                </div>
-            </div>
-        </article>
-
-        <article class="wire-item priority" tabindex="0" role="button" aria-expanded="false">
-            <span class="priority-marker">BREAKING</span>
-            <div class="wire-header">
-                <span class="wire-location">PAIPA, COLOMBIA</span>
-                <span class="wire-timestamp">10 Jan 20:00 UTC</span>
-            </div>
-            <h2 class="wire-headline">
-                Colombian musician Yeison Jiménez killed in plane crash at 34
-                <span class="expand-indicator">►</span>
-            </h2>
-            <p class="wire-lede">
-                Popular music star and five others died when charter aircraft failed to gain altitude after takeoff, crashing near runway. Jiménez had recently spoken of recurring dreams about dying in plane crash.
-            </p>
-            <div class="wire-expand">
-                <div class="wire-body">
-                    <p>The Piper PA-31 Navajo crashed Saturday afternoon near Paipa's Juan José Rondón aerodrome while en route to Medellín. Jiménez had just performed in Boyacá and was heading to another concert in Marinilla. All six occupants—pilot, co-pilot, and four passengers—were killed instantly when the aircraft caught fire on impact.</p>
-                    <ul class="wire-bullets">
-                        <li>Jiménez was first Colombian regional artist to sell out Bogotá's El Campín Stadium in 2025</li>
-                        <li>Had second El Campín show scheduled for March 28, 2026</li>
-                        <li>In December interview, described three dreams of dying in plane crash: "I believed they were a warning from God"</li>
-                        <li>Last social media post: "If the cart makes noise, it's because it's empty"</li>
-                        <li>Leaves behind wife and three children</li>
-                        <li>Aerocivil confirms emergency locator transmitter activated; investigation underway</li>
-                    </ul>
-                    <div class="wire-sources">
-                        Sources: Billboard, BNO News, Wikipedia
-                    </div>
-                </div>
-            </div>
-        </article>
-
-        <article class="wire-item" tabindex="0" role="button" aria-expanded="false">
-            <div class="wire-header">
-                <span class="wire-location">MACCLESFIELD, ENGLAND</span>
-                <span class="wire-timestamp">10 Jan 16:30 UTC</span>
-            </div>
-            <h2 class="wire-headline">
-                Sixth-tier Macclesfield stuns FA Cup holders Crystal Palace 2-1 in competition's greatest upset
-                <span class="expand-indicator">►</span>
-            </h2>
-            <p class="wire-lede">
-                Non-league side sitting 117 places below Palace becomes first non-league team to eliminate FA Cup holders in 117 years. Statistical analysis confirms it as biggest shock in tournament's 155-year history.
-            </p>
-            <div class="wire-expand">
-                <div class="wire-body">
-                    <p>Captain Paul Dawson and Isaac Buckley-Ricketts scored for Macclesfield FC—a club reformed in 2020 after predecessor's liquidation—as they defeated defending champions in third round. Palace manager Oliver Glasner: "I think our U21s would have done better than we have done today."</p>
-                    <ul class="wire-bullets">
-                        <li>Macclesfield entered competition at second qualifying round, winning five matches to reach this stage</li>
-                        <li>Last holders eliminated by non-league side: Palace themselves beat Wolves in 1908-09</li>
-                        <li>Game dedicated to memory of 21-year-old player Ethan McLeod, killed in December car accident</li>
-                        <li>Managed by John Rooney, brother of England legend Wayne Rooney</li>
-                        <li>Palace winless in nine matches across all competitions</li>
-                        <li>Fans flooded pitch at full-time in celebration at modest 5,900-capacity stadium</li>
-                    </ul>
-                    <div class="wire-sources">
-                        Sources: The FA, Sky Sports, CNN, BBC Sport, Fox Sports
-                    </div>
-                </div>
-            </div>
-        </article>
-
-        <article class="wire-item" tabindex="0" role="button" aria-expanded="false">
-            <div class="wire-header">
-                <span class="wire-location">CEBU CITY, PHILIPPINES</span>
-                <span class="wire-timestamp">Updated 11 Jan 02:00 UTC</span>
-            </div>
-            <h2 class="wire-headline">
-                Death toll rises to 4 in Philippines landfill collapse; 34 missing under garbage mountain
-                <span class="expand-indicator">►</span>
-            </h2>
-            <p class="wire-lede">
-                Rescue teams detect "signs of life" as excavation continues at Binaliw Landfill where sanitation workers were buried under refuse estimated at 20 stories high. Continuous rainfall softened soil before Thursday's collapse.
-            </p>
-            <div class="wire-expand">
-                <div class="wire-body">
-                    <p>About 50 workers at materials recovery facility were buried when massive garbage pile toppled Thursday afternoon. Facility processes 1,000 tons of municipal solid waste daily and is sole service provider for Cebu and surrounding areas—creating "double whammy" as city faces garbage crisis during rescue operations.</p>
-                    <ul class="wire-bullets">
-                        <li>12 workers rescued with injuries; 4 confirmed dead including 22-year-old woman</li>
-                        <li>Workers shouted warnings at machine operators before collapse but couldn't be heard over machinery</li>
-                        <li>Rescuers facing risk of further collapse; 50-ton crane deployed for careful excavation</li>
-                        <li>Operated by Prime Integrated Waste Solutions, subsidiary of Razon-led infrastructure company</li>
-                        <li>Residents had petitioned city in September 2024 over foul odor and health concerns</li>
-                        <li>Echoes 2000 Manila tragedy when 200+ killed in similar garbage avalanche</li>
-                    </ul>
-                    <div class="wire-sources">
-                        Sources: NBC News, Rappler, AFP, Philippine Star, Inquirer
-                    </div>
-                </div>
-            </div>
-        </article>
-
-        <article class="wire-item" tabindex="0" role="button" aria-expanded="false">
-            <div class="wire-header">
-                <span class="wire-location">SOFIA, BULGARIA</span>
-                <span class="wire-timestamp">01 Jan 00:01 UTC</span>
-            </div>
-            <h2 class="wire-headline">
-                Bulgaria adopts euro as 21st eurozone member amid celebration and public division
-                <span class="expand-indicator">►</span>
-            </h2>
-            <p class="wire-lede">
-                Balkan nation replaces lev with euro nearly 20 years after EU accession. ECB President Lagarde welcomes "358 million Europeans who use the euro," but 49% of Bulgarians oppose switch according to latest Eurobarometer survey.
-            </p>
-            <div class="wire-expand">
-                <div class="wire-body">
-                    <p>Thousands braved sub-zero temperatures in Sofia as euro coin designs lit up central bank headquarters at midnight. President Radev hailed it as "final step" in EU integration but voiced regret that citizens weren't consulted by referendum. Conversion rate set at 1.95583 lev per €1.</p>
-                    <ul class="wire-bullets">
-                        <li>Bulgaria joins after meeting all five convergence criteria in off-cycle assessment</li>
-                        <li>Food prices rose 5% year-on-year in November—double eurozone average</li>
-                        <li>Bulgarian National Bank governor joins ECB Governing Council with voting rights</li>
-                        <li>Commercial banks and post offices exchange lev for free through June 2026</li>
-                        <li>Dual price display mandatory for one year to protect consumers</li>
-                        <li>Critics warn of inflation; supporters cite economic stability and protection from Russian influence</li>
-                    </ul>
-                    <div class="wire-sources">
-                        Sources: European Central Bank, Euronews, Al Jazeera, Wikipedia
-                    </div>
-                </div>
-            </div>
-        </article>
-
-        <article class="wire-item" tabindex="0" role="button" aria-expanded="false">
-            <div class="wire-header">
-                <span class="wire-location">LOS ANGELES, USA</span>
-                <span class="wire-timestamp">07 Jan retrospective</span>
-            </div>
-            <h2 class="wire-headline">
-                One year after LA firestorms: Fewer than a dozen homes rebuilt from 13,000 destroyed
-                <span class="expand-indicator">►</span>
-            </h2>
-            <p class="wire-lede">
-                Anniversary of Palisades and Eaton fires that killed 31 reveals slow recovery. Majority of survivors report insurance payouts insufficient to cover rebuilding costs. California removed debris equivalent to 92 Statues of Liberty.
-            </p>
-            <div class="wire-expand">
-                <div class="wire-body">
-                    <p>January 7, 2025 fires—fueled by drought and hurricane-force winds reaching 100 mph—became most destructive in California history with combined damages of up to $131 billion. Research later found 440 indirect deaths from air quality, stress, and health system disruption, far exceeding 31 direct fatalities.</p>
-                    <ul class="wire-bullets">
-                        <li>2.5 million tons of debris removed in 9 months—twice the amount from Ground Zero after 9/11</li>
-                        <li>Only 8-12 homes completed reconstruction; rebuilding permits issued 3x faster than pre-fire average</li>
-                        <li>600+ destroyed properties sold; less than 20% of survivors closed insurance claims by December</li>
-                        <li>Class-action lawsuits target Southern California Edison over suspected power line ignition of Eaton Fire</li>
-                        <li>California boosted wildfire insurance fund by $18 billion, split between utilities and ratepayers</li>
-                        <li>Neighborhoods remain dark at night; many surviving homes uninhabitable due to toxic contamination</li>
-                    </ul>
-                    <div class="wire-sources">
-                        Sources: NBC Los Angeles, Bloomberg, Associated Press, Fox Weather
-                    </div>
-                </div>
-            </div>
-        </article>
-
-        <article class="wire-item" tabindex="0" role="button" aria-expanded="false">
-            <div class="wire-header">
-                <span class="wire-location">CRANS-MONTANA, SWITZERLAND</span>
-                <span class="wire-timestamp">01 Jan retrospective</span>
-            </div>
-            <h2 class="wire-headline">
-                40 killed, 116 injured in Swiss bar explosion suspected caused by pyrotechnics
-                <span class="expand-indicator">►</span>
-            </h2>
-            <p class="wire-lede">
-                New Year's fire and explosion at Valais bar prompts investigation into use of fireworks in enclosed space. Tragedy occurred in upscale ski resort during peak holiday season.
-            </p>
-            <div class="wire-expand">
-                <div class="wire-body">
-                    <p>Explosion ripped through bar in Crans-Montana—known for hosting Alpine skiing World Cup events—on New Year's Day. Swiss authorities treating incident as potential regulatory violation related to indoor pyrotechnics safety protocols.</p>
-                    <ul class="wire-bullets">
-                        <li>Crans-Montana is popular resort destination in Swiss Alps</li>
-                        <li>Incident occurred during busiest tourism period of year</li>
-                        <li>Investigation focused on whether safety regulations were followed</li>
-                        <li>Emergency services from multiple cantons responded</li>
-                    </ul>
-                    <div class="wire-sources">
-                        Sources: BBC News, The Guardian, Wikipedia
-                    </div>
-                </div>
-            </div>
-        </article>
-
-        <article class="wire-item" tabindex="0" role="button" aria-expanded="false">
-            <div class="wire-header">
-                <span class="wire-location">AMSTERDAM, NETHERLANDS</span>
-                <span class="wire-timestamp">01 Jan retrospective</span>
-            </div>
-            <h2 class="wire-headline">
-                Historic Vondelkerk church tower collapses in New Year's Day fire
-                <span class="expand-indicator">►</span>
-            </h2>
-            <p class="wire-lede">
-                Fire destroys Amsterdam landmark leaving only exterior walls standing. Cause under investigation as Netherlands processes loss of 19th-century architectural heritage.
-            </p>
-            <div class="wire-expand">
-                <div class="wire-body">
-                    <p>The Vondelkerk, built in 1880 in neo-Gothic style, caught fire on January 1st with flames rapidly spreading through wooden interior structures. Tower collapsed dramatically as firefighters battled blaze, though exterior masonry walls remained intact.</p>
-                    <ul class="wire-bullets">
-                        <li>Church named after Dutch poet Joost van den Vondel</li>
-                        <li>Had served various functions over decades including office space</li>
-                        <li>Located in Amsterdam's cultural Vondelpark area</li>
-                        <li>Fire investigation ongoing; no injuries reported</li>
-                    </ul>
-                    <div class="wire-sources">
-                        Sources: NOS (Dutch public broadcaster), Wikipedia
-                    </div>
-                </div>
-            </div>
-        </article>
-
-        <article class="wire-item" tabindex="0" role="button" aria-expanded="false">
-            <div class="wire-header">
-                <span class="wire-location">SIAU ISLANDS, INDONESIA</span>
-                <span class="wire-timestamp">Recent</span>
-            </div>
-            <h2 class="wire-headline">
-                Flash floods kill at least 14 in North Sulawesi; Afghanistan death toll reaches 17
-                <span class="expand-indicator">►</span>
-            </h2>
-            <p class="wire-lede">
-                Seasonal rains and snowmelt trigger deadly flooding across Asia-Pacific. Indonesian disaster in Siau Tagulandang Biaro Islands Regency; separate Afghan floods claim lives amid harsh winter conditions.
-            </p>
-            <div class="wire-expand">
-                <div class="wire-body">
-                    <p>Heavy seasonal precipitation caused multiple flash flood events across Indonesia and Afghanistan in early January. North Sulawesi's Siau Islands experienced sudden flooding that caught residents with minimal warning. Afghanistan's floods included snowmelt component as winter weather fluctuated.</p>
-                    <ul class="wire-bullets">
-                        <li>14+ killed in Siau Tagulandang Biaro Islands Regency, North Sulawesi</li>
-                        <li>17 dead, 11 injured in Afghanistan flash floods caused by heavy rains and snowfall</li>
-                        <li>Both incidents reflect ongoing climate vulnerability in mountainous regions</li>
-                        <li>Indonesian disaster management agencies conducting evacuations</li>
-                        <li>Afghan floods compound humanitarian challenges in winter season</li>
-                    </ul>
-                    <div class="wire-sources">
-                        Sources: Reuters, Associated Press, Wikipedia
-                    </div>
-                </div>
-            </div>
-        </article>
-
-        <div class="ascii-divider">
-            ═══════════════════════════════════════════════════════════════════════════════
-        </div>
-
-    </main>
-
-    <footer>
-        <div class="design-note">
-            <strong>Today's design rationale:</strong> Emergency bulletin / crisis wire service<br><br>
-            Three crises dominate: Iranian protests entering critical phase (116+ dead, internet blackout, death penalty threats), tech ethics emergency (Indonesia's Grok ban over AI-generated child pornography), and tragedy cascade (Colombian musician's fatal crash, Philippine landfill collapse burying 50 workers). One year since LA fires adds retrospective weight. Macclesfield's FA Cup shock provides sole bright note—117-place underdog defeating champions in competition's biggest upset.<br><br>
-            Format reflects urgency: stark monospace typography, red alert markers, wire service datelines, priority flags for breaking developments. High information density mirrors crisis management briefings. Black/red/white palette evokes emergency communications. No decorative elements—pure function for rapid intelligence processing.
-        </div>
-
-        <p style="margin-top: 30px; text-align: center; font-size: 10px; opacity: 0.5;">
-            news.sys / 11.01.26 / compiled: 18:30 UTC / sources: verified wire services, press agencies, official statements
-        </p>
-    </footer>
 
     <script>
-        document.querySelectorAll('.wire-item').forEach(item => {
-            item.addEventListener('click', function() {
-                this.classList.toggle('expanded');
-                const isExpanded = this.classList.contains('expanded');
-                this.setAttribute('aria-expanded', isExpanded);
-            });
+        function toggleExpand(element) {
+            element.classList.toggle('expanded');
+        }
 
-            item.addEventListener('keydown', function(e) {
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            const items = document.querySelectorAll('.news-item');
+            const currentFocus = document.activeElement;
+            
+            if (e.key === 'Enter' && currentFocus.classList.contains('news-item')) {
+                toggleExpand(currentFocus);
+            }
+        });
+
+        // Make news items focusable for keyboard navigation
+        document.querySelectorAll('.news-item').forEach(item => {
+            item.setAttribute('tabindex', '0');
+            item.setAttribute('role', 'button');
+            item.setAttribute('aria-expanded', 'false');
+            
+            item.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    this.click();
+                    toggleExpand(this);
+                    this.setAttribute('aria-expanded', 
+                        this.classList.contains('expanded') ? 'true' : 'false');
                 }
             });
         });
