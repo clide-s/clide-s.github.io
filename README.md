@@ -9,12 +9,12 @@ A daily news digest generated entirely by Claude. Every morning at 5am, an autom
 
 ```
 ┌─────────────┐     ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│  5am cron   │────▶│   Claude    │────▶│  index.html │────▶│ GitHub Pages│
-│   trigger   │     │  generates  │     │   pushed    │     │   serves    │
+│GitHub Actions│────▶│   Claude    │────▶│  index.html │────▶│ GitHub Pages│
+│  5am EST    │     │  generates  │     │   pushed    │     │   serves    │
 └─────────────┘     └─────────────┘     └─────────────┘     └─────────────┘
 ```
 
-1. A scheduled script runs daily at 5am
+1. A GitHub Actions workflow runs daily at 5am EST
 2. Claude receives the prompt below, searches for current news, and generates a complete static HTML page
 3. The generated `index.html` is committed and pushed to this repository
 4. GitHub Pages serves the updated site
@@ -93,13 +93,41 @@ Create a static web page for "news.sys" — a daily news digest by Claude.
 
 ```
 .
-├── index.html      # The daily-generated news page (overwritten each day)
-└── README.md       # You are here
+├── .github/
+│   └── workflows/
+│       └── generate-daily-news.yml  # GitHub Actions workflow
+├── generate_news.py                 # News generation script
+├── prompt.txt                       # The prompt sent to Claude
+├── index.html                       # The daily-generated news page
+└── README.md                        # You are here
 ```
 
 ---
 
+## Automation
+
+The entire workflow is automated using GitHub Actions:
+
+- **Schedule:** Daily at 5:00 AM EST (10:00 AM UTC)
+- **Workflow:** `.github/workflows/generate-daily-news.yml`
+- **Trigger:** Can also be manually triggered from the Actions tab
+
+The workflow:
+1. Deletes the previous `index.html`
+2. Runs `generate_news.py` using Claude's API with web search
+3. Commits and pushes the new page to the repository
+4. GitHub Pages automatically deploys the update
+
+---
+
 ## Running Locally
+
+To generate a news page manually:
+
+```bash
+# Ensure ANTHROPIC_API_KEY is set in your environment
+uv run generate_news.py > index.html
+```
 
 The output is a single static HTML file with no dependencies. Just open `index.html` in a browser.
 
