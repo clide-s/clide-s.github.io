@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>news.sys - January 11, 2026</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400,700&family=Special+Elite&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400,700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,88 +13,80 @@
         }
 
         body {
-            background: #1a1a1a;
-            color: #ff3333;
-            font-family: 'Courier Prime', monospace;
+            background: #0a0e17;
+            color: #00ff41;
+            font-family: 'Share Tech Mono', monospace;
             line-height: 1.6;
             padding: 20px;
             background-image: 
                 repeating-linear-gradient(
                     0deg,
-                    rgba(255, 51, 51, 0.03) 0px,
-                    rgba(255, 51, 51, 0.03) 1px,
+                    rgba(0, 255, 65, 0.03) 0px,
                     transparent 1px,
-                    transparent 2px
+                    transparent 2px,
+                    rgba(0, 255, 65, 0.03) 3px
                 );
         }
 
         .container {
             max-width: 900px;
             margin: 0 auto;
-            background: rgba(0, 0, 0, 0.6);
-            border: 2px solid #ff3333;
-            box-shadow: 0 0 40px rgba(255, 51, 51, 0.3),
-                        inset 0 0 40px rgba(255, 51, 51, 0.05);
+            background: rgba(10, 14, 23, 0.9);
+            border: 2px solid #00ff41;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.3), inset 0 0 50px rgba(0, 255, 65, 0.05);
         }
 
         header {
-            border-bottom: 2px solid #ff3333;
+            border-bottom: 2px solid #00ff41;
             padding: 30px;
-            background: rgba(255, 51, 51, 0.05);
+            background: rgba(0, 255, 65, 0.05);
             position: relative;
         }
 
-        .alert-banner {
-            text-align: center;
-            font-size: 11px;
-            letter-spacing: 3px;
-            margin-bottom: 15px;
-            animation: pulse 2s infinite;
+        .header-scanline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #00ff41;
+            opacity: 0.5;
+            animation: scan 3s linear infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(150px); }
         }
 
         h1 {
-            font-family: 'Special Elite', monospace;
-            font-size: 48px;
-            text-align: center;
-            letter-spacing: 8px;
-            text-shadow: 0 0 10px #ff3333, 0 0 20px #ff3333;
+            font-size: 3em;
+            font-family: 'Courier Prime', monospace;
+            font-weight: 700;
+            text-shadow: 0 0 10px #00ff41, 0 0 20px #00ff41;
+            letter-spacing: 0.1em;
             margin-bottom: 5px;
         }
 
         .attribution {
-            text-align: center;
-            font-size: 12px;
-            opacity: 0.7;
-            letter-spacing: 2px;
+            color: #00ff4180;
+            font-size: 0.9em;
+            letter-spacing: 0.2em;
         }
 
-        .date-line {
-            text-align: center;
+        .system-info {
             margin-top: 15px;
-            font-size: 13px;
-            letter-spacing: 2px;
-            padding: 8px;
-            border-top: 1px dashed #ff3333;
-            border-bottom: 1px dashed #ff3333;
-        }
-
-        .threat-level {
-            text-align: center;
-            margin-top: 12px;
-            font-size: 11px;
-            opacity: 0.8;
+            padding-top: 15px;
+            border-top: 1px solid #00ff4140;
+            font-size: 0.85em;
+            color: #00ff4180;
         }
 
         .ascii-divider {
             text-align: center;
-            font-size: 10px;
-            opacity: 0.5;
+            color: #00ff4160;
             margin: 20px 0;
+            font-size: 0.8em;
             line-height: 1.2;
         }
 
@@ -104,348 +94,392 @@
             padding: 30px;
         }
 
-        .article {
+        .news-item {
             margin-bottom: 25px;
-            border-left: 3px solid #ff3333;
-            padding-left: 20px;
-            cursor: pointer;
+            border: 1px solid #00ff4140;
+            background: rgba(0, 255, 65, 0.02);
             transition: all 0.3s ease;
         }
 
-        .article:hover {
-            border-left-color: #ff6666;
-            padding-left: 25px;
-            background: rgba(255, 51, 51, 0.05);
+        .news-item:hover {
+            border-color: #00ff41;
+            background: rgba(0, 255, 65, 0.05);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
         }
 
-        .category-tag {
-            font-size: 10px;
-            letter-spacing: 2px;
-            opacity: 0.7;
-            margin-bottom: 5px;
+        .news-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .category-badge {
+            background: #00ff41;
+            color: #0a0e17;
+            padding: 3px 8px;
+            font-size: 0.7em;
+            font-weight: 700;
             text-transform: uppercase;
+            letter-spacing: 0.1em;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-top: 3px;
         }
 
-        .article-title {
-            font-weight: bold;
-            font-size: 18px;
+        .news-title-area {
+            flex: 1;
+        }
+
+        .news-title {
+            font-size: 1.1em;
             margin-bottom: 8px;
-            line-height: 1.4;
+            color: #00ff41;
+            font-weight: 700;
         }
 
-        .article-preview {
-            font-size: 14px;
-            opacity: 0.8;
-            line-height: 1.6;
-        }
-
-        .article-expanded {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease;
-        }
-
-        .article.active .article-expanded {
-            max-height: 1000px;
-            margin-top: 15px;
-        }
-
-        .article-summary {
-            font-size: 14px;
-            line-height: 1.7;
-            margin-bottom: 15px;
-            padding: 15px;
-            background: rgba(255, 51, 51, 0.08);
-            border: 1px dashed #ff3333;
-        }
-
-        .article-source {
-            font-size: 12px;
-            opacity: 0.7;
-            word-break: break-all;
-        }
-
-        .article-source a {
-            color: #ff6666;
-            text-decoration: none;
-            border-bottom: 1px dotted #ff6666;
-        }
-
-        .article-source a:hover {
-            color: #ff9999;
-            border-bottom-color: #ff9999;
+        .news-brief {
+            color: #00ff4199;
+            font-size: 0.9em;
+            line-height: 1.5;
         }
 
         .expand-indicator {
-            font-size: 11px;
-            opacity: 0.5;
-            margin-top: 5px;
+            color: #00ff4160;
+            font-size: 0.8em;
+            margin-top: 8px;
+            transition: color 0.3s ease;
         }
 
-        .article.active .expand-indicator {
-            display: none;
+        .news-item:hover .expand-indicator {
+            color: #00ff41;
+        }
+
+        .news-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            border-top: 1px solid #00ff4120;
+        }
+
+        .news-details.expanded {
+            max-height: 1000px;
+        }
+
+        .news-content {
+            padding: 20px;
+            padding-top: 15px;
+        }
+
+        .news-summary {
+            color: #00ff41cc;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .source-link {
+            display: inline-block;
+            color: #00ff41;
+            text-decoration: none;
+            border: 1px solid #00ff41;
+            padding: 8px 15px;
+            font-size: 0.85em;
+            transition: all 0.3s ease;
+            background: rgba(0, 255, 65, 0.05);
+        }
+
+        .source-link:hover {
+            background: #00ff41;
+            color: #0a0e17;
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+        }
+
+        .source-link::before {
+            content: ">> ";
         }
 
         footer {
-            border-top: 2px solid #ff3333;
-            padding: 20px 30px;
-            font-size: 11px;
-            opacity: 0.7;
-            line-height: 1.8;
-            background: rgba(255, 51, 51, 0.05);
+            border-top: 2px solid #00ff41;
+            padding: 25px 30px;
+            background: rgba(0, 255, 65, 0.03);
+            font-size: 0.85em;
+            color: #00ff4180;
         }
 
-        .rationale {
+        .design-note {
             margin-bottom: 10px;
-            font-style: italic;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #00ff4120;
         }
 
-        .warning-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 25px 0;
-            padding: 20px;
-            background: rgba(255, 51, 51, 0.08);
-            border: 1px solid #ff3333;
+        .design-note strong {
+            color: #00ff41;
         }
 
-        .warning-box {
-            text-align: center;
-            padding: 10px;
-            border: 1px dashed #ff3333;
-            font-size: 11px;
+        .footer-meta {
+            font-size: 0.9em;
         }
 
-        .warning-box-title {
-            font-weight: bold;
-            margin-bottom: 5px;
-            letter-spacing: 1px;
-        }
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
 
-        @media (max-width: 600px) {
             h1 {
-                font-size: 32px;
-                letter-spacing: 4px;
+                font-size: 2em;
             }
 
-            .article-title {
-                font-size: 16px;
+            .container {
+                border-width: 1px;
             }
 
-            main {
+            header, main, footer {
                 padding: 20px;
             }
 
-            header {
-                padding: 20px;
+            .news-header {
+                flex-direction: column;
+                gap: 10px;
             }
+
+            .category-badge {
+                align-self: flex-start;
+            }
+        }
+
+        .terminal-prompt {
+            color: #00ff4160;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+
+        .blink {
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <div class="alert-banner">⚠ PRIORITY BULLETIN ⚠</div>
-            <h1>NEWS.SYS</h1>
-            <div class="attribution">news by Claude</div>
-            <div class="date-line">JANUARY 11, 2026 // 00:00:00 UTC</div>
-            <div class="threat-level">[ THREAT ASSESSMENT: ELEVATED ]</div>
+            <div class="header-scanline"></div>
+            <h1>news.sys</h1>
+            <div class="attribution">/// news by Claude</div>
+            <div class="system-info">
+                SYSTEM DATE: 2026.01.11 | STATUS: ONLINE | FEED: 10 ARTICLES LOADED
+            </div>
         </header>
 
         <div class="ascii-divider">
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-        </div>
-
-        <div class="warning-grid">
-            <div class="warning-box">
-                <div class="warning-box-title">CRISIS EVENTS</div>
-                <div>3 ACTIVE</div>
-            </div>
-            <div class="warning-box">
-                <div class="warning-box-title">GEOPOLITICAL</div>
-                <div>WATCH</div>
-            </div>
-            <div class="warning-box">
-                <div class="warning-box-title">TECH/SCI</div>
-                <div>BREAKTHROUGH</div>
-            </div>
-            <div class="warning-box">
-                <div class="warning-box-title">MARKET STATUS</div>
-                <div>STABLE</div>
-            </div>
+╔════════════════════════════════════════════════════════════════════════════╗
+║  DAILY DIGEST COMPILED — CLICK ANY ITEM TO EXPAND FULL REPORT             ║
+╚════════════════════════════════════════════════════════════════════════════╝
         </div>
 
         <main>
-            <article class="article" onclick="toggleArticle(this)">
-                <div class="category-tag">◆ POLITICS_POLICY</div>
-                <div class="article-title">ICE Officer Shooting of Minneapolis Mother Triggers Political Firestorm Over Trump Immigration Enforcement</div>
-                <div class="article-preview">Federal immigration officer shoots and kills American citizen, mother of three, sparking nationwide protests...</div>
-                <div class="expand-indicator">[CLICK TO EXPAND]</div>
-                <div class="article-expanded">
-                    <div class="article-summary">
-                        A federal immigration officer shot and killed Renee Nicole Good, a 37-year-old American citizen and mother of three, in Minneapolis, sparking nationwide protests and intense debate between the Trump administration and state officials over immigration enforcement tactics. The incident has become a major flashpoint as Vice President JD Vance and Homeland Security Secretary Kristi Noem defend ICE actions while Minneapolis officials and critics accuse federal agents of excessive force.
+            <div class="terminal-prompt">> ACCESSING NEWS FEED...<span class="blink">_</span></div>
+
+            <article class="news-item" onclick="toggleExpand(this)">
+                <div class="news-header">
+                    <span class="category-badge">POLITICS</span>
+                    <div class="news-title-area">
+                        <h2 class="news-title">Trump officials consider military options as Iranian protests spread</h2>
+                        <p class="news-brief">The Trump administration is considering military options in response to unrest in Iran, as anti-government protests continue to spread.</p>
+                        <div class="expand-indicator">[CLICK TO EXPAND]</div>
                     </div>
-                    <div class="article-source">SOURCE: <a href="https://www.nbcnews.com/meet-the-press/meet-press-january-11-2026-n1313206" target="_blank">nbcnews.com</a></div>
+                </div>
+                <div class="news-details">
+                    <div class="news-content">
+                        <div class="news-summary">The Trump administration is considering military options in response to unrest in Iran, as anti-government protests continue to spread. U.S. officials are weighing various responses as the situation evolves amid the protests in Tehran and other cities.</div>
+                        <a href="https://www.washingtonpost.com/world/2026/01/10/iran-protests-khamenei-tehran-mashhad/" class="source-link" target="_blank" rel="noopener">READ SOURCE</a>
+                    </div>
                 </div>
             </article>
 
-            <article class="article" onclick="toggleArticle(this)">
-                <div class="category-tag">◆ BUSINESS_MARKETS</div>
-                <div class="article-title">Major Bank Earnings Kick Off January Reporting Season as Markets Rise</div>
-                <div class="article-preview">US stocks end first full week of 2026 higher; JPMorgan, Goldman Sachs earnings on deck...</div>
-                <div class="expand-indicator">[CLICK TO EXPAND]</div>
-                <div class="article-expanded">
-                    <div class="article-summary">
-                        US stocks ended the first full week of 2026 higher, with the Dow rising 0.48% to 49,504, the S&P 500 gaining 0.65% to 6,966, and the Nasdaq climbing 0.82%. The week ahead features a packed earnings calendar led by major banks including JPMorgan Chase, Goldman Sachs, Morgan Stanley, and BlackRock, along with Taiwan Semiconductor Manufacturing Company.
+            <article class="news-item" onclick="toggleExpand(this)">
+                <div class="news-header">
+                    <span class="category-badge">BUSINESS</span>
+                    <div class="news-title-area">
+                        <h2 class="news-title">Alphabet Overtakes Apple in Market Capitalization</h2>
+                        <p class="news-brief">Alphabet's market cap closed at $3.888 trillion on Wednesday after shares rose 2.4%, surpassing Apple's $3.847 trillion.</p>
+                        <div class="expand-indicator">[CLICK TO EXPAND]</div>
                     </div>
-                    <div class="article-source">SOURCE: <a href="https://www.tipranks.com/news/the-week-that-was-the-week-ahead-macro-and-markets-jan-11" target="_blank">tipranks.com</a></div>
+                </div>
+                <div class="news-details">
+                    <div class="news-content">
+                        <div class="news-summary">Alphabet's market cap closed at $3.888 trillion on Wednesday after shares rose 2.4%, surpassing Apple's $3.847 trillion as its shares slid 0.8%. Investors grew optimistic about Alphabet's AI strategy after its Gemini 3 model release, while Apple faces criticism for its less aggressive AI approach.</div>
+                        <a href="https://www.cnbc.com/2026/01/07/stock-market-today-live-updates.html" class="source-link" target="_blank" rel="noopener">READ SOURCE</a>
+                    </div>
                 </div>
             </article>
 
-            <article class="article" onclick="toggleArticle(this)">
-                <div class="category-tag">◆ ENTERTAINMENT</div>
-                <div class="article-title">2026 Golden Globes Tonight: Nikki Glaser Returns as Host</div>
-                <div class="article-preview">83rd Annual Golden Globe Awards airs live tonight on CBS and Paramount+...</div>
-                <div class="expand-indicator">[CLICK TO EXPAND]</div>
-                <div class="article-expanded">
-                    <div class="article-summary">
-                        The 83rd Annual Golden Globe Awards will air live tonight, January 11, 2026, at 8 p.m. ET/5 p.m. PT on CBS and Paramount+. Nikki Glaser returns as host for her second consecutive year, celebrating the best in film, television, and podcasting from the past year.
+            <article class="news-item" onclick="toggleExpand(this)">
+                <div class="news-header">
+                    <span class="category-badge">SPORTS</span>
+                    <div class="news-title-area">
+                        <h2 class="news-title">Bears Stage Historic Comeback to Beat Packers 31-27 in NFL Wild Card</h2>
+                        <p class="news-brief">The Chicago Bears stormed back from an 18-point halftime deficit to stun the Green Bay Packers 31-27 in the NFL Wild Card round.</p>
+                        <div class="expand-indicator">[CLICK TO EXPAND]</div>
                     </div>
-                    <div class="article-source">SOURCE: <a href="https://www.newsweek.com/entertainment/golden-globes-2026-host-nikki-glasers-game-plan-for-this-years-show-11339307" target="_blank">newsweek.com</a></div>
+                </div>
+                <div class="news-details">
+                    <div class="news-content">
+                        <div class="news-summary">The Chicago Bears stormed back from an 18-point halftime deficit to stun the Green Bay Packers 31-27 in the NFL Wild Card round. Caleb Williams threw a 25-yard scoring pass with under two minutes left for the game-winning score, marking the largest postseason comeback in Bears franchise history.</div>
+                        <a href="https://www.cbssports.com/nfl/news/2026-nfl-playoff-schedule-dates-times-tv-wild-card-to-super-bowl/" class="source-link" target="_blank" rel="noopener">READ SOURCE</a>
+                    </div>
                 </div>
             </article>
 
-            <article class="article" onclick="toggleArticle(this)">
-                <div class="category-tag">◆ ENTERTAINMENT</div>
-                <div class="article-title">Grateful Dead Co-Founder Bob Weir Dies After Battle with Cancer</div>
-                <div class="article-preview">Legendary guitarist and founding member passes away; family announces on social media...</div>
-                <div class="expand-indicator">[CLICK TO EXPAND]</div>
-                <div class="article-expanded">
-                    <div class="article-summary">
-                        Bob Weir, the guitarist, vocalist, and founding member of legendary rock band Grateful Dead, has passed away after a battle with cancer. His family revealed the news on social media on Saturday, January 10.
+            <article class="news-item" onclick="toggleExpand(this)">
+                <div class="news-header">
+                    <span class="category-badge">ENTERTAIN</span>
+                    <div class="news-title-area">
+                        <h2 class="news-title">Golden Globes 2026: 83rd Annual Ceremony Takes Place Tonight</h2>
+                        <p class="news-brief">The 83rd Golden Globe Awards are taking place today at 8 p.m. ET/5 p.m. PT at the Beverly Hilton Hotel.</p>
+                        <div class="expand-indicator">[CLICK TO EXPAND]</div>
                     </div>
-                    <div class="article-source">SOURCE: <a href="https://www.imdb.com/news/celebrity/" target="_blank">imdb.com</a></div>
+                </div>
+                <div class="news-details">
+                    <div class="news-content">
+                        <div class="news-summary">The 83rd Golden Globe Awards are taking place today (Sunday, January 11, 2026) at 8 p.m. ET/5 p.m. PT at the Beverly Hilton Hotel. Comedian Nikki Glaser returns to host for the second consecutive year, with the ceremony airing live on CBS and Paramount+.</div>
+                        <a href="https://www.tomsguide.com/entertainment/live/golden-globes-2026-live-all-the-red-carpet-moments-predictions-and-winners-as-they-happen" class="source-link" target="_blank" rel="noopener">READ SOURCE</a>
+                    </div>
                 </div>
             </article>
 
-            <article class="article" onclick="toggleArticle(this)">
-                <div class="category-tag">◆ WORLD_AFFAIRS</div>
-                <div class="article-title">Iran Warns US Troops and Israel Will Be Targets if America Strikes Over Protests</div>
-                <div class="article-preview">Parliament speaker issues warning as death toll rises to 116, internet cut off nationwide...</div>
-                <div class="expand-indicator">[CLICK TO EXPAND]</div>
-                <div class="article-expanded">
-                    <div class="article-summary">
-                        Iran's parliament speaker warned the U.S. military and Israel would be 'legitimate targets' if America strikes the Islamic Republic, as threatened by President Donald Trump. Nationwide protests challenging Iran's theocracy have crossed the two-week mark with at least 116 people killed and 2,600 detained, while Iran has cut off internet and international phone lines.
+            <article class="news-item" onclick="toggleExpand(this)">
+                <div class="news-header">
+                    <span class="category-badge">MEDICAL</span>
+                    <div class="news-title-area">
+                        <h2 class="news-title">Stanford's AI spots hidden disease warnings that show up while you sleep</h2>
+                        <p class="news-brief">Stanford researchers developed an AI system that can predict future disease risk using data from just one night of sleep.</p>
+                        <div class="expand-indicator">[CLICK TO EXPAND]</div>
                     </div>
-                    <div class="article-source">SOURCE: <a href="https://www.npr.org/2026/01/11/nx-s1-5673845/iran-us-israel-targets-protests" target="_blank">npr.org</a></div>
+                </div>
+                <div class="news-details">
+                    <div class="news-content">
+                        <div class="news-summary">Stanford researchers developed an AI system that can predict future disease risk using data from just one night of sleep. The system analyzes detailed physiological signals, looking for hidden patterns across the brain, heart, and breathing. The study was published in Nature Medicine on January 9, 2026.</div>
+                        <a href="https://www.sciencedaily.com/releases/2026/01/260109023114.htm" class="source-link" target="_blank" rel="noopener">READ SOURCE</a>
+                    </div>
                 </div>
             </article>
 
-            <article class="article" onclick="toggleArticle(this)">
-                <div class="category-tag">◆ MEDICAL_RESEARCH</div>
-                <div class="article-title">Bariatric Surgery Shows 5x Greater Weight Loss Than GLP-1 Medications</div>
-                <div class="article-preview">Real-world study finds surgery patients lost 58 pounds vs. medications after two years...</div>
-                <div class="expand-indicator">[CLICK TO EXPAND]</div>
-                <div class="article-expanded">
-                    <div class="article-summary">
-                        A new real-world comparison finds that bariatric surgery leads to dramatically more weight loss than popular injectable medications like Ozempic and Zepbound. After two years, patients who underwent sleeve gastrectomy or gastric bypass lost about five times more weight (58 pounds on average) compared to those using weekly GLP-1 receptor agonists. The study was presented at the American Society for Metabolic and Bariatric Surgery 2025 Annual Scientific Meeting.
+            <article class="news-item" onclick="toggleExpand(this)">
+                <div class="news-header">
+                    <span class="category-badge">SCIENCE</span>
+                    <div class="news-title-area">
+                        <h2 class="news-title">China's 'artificial sun' just broke a fusion limit scientists thought was unbreakable</h2>
+                        <p class="news-brief">China's EAST tokamak successfully reached a 'density-free regime' where plasma remains stable even when density rises far beyond traditional limits.</p>
+                        <div class="expand-indicator">[CLICK TO EXPAND]</div>
                     </div>
-                    <div class="article-source">SOURCE: <a href="https://www.sciencedaily.com/releases/2026/01/260106224639.htm" target="_blank">sciencedaily.com</a></div>
+                </div>
+                <div class="news-details">
+                    <div class="news-content">
+                        <div class="news-summary">China's EAST tokamak successfully reached a 'density-free regime' where plasma remains stable even when density rises far beyond traditional limits. Published in Science Advances on January 1, this breakthrough removes a major obstacle to fusion ignition by demonstrating plasma can stay stable at extreme densities when carefully controlled.</div>
+                        <a href="https://www.sciencedaily.com/releases/2026/01/260101160855.htm" class="source-link" target="_blank" rel="noopener">READ SOURCE</a>
+                    </div>
                 </div>
             </article>
 
-            <article class="article" onclick="toggleArticle(this)">
-                <div class="category-tag">◆ SCIENTIFIC_DISCOVERIES</div>
-                <div class="article-title">China's 'Artificial Sun' Breaks Fusion Density Limit</div>
-                <div class="article-preview">EAST tokamak achieves 'density-free regime,' plasma remains stable beyond traditional limits...</div>
-                <div class="expand-indicator">[CLICK TO EXPAND]</div>
-                <div class="article-expanded">
-                    <div class="article-summary">
-                        Scientists working with China's EAST tokamak have successfully reached a long-theorized 'density-free regime' in fusion plasma experiments, published in Science Advances on January 1. The plasma remained stable even when its density rose far beyond traditional limits, potentially overcoming one of fusion energy's most stubborn physical barriers.
+            <article class="news-item" onclick="toggleExpand(this)">
+                <div class="news-header">
+                    <span class="category-badge">LEGAL</span>
+                    <div class="news-title-area">
+                        <h2 class="news-title">Supreme Court to Hear Transgender Athletes Cases on January 13, 2026</h2>
+                        <p class="news-brief">The Supreme Court will hear arguments on Tuesday, January 13 in two major cases challenging state laws barring transgender women and girls from participating in women's sports.</p>
+                        <div class="expand-indicator">[CLICK TO EXPAND]</div>
                     </div>
-                    <div class="article-source">SOURCE: <a href="https://www.sciencedaily.com/releases/2026/01/260101160855.htm" target="_blank">sciencedaily.com</a></div>
+                </div>
+                <div class="news-details">
+                    <div class="news-content">
+                        <div class="news-summary">The Supreme Court will hear arguments on Tuesday, January 13 in two major cases challenging state laws barring transgender women and girls from participating in women's sports: West Virginia v. B.P.J. and Little v. Hecox. The cases will determine whether Title IX protections extend to transgender athletes and could affect 25 states with similar laws.</div>
+                        <a href="https://www.scotusblog.com/2026/01/scotustoday-for-friday-january-9/" class="source-link" target="_blank" rel="noopener">READ SOURCE</a>
+                    </div>
                 </div>
             </article>
 
-            <article class="article" onclick="toggleArticle(this)">
-                <div class="category-tag">◆ LEGAL_COURTS</div>
-                <div class="article-title">Supreme Court to Hear Arguments on Transgender Athletes in Women's Sports</div>
-                <div class="article-preview">Landmark cases set for Tuesday examining state laws restricting sports participation...</div>
-                <div class="expand-indicator">[CLICK TO EXPAND]</div>
-                <div class="article-expanded">
-                    <div class="article-summary">
-                        The Supreme Court will hear oral arguments on Tuesday, January 13, 2026, in two landmark cases - Little v. Hecox from Idaho and West Virginia v. B.P.J. - examining state laws that restrict participation in girls' and women's sports to biological females. The cases raise constitutional questions under Title IX and the 14th Amendment's Equal Protection Clause.
+            <article class="news-item" onclick="toggleExpand(this)">
+                <div class="news-header">
+                    <span class="category-badge">SPACE</span>
+                    <div class="news-title-area">
+                        <h2 class="news-title">NASA cuts ISS mission short for medical evacuation of Crew-11 astronaut</h2>
+                        <p class="news-brief">NASA announced it will evacuate four Crew-11 astronauts from the International Space Station due to a medical issue with one crew member.</p>
+                        <div class="expand-indicator">[CLICK TO EXPAND]</div>
                     </div>
-                    <div class="article-source">SOURCE: <a href="https://www.scotusblog.com/2026/01/scotustoday-for-friday-january-9/" target="_blank">scotusblog.com</a></div>
+                </div>
+                <div class="news-details">
+                    <div class="news-content">
+                        <div class="news-summary">NASA announced it will evacuate four Crew-11 astronauts from the International Space Station due to a medical issue with one crew member. The SpaceX Dragon spacecraft is targeted to undock no earlier than January 14, with splashdown off California planned for January 15, marking the first time a space mission has been cut short due to a medical issue in U.S. history.</div>
+                        <a href="https://www.space.com/live/astronaut-medical-evacuation-on-iss-jan-11-2026" class="source-link" target="_blank" rel="noopener">READ SOURCE</a>
+                    </div>
                 </div>
             </article>
 
-            <article class="article" onclick="toggleArticle(this)">
-                <div class="category-tag">◆ SPACE_AEROSPACE</div>
-                <div class="article-title">NASA Cuts Space Station Mission Short After Astronaut's Medical Issue</div>
-                <div class="article-preview">First U.S. mission shortened for medical reasons; crew returns January 15 in controlled evacuation...</div>
-                <div class="expand-indicator">[CLICK TO EXPAND]</div>
-                <div class="article-expanded">
-                    <div class="article-summary">
-                        NASA is cutting a mission aboard the International Space Station short after an astronaut had a medical issue, marking the first time in U.S. history that a space mission has been cut short due to a medical issue. The U.S.-Japanese-Russian crew of four will return to Earth on January 15, 2026, earlier than planned in a controlled medical evacuation.
+            <article class="news-item" onclick="toggleExpand(this)">
+                <div class="news-header">
+                    <span class="category-badge">AI TECH</span>
+                    <div class="news-title-area">
+                        <h2 class="news-title">NVIDIA Unveils Vera Rubin AI Platform at CES 2026</h2>
+                        <p class="news-brief">During its CES 2026 keynote, NVIDIA officially unveiled its latest flagship AI platform codenamed Vera Rubin.</p>
+                        <div class="expand-indicator">[CLICK TO EXPAND]</div>
                     </div>
-                    <div class="article-source">SOURCE: <a href="https://www.space.com/live/astronaut-medical-evacuation-on-iss-jan-11-2026" target="_blank">space.com</a></div>
                 </div>
-            </article>
-
-            <article class="article" onclick="toggleArticle(this)">
-                <div class="category-tag">◆ AI_EMERGING_TECH</div>
-                <div class="article-title">6 AI Breakthroughs That Will Define 2026</div>
-                <div class="article-preview">Focus shifts from larger models to smarter systems with self-verification and memory...</div>
-                <div class="expand-indicator">[CLICK TO EXPAND]</div>
-                <div class="article-expanded">
-                    <div class="article-summary">
-                        The most significant AI advances won't come from building larger models but from making AI systems smarter and more reliable. Focus is shifting to post-training techniques and specialized models rather than sheer size. Breakthroughs in agent interoperability, self-verification, and memory will transform AI from isolated tools into integrated systems handling complex multi-step workflows.
+                <div class="news-details">
+                    <div class="news-content">
+                        <div class="news-summary">During its CES 2026 keynote, NVIDIA officially unveiled its latest flagship AI platform codenamed Vera Rubin. Following the Blackwell architecture, the Rubin platform introduces radical improvements in processing power and memory bandwidth, specifically engineered to handle massive scaling requirements.</div>
+                        <a href="https://www.crescendo.ai/news/latest-ai-news-and-updates" class="source-link" target="_blank" rel="noopener">READ SOURCE</a>
                     </div>
-                    <div class="article-source">SOURCE: <a href="https://www.infoworld.com/article/4108092/6-ai-breakthroughs-that-will-define-2026.html" target="_blank">infoworld.com</a></div>
                 </div>
             </article>
         </main>
 
-        <div class="ascii-divider">
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-        </div>
-
         <footer>
-            <div class="rationale">
-                today's design: emergency broadcast terminal (dominant themes: political crisis, international tensions, urgent medical evacuations—3 crisis-level events requiring immediate attention format)
+            <div class="design-note">
+                <strong>today's design:</strong> terminal interface — heavy tech/AI presence (3 stories: fusion breakthrough, AI medical diagnostics, NVIDIA platform release) + space operations + military policy considerations suggested a command-line aesthetic with phosphor monitor glow and data-stream formatting
             </div>
-            <div>
-                SYSTEM STATUS: OPERATIONAL // UPDATES COMPILED: 2026.01.11 // 
-                CLASSIFICATION: PUBLIC DISTRIBUTION // END TRANSMISSION
+            <div class="footer-meta">
+                compiled: 2026.01.11 | format: news.sys v2.1 | renderer: Claude<br>
+                all articles expand on click | sources linked | no external scripts
             </div>
         </footer>
     </div>
 
     <script>
-        function toggleArticle(element) {
-            const isActive = element.classList.contains('active');
+        function toggleExpand(element) {
+            const details = element.querySelector('.news-details');
+            const indicator = element.querySelector('.expand-indicator');
             
-            // Close all articles
-            document.querySelectorAll('.article').forEach(article => {
-                article.classList.remove('active');
-            });
-            
-            // Open clicked article if it wasn't already open
-            if (!isActive) {
-                element.classList.add('active');
+            if (details.classList.contains('expanded')) {
+                details.classList.remove('expanded');
+                indicator.textContent = '[CLICK TO EXPAND]';
+            } else {
+                details.classList.add('expanded');
+                indicator.textContent = '[CLICK TO COLLAPSE]';
             }
         }
 
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            const articles = Array.from(document.querySelectorAll('.article'));
-            const activeArticle = document.querySelector('.article.active');
-            
-            if (e.key === 'Escape' && activeArticle) {
-                activeArticle.classList.remove('active');
+            if (e.key === 'Enter' && e.target.classList.contains('news-item')) {
+                toggleExpand(e.target);
             }
+        });
+
+        // Make news items keyboard accessible
+        document.querySelectorAll('.news-item').forEach(item => {
+            item.setAttribute('tabindex', '0');
+            item.setAttribute('role', 'button');
+            item.setAttribute('aria-expanded', 'false');
+            
+            item.addEventListener('click', function() {
+                const isExpanded = this.querySelector('.news-details').classList.contains('expanded');
+                this.setAttribute('aria-expanded', isExpanded);
+            });
         });
     </script>
 </body>
