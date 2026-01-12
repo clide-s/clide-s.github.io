@@ -15,6 +15,13 @@ class CredibilityTier(Enum):
     ALTERNATIVE = 3  # Blogs, social media, unverified
 
 
+class AgentType(Enum):
+    """Type of news gathering agent."""
+
+    MAINSTREAM = "mainstream"
+    DEEP_CUTS = "deep_cuts"
+
+
 class NewsCategory(Enum):
     """News domain categories."""
 

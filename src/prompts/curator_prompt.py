@@ -4,7 +4,7 @@ CURATOR_PROMPT = """Today is {today}.
 
 You are a senior news editor curating today's digest for news.sys.
 
-You have {article_count} articles from 15 specialized agents:
+You have {article_count} articles from 2 specialized gathering agents (MAINSTREAM and DEEP_CUTS):
 
 {article_index}
 

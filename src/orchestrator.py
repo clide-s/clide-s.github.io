@@ -17,7 +17,7 @@ from src.agents.builder import BuilderAgent
 from src.agents.curator import CuratorAgent
 from src.agents.gatherer import GathererAgent
 from src.config import Config
-from src.models.article import AgentResult, NewsCategory, PipelineState
+from src.models.article import AgentResult, AgentType, PipelineState
 from src.prompts.builder_prompt import get_builder_prompt_template
 from src.prompts.curator_prompt import CURATOR_PROMPT
 from src.prompts.gatherer_prompts import get_gatherer_prompt
@@ -79,21 +79,29 @@ class NewsOrchestrator:
         await asyncio.sleep(wait_seconds)
 
     async def _stage_1_gather(self):
-        """Stage 1: Run 15 gatherer agents in parallel."""
+        """Stage 1: Run 2 specialized gatherer agents in parallel."""
         self.console.print("\n[bold cyan]Stage 1: Gathering News[/bold cyan]")
-        self.console.print("Launching 15 agents in parallel...\n")
+        self.console.print("Launching 2 specialized agents...\n")
 
-        # Create all 15 agents
-        agents = []
-        for category in NewsCategory:
-            prompt = get_gatherer_prompt(category)
-            agent = GathererAgent(
-                client=self.client,
-                category=category,
-                prompt_template=prompt,
-                max_searches=self.config.max_searches_per_agent,
-            )
-            agents.append(agent)
+        # Create MAINSTREAM agent (1 search)
+        mainstream_prompt = get_gatherer_prompt(AgentType.MAINSTREAM)
+        mainstream_agent = GathererAgent(
+            client=self.client,
+            agent_type=AgentType.MAINSTREAM,
+            prompt_template=mainstream_prompt,
+            max_searches=1,
+        )
+
+        # Create DEEP_CUTS agent (5 searches)
+        deep_cuts_prompt = get_gatherer_prompt(AgentType.DEEP_CUTS)
+        deep_cuts_agent = GathererAgent(
+            client=self.client,
+            agent_type=AgentType.DEEP_CUTS,
+            prompt_template=deep_cuts_prompt,
+            max_searches=5,
+        )
+
+        agents = [mainstream_agent, deep_cuts_agent]
 
         # Run all agents in parallel with progress tracking
         with Progress(
@@ -105,7 +113,7 @@ class NewsOrchestrator:
         ) as progress:
 
             task = progress.add_task(
-                "[cyan]Gathering news from 15 agents...", total=len(agents)
+                "[cyan]Gathering news from 2 agents...", total=len(agents)
             )
 
             # Execute all agents
@@ -135,12 +143,13 @@ class NewsOrchestrator:
 
     def _print_stage_1_summary(self):
         """Print summary of gathering stage."""
+        total_agents = len(self.state.agent_results)
         self.console.print("\n[bold]Stage 1 Complete[/bold]")
         self.console.print(f"  Total articles: {self.state.total_articles_gathered}")
         self.console.print(
-            f"  Successful agents: {self.state.successful_agents}/15"
+            f"  Successful agents: {self.state.successful_agents}/{total_agents}"
         )
-        self.console.print(f"  Failed agents: {self.state.failed_agents}/15")
+        self.console.print(f"  Failed agents: {self.state.failed_agents}/{total_agents}")
 
         if self.state.failed_agents > 0:
             self.console.print("\n[yellow]Failed agents:[/yellow]")

@@ -7,6 +7,7 @@ from typing import Optional
 
 from src.agents.base import BaseNewsAgent
 from src.models.article import (
+    AgentType,
     Article,
     AgentResult,
     CredibilityTier,
@@ -21,14 +22,14 @@ class GathererAgent(BaseNewsAgent):
     def __init__(
         self,
         client,
-        category: NewsCategory,
+        agent_type: AgentType,
         prompt_template: str,
         max_searches: int = 5,
     ):
         super().__init__(
-            client, name=f"Gatherer-{category.value}", model="claude-sonnet-4-5-20250929"
+            client, name=f"Gatherer-{agent_type.value}", model="claude-sonnet-4-5-20250929"
         )
-        self.category = category
+        self.agent_type = agent_type
         self.prompt_template = prompt_template
         self.max_searches = max_searches
 
@@ -37,7 +38,8 @@ class GathererAgent(BaseNewsAgent):
         logger = get_logger()
         start_time = time.time()
 
-        result = AgentResult(agent_name=self.name, category=self.category)
+        # Use WORLD as a default category for AgentResult (individual articles have their own categories)
+        result = AgentResult(agent_name=self.name, category=NewsCategory.WORLD)
 
         logger.info(f"\n{'='*60}")
         logger.info(f"Starting {self.name}")
@@ -124,11 +126,19 @@ class GathererAgent(BaseNewsAgent):
             logger.debug(f"{self.name} - JSON parsed successfully, found {len(data.get('articles', []))} articles")
 
             for item in data.get("articles", []):
+                # Parse category from article JSON
+                category_str = item.get("category", "world_affairs")
+                try:
+                    category = NewsCategory(category_str)
+                except ValueError:
+                    logger.warning(f"{self.name} - Unknown category '{category_str}', defaulting to WORLD")
+                    category = NewsCategory.WORLD
+
                 article = Article(
                     title=item["title"],
                     summary=item["summary"],
                     source_url=item["source_url"],
-                    category=self.category,
+                    category=category,
                     credibility_tier=CredibilityTier(item.get("credibility_tier", 3)),
                     published_date=self._parse_date(item.get("published_date")),
                     gathered_by_agent=self.name,

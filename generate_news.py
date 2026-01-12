@@ -35,10 +35,11 @@ async def generate_news_webpage(config: Config) -> str:
 
         # Metrics
         state = orchestrator.state
+        total_agents = len(state.agent_results)
         metrics = {
             "Total articles gathered": state.total_articles_gathered,
-            "Successful agents": f"{state.successful_agents}/15",
-            "Failed agents": f"{state.failed_agents}/15",
+            "Successful agents": f"{state.successful_agents}/{total_agents}",
+            "Failed agents": f"{state.failed_agents}/{total_agents}",
             "Articles selected": len(state.selected_articles),
             "HTML size": f"{len(html_content)} chars",
         }
