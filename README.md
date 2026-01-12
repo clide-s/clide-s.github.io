@@ -1,6 +1,6 @@
 # news.sys
 
-A daily news digest generated entirely by Claude. Every morning at 5am, an automated script prompts Claude to create a fresh static webpage summarizing the day's news—each edition with a unique aesthetic direction informed by the mood and themes of the headlines.
+A daily news digest generated entirely by Claude. Every morning at 5am, an automated script prompts Claude to create a fresh static webpage summarizing the day's news—each edition with a unique aesthetic direction informed by the mood and themes of the headlines. Claude designs and generates complete HTML pages from scratch, responding aesthetically to the content.
 
 **Live site:** [http://edilc.github.io/](https://edilc.github.io/)
 ---
@@ -10,12 +10,17 @@ A daily news digest generated entirely by Claude. Every morning at 5am, an autom
 ```
 ┌─────────────┐     ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
 │GitHub Actions│────▶│   Claude    │────▶│  index.html │────▶│ GitHub Pages│
-│  5am EST    │     │  generates  │     │   pushed    │     │   serves    │
+│  5am EST    │     │  designs &  │     │   pushed    │     │   serves    │
+│             │     │  generates  │     │             │     │             │
 └─────────────┘     └─────────────┘     └─────────────┘     └─────────────┘
 ```
 
 1. A GitHub Actions workflow runs daily at 5am EST
-2. Claude receives the prompt below, searches for current news, and generates a complete static HTML page
+2. Claude's multi-agent system:
+   - Searches for and gathers current news articles
+   - Curates the top 10 stories
+   - Analyzes themes and mood across the selected articles
+   - Designs and generates a complete HTML page from scratch
 3. The generated `index.html` is committed and pushed to this repository
 4. GitHub Pages serves the updated site
 
@@ -23,18 +28,17 @@ Each day's design is different—not through random variation, but through inten
 
 ---
 
-## The Prompt
+## The Design Prompt
 
-The following prompt is sent to Claude each morning:
+The Builder agent receives this comprehensive prompt that guides its aesthetic design process. It emphasizes responding to the news thematically while maintaining technical requirements:
 
 ~~~
 Create a static web page for "news.sys" — a daily news digest by Claude.
 
 ## Content Requirements
-- Header: "news.sys" with subtle "news by Claude" attribution
-- 10 news headlines from various sources with brief blurbs
-- Each headline expands on click to reveal: a longer summary, key bullet points, and source links
-- No numbered items. No "live feed" text. No auto-animations (user-triggered only).
+- 10 news headlines from various sources
+- Each headline should be clickable to expand and reveal: a longer summary and source links
+- No numbered items. No "live feed" text. No 'active monitoring' text. No auto-animations (user-triggered only).
 
 ## Aesthetic Process (IMPORTANT)
 
@@ -69,15 +73,17 @@ Create a static web page for "news.sys" — a daily news digest by Claude.
 - Thematic icons or stamps
 - Textural backgrounds (subtle)
 
-**Step 5: Add a design rationale.** In the footer, include a small note explaining today's aesthetic choice, e.g.:
-> "today's design: field notebook (3 stories on species discovery, 2 on climate research)"
+**Step 5: Create a design rationale.** Write a brief one-line explanation of today's aesthetic choice, e.g.:
+> "field notebook (3 stories on species discovery, 2 on climate research)"
 
 ## Technical Requirements
-- Single HTML file with embedded CSS and JS
+- Generate CSS styling that reflects today's aesthetic
+- Generate article HTML with proper semantic structure
+- Each article must use: class="article" (wrapper), class="article-header" (clickable header with title), class="article-details" (expandable content)
 - Readable and functional—aesthetic experimentation should never compromise usability
 - Responsive (works on mobile)
-- Accessible (proper contrast, semantic HTML, keyboard navigation for expandable items)
-- No external dependencies except Google Fonts if needed
+- Accessible (proper contrast, semantic HTML, ARIA attributes)
+- Can use Google Fonts if needed (via @import in CSS)
 
 ## What to Avoid
 - Blending all inspirations into generic "retro-tech minimalist"
@@ -96,8 +102,12 @@ Create a static web page for "news.sys" — a daily news digest by Claude.
 ├── .github/
 │   └── workflows/
 │       └── generate-daily-news.yml  # GitHub Actions workflow
-├── generate_news.py                 # News generation script
-├── prompt.txt                       # The prompt sent to Claude
+├── src/                             # Multi-agent pipeline source code
+│   ├── agents/                      # Gatherer, Curator, and Builder agents
+│   ├── models/                      # Data models
+│   ├── prompts/                     # Agent prompts (including design prompt)
+│   └── utils/                       # Logging and utilities
+├── generate_news.py                 # Main generation script
 ├── index.html                       # The daily-generated news page
 └── README.md                        # You are here
 ```
@@ -114,8 +124,11 @@ The entire workflow is automated using GitHub Actions:
 
 The workflow:
 1. Deletes the previous `index.html`
-2. Runs `generate_news.py` using Claude's API with web search
-3. Commits and pushes the new page to the repository
+2. Runs `generate_news.py` which executes a multi-agent pipeline:
+   - Gatherer agents search for and collect news articles
+   - Curator agent selects the top 10 stories
+   - Builder agent analyzes themes and designs a complete HTML page from scratch
+3. The generated page is committed and pushed to the repository
 4. GitHub Pages automatically deploys the update
 
 ---

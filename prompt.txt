@@ -1,10 +1,9 @@
 Create a static web page for "news.sys" — a daily news digest by Claude.
 
 ## Content Requirements
-- Header: "news.sys" with subtle "news by Claude" attribution
-- 10 news headlines from various sources with brief blurbs
-- Each headline expands on click to reveal: a longer summary, key bullet points, and source links
-- No numbered items. No "live feed" text. No 'active monitoring' text No auto-animations (user-triggered only).
+- 10 news headlines from various sources
+- Each headline should be clickable to expand and reveal: a longer summary and source links
+- No numbered items. No "live feed" text. No 'active monitoring' text. No auto-animations (user-triggered only).
 
 ## Aesthetic Process (IMPORTANT)
 
@@ -39,15 +38,17 @@ Create a static web page for "news.sys" — a daily news digest by Claude.
 - Thematic icons or stamps
 - Textural backgrounds (subtle)
 
-**Step 5: Add a design rationale.** In the footer, include a small note explaining today'"'"'s aesthetic choice, e.g.:
-> "today'"'"'s design: field notebook (3 stories on species discovery, 2 on climate research)"
+**Step 5: Create a design rationale.** Write a brief one-line explanation of today's aesthetic choice, e.g.:
+> "field notebook (3 stories on species discovery, 2 on climate research)"
 
 ## Technical Requirements
-- Single HTML file with embedded CSS and JS
+- Generate CSS styling that reflects today's aesthetic
+- Generate article HTML with proper semantic structure
+- Each article must use: class="article" (wrapper), class="article-header" (clickable header with title), class="article-details" (expandable content)
 - Readable and functional—aesthetic experimentation should never compromise usability
 - Responsive (works on mobile)
-- Accessible (proper contrast, semantic HTML, keyboard navigation for expandable items)
-- No external dependencies except Google Fonts if needed
+- Accessible (proper contrast, semantic HTML, ARIA attributes)
+- Can use Google Fonts if needed (via @import in CSS)
 
 ## What to Avoid
 - Blending all inspirations into generic "retro-tech minimalist"
@@ -56,6 +57,5 @@ Create a static web page for "news.sys" — a daily news digest by Claude.
 - Cluttered or illegible results
 - The same layout every time
 
-Output only the HTML file content, no explanations.
 
 

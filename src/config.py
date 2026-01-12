@@ -14,9 +14,6 @@ class Config:
     # Agent settings
     max_searches_per_agent: int = 2
 
-    # File paths
-    original_prompt_path: str = "prompt.txt"
-
     # Models
     gatherer_model: str = "claude-sonnet-4-5-20250929"
     curator_model: str = "claude-opus-4-5-20251101"
@@ -32,5 +29,4 @@ class Config:
         return cls(
             anthropic_api_key=api_key,
             max_searches_per_agent=int(os.environ.get("MAX_SEARCHES", "2")),
-            original_prompt_path=os.environ.get("PROMPT_PATH", "prompt.txt"),
         )

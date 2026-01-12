@@ -1,6 +1,7 @@
 """Builder agent that creates the final HTML webpage."""
 
 import time
+from xml.sax.saxutils import escape
 
 from src.agents.base import BaseNewsAgent
 from src.models.article import Article, BuildResult
@@ -46,20 +47,36 @@ class BuilderAgent(BaseNewsAgent):
         return result
 
     def _format_articles(self, articles: list[Article]) -> str:
-        """Format articles for the builder prompt."""
-        lines = []
+        """Format articles in XML format for the builder prompt."""
+        lines = ["<articles>"]
 
-        for i, article in enumerate(articles, 1):
-            lines.append(
-                f"Article {i}:\n"
-                f"Title: {article.title}\n"
-                f"Summary: {article.summary}\n"
-                f"Source: {article.source_url}\n"
-                f"Category: {article.category.value}\n"
-                f"---"
-            )
+        for article in articles:
+            # Extract source name from URL for display
+            source_name = self._extract_source_name(article.source_url)
 
+            lines.append("  <article>")
+            lines.append(f"    <headline>{escape(article.title)}</headline>")
+            lines.append(f"    <source>{escape(source_name)}</source>")
+            lines.append(f"    <url>{escape(article.source_url)}</url>")
+            lines.append(f"    <summary>{escape(article.summary)}</summary>")
+            lines.append("  </article>")
+
+        lines.append("</articles>")
         return "\n".join(lines)
+
+    def _extract_source_name(self, url: str) -> str:
+        """Extract a readable source name from a URL."""
+        try:
+            # Remove protocol
+            url = url.replace("https://", "").replace("http://", "")
+            # Get domain
+            domain = url.split("/")[0]
+            # Remove www.
+            domain = domain.replace("www.", "")
+            # Capitalize first letter
+            return domain.split(".")[0].capitalize()
+        except Exception:
+            return url
 
     def _extract_html(self, response) -> str:
         """Extract HTML from response."""

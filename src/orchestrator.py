@@ -151,6 +151,19 @@ class NewsOrchestrator:
                     f"({result.search_count} searches, {result.execution_time_seconds:.1f}s)"
                 )
 
+        # Check if all articles have same category (indicates a problem)
+        all_categories = set()
+        for result in self.state.agent_results:
+            if result.success:
+                for article in result.articles:
+                    all_categories.add(article.category.value)
+
+        if len(all_categories) == 1:
+            self.console.print(
+                f"\n[yellow]WARNING: All articles have the same category ({list(all_categories)[0]}). "
+                f"This may indicate a categorization issue.[/yellow]"
+            )
+
     async def _stage_2_curate(self):
         """Stage 2: Curate articles with Opus."""
         self.console.print("\n[bold cyan]Stage 2: Curating Articles[/bold cyan]")
@@ -183,11 +196,12 @@ class NewsOrchestrator:
         self.console.print("\n[bold cyan]Stage 3: Building Webpage[/bold cyan]")
 
         # Load builder prompt template
-        builder_prompt = get_builder_prompt_template(
-            self.config.original_prompt_path
-        )
+        builder_prompt = get_builder_prompt_template()
 
-        builder = BuilderAgent(client=self.client, prompt_template=builder_prompt)
+        builder = BuilderAgent(
+            client=self.client,
+            prompt_template=builder_prompt
+        )
 
         with Progress(
             SpinnerColumn(),

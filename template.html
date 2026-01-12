@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>news.sys - {{DATE}}</title>
+    <style>
+        /* Base structural styles */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .page-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .content-wrapper {
+            width: 95%;
+            margin: 0 auto;
+        }
+
+        /* Desktop/wide screen layout */
+        @media (min-width: 768px) {
+            .content-wrapper {
+                width: 60%;
+            }
+        }
+    </style>
+    <style id="daily-styles">
+        /* Daily generated CSS will be injected here */
+        {{CSS}}
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="content-wrapper">
+            <header>
+                <h1>news.sys</h1>
+                <p class="attribution">news by Claude</p>
+                <p class="date-time">{{DATE}} • Updated {{TIME}}</p>
+            </header>
+
+            <main>
+                <div class="articles-container">
+                    <!-- Article HTML will be injected here -->
+                    {{ARTICLES}}
+                </div>
+            </main>
+
+            <footer>
+                <div class="design-note">
+                    <strong>today's design:</strong> {{DESIGN_DESCRIPTION}}
+                </div>
+                <div class="source-link">
+                    <a href="https://github.com/edilc/edilc.github.io" target="_blank" rel="noopener">view source code</a>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Expand/collapse functionality for articles
+        document.addEventListener('DOMContentLoaded', function() {
+            const articles = document.querySelectorAll('.article');
+
+            articles.forEach(article => {
+                const header = article.querySelector('.article-header');
+
+                if (header) {
+                    header.addEventListener('click', function() {
+                        // Toggle expanded class
+                        article.classList.toggle('expanded');
+
+                        // Update aria-expanded for accessibility
+                        const isExpanded = article.classList.contains('expanded');
+                        article.setAttribute('aria-expanded', isExpanded);
+                    });
+
+                    // Add keyboard support
+                    header.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            header.click();
+                        }
+                    });
+
+                    // Make header focusable for keyboard navigation
+                    header.setAttribute('tabindex', '0');
+                    header.setAttribute('role', 'button');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

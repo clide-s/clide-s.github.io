@@ -140,7 +140,14 @@ class GathererAgent(BaseNewsAgent):
 
             for item in data.get("articles", []):
                 # Parse category from article JSON
-                category_str = item.get("category", "world_affairs")
+                category_str = item.get("category")
+                if category_str is None:
+                    logger.warning(
+                        f"{self.name} - Article '{item.get('title', 'UNKNOWN')}' "
+                        f"missing category field, defaulting to world_affairs"
+                    )
+                    category_str = "world_affairs"
+
                 try:
                     category = NewsCategory(category_str)
                 except ValueError:
@@ -157,7 +164,15 @@ class GathererAgent(BaseNewsAgent):
                     gathered_by_agent=self.name,
                 )
                 articles.append(article)
-                logger.debug(f"{self.name} - Parsed article: {article.title}")
+                logger.debug(f"{self.name} - Parsed article: {article.title} [category: {article.category.value}]")
+
+            # Log category distribution summary
+            category_counts = {}
+            for article in articles:
+                cat = article.category.value
+                category_counts[cat] = category_counts.get(cat, 0) + 1
+
+            logger.info(f"{self.name} - Category distribution: {category_counts}")
 
         except json.JSONDecodeError as e:
             # Log the full response for debugging
