@@ -119,6 +119,19 @@ class GathererAgent(BaseNewsAgent):
             full_text = "\n".join(lines)
             logger.debug(f"{self.name} - After stripping (first 500 chars):\n{full_text[:500]}")
 
+        # Extract JSON object if there's surrounding text
+        full_text = full_text.strip()
+        if not full_text.startswith("{"):
+            logger.debug(f"{self.name} - Response doesn't start with '{{', attempting to extract JSON object...")
+            # Find the first { and last }
+            start_idx = full_text.find("{")
+            end_idx = full_text.rfind("}")
+            if start_idx != -1 and end_idx != -1 and end_idx > start_idx:
+                full_text = full_text[start_idx:end_idx + 1]
+                logger.debug(f"{self.name} - Extracted JSON object (first 500 chars):\n{full_text[:500]}")
+            else:
+                logger.error(f"{self.name} - Could not find JSON object in response")
+
         # Parse JSON response (expected format)
         try:
             logger.debug(f"{self.name} - Attempting to parse JSON...")

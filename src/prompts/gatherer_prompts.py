@@ -42,6 +42,8 @@ Prioritize:
 - Stories with broad public significance
 - Diverse mix of topics
 - High credibility sources (tier 1-2)
+
+CRITICAL: Return ONLY the JSON object. Do not include any explanatory text before or after the JSON.
 """
 
 # Deep cuts gatherer - multiple targeted searches
@@ -53,7 +55,7 @@ Your task:
 1. Perform UP TO 5 targeted searches for specialized, in-depth news
 2. Find 8-12 high-quality articles from specialized sources
 3. Focus on substantive stories that mainstream outlets may miss
-4. Return results in JSON format
+4. Return ONLY valid JSON - no explanations, no preamble, no other text
 
 Search strategy - Use up to 5 searches to cover these areas:
 
@@ -99,6 +101,8 @@ Prioritize:
 - Stories with substantive detail and documentation
 - High credibility sources (tier 1-2)
 - Interesting and significant findings
+
+CRITICAL: Return ONLY the JSON object. Do not include any explanatory text before or after the JSON.
 """
 
 
