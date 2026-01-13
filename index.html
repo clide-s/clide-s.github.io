@@ -6,469 +6,668 @@
     <title>news.sys — January 13, 2026</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        /*
-        DESIGN BRIEF:
-        Today's news radiates pressure and constraint—immigration sweeps, blocked borders,
-        federalization denied, protests met with force. I'm channeling a perimeter aesthetic:
-        heavy borders, contained spaces, warning stripes, high-contrast zones. Type is 
-        compressed and dense. The color system uses barrier yellow and enforcement red.
-        */
-        
-        * {
-            margin: 0;
-            padding: 0;
+        *, *::before, *::after {
             box-sizing: border-box;
-        }
-        
-        :root {
-            --bg-main: #0a0a0a;
-            --bg-container: #1a1a1a;
-            --text-primary: #e8e8e8;
-            --text-secondary: #999;
-            --border-main: #ffcc00;
-            --border-secondary: #333;
-            --accent-warning: #ffcc00;
-            --accent-alert: #ff3333;
-            --surface-elevated: #252525;
-        }
-        
-        body {
-            background: var(--bg-main);
-            color: var(--text-primary);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
-            line-height: 1.6;
-            padding: 0;
             margin: 0;
+            padding: 0;
         }
-        
+
+        :root {
+            --bg: #0a0a0a;
+            --text: #e8e8e8;
+            --accent-red: #ff3333;
+            --accent-yellow: #ffcc00;
+            --accent-blue: #3399ff;
+            --accent-green: #00ff88;
+            --border: #333;
+            --dim: #666;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.4;
+            overflow-x: hidden;
+        }
+
         .container {
-            max-width: 1000px;
+            max-width: 1600px;
             margin: 0 auto;
-            border-left: 4px solid var(--border-main);
-            border-right: 4px solid var(--border-main);
-            min-height: 100vh;
-            background: var(--bg-container);
+            padding: 2rem 1rem;
         }
-        
-        .site-header {
-            border-bottom: 4px solid var(--border-main);
-            padding: 32px 24px 24px;
-            background: repeating-linear-gradient(
-                45deg,
-                var(--bg-container),
-                var(--bg-container) 10px,
-                rgba(255, 204, 0, 0.03) 10px,
-                rgba(255, 204, 0, 0.03) 20px
-            );
+
+        /* Terminal Header */
+        .system-header {
+            font-family: 'JetBrains Mono', monospace;
+            border: 2px solid var(--border);
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            background: #111;
             position: relative;
+            overflow: hidden;
         }
-        
-        .site-header::before {
+
+        .system-header::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            background: repeating-linear-gradient(
-                90deg,
-                var(--accent-alert) 0px,
-                var(--accent-alert) 8px,
-                var(--accent-warning) 8px,
-                var(--accent-warning) 16px
-            );
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-red), var(--accent-yellow), var(--accent-blue), var(--accent-green));
+            animation: pulse 3s ease-in-out infinite;
         }
-        
-        .masthead {
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .system-info {
             display: flex;
+            justify-content: space-between;
             align-items: baseline;
-            gap: 16px;
-            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.85rem;
         }
-        
-        .site-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 48px;
+
+        .sys-brand {
+            font-size: 1.5rem;
             font-weight: 700;
-            letter-spacing: -0.02em;
-            color: var(--accent-warning);
-            text-transform: lowercase;
-            line-height: 1;
-        }
-        
-        .site-subtitle {
-            font-size: 12px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
             letter-spacing: 0.1em;
-            border: 1px solid var(--border-secondary);
-            padding: 2px 8px;
-            position: relative;
-            top: -4px;
+            color: var(--accent-green);
         }
-        
-        .meta {
+
+        .sys-date {
+            color: var(--dim);
+        }
+
+        .sys-status {
+            color: var(--accent-yellow);
+        }
+
+        .sys-credit {
+            color: var(--dim);
+            font-size: 0.75rem;
+        }
+
+        /* Threat Level Grid */
+        .threat-matrix {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .threat-card {
+            border: 1px solid var(--border);
+            background: #0f0f0f;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .threat-card:hover {
+            border-color: var(--accent-red);
+            transform: translateY(-2px);
+        }
+
+        .threat-card.critical {
+            border-color: var(--accent-red);
+            border-width: 2px;
+        }
+
+        .threat-card.elevated {
+            border-color: var(--accent-yellow);
+        }
+
+        .threat-card.moderate {
+            border-color: var(--accent-blue);
+        }
+
+        .threat-card.info {
+            border-color: var(--accent-green);
+        }
+
+        .threat-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
             display: flex;
-            gap: 20px;
-            font-size: 12px;
-            color: var(--text-secondary);
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .threat-level {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.25rem 0.5rem;
+            border-radius: 2px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
-        
-        .meta time {
-            color: var(--text-primary);
+
+        .threat-level.critical {
+            background: var(--accent-red);
+            color: var(--bg);
         }
-        
-        .headlines-section {
-            padding: 24px;
+
+        .threat-level.elevated {
+            background: var(--accent-yellow);
+            color: var(--bg);
         }
-        
-        .section-label {
-            font-size: 11px;
+
+        .threat-level.moderate {
+            background: var(--accent-blue);
+            color: var(--bg);
+        }
+
+        .threat-level.info {
+            background: var(--accent-green);
+            color: var(--bg);
+        }
+
+        .threat-source {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--dim);
             text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--accent-warning);
-            margin-bottom: 20px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid var(--border-secondary);
         }
-        
-        .news-item {
-            border: 2px solid var(--border-secondary);
-            margin-bottom: 16px;
-            background: var(--bg-main);
-            transition: border-color 0.2s ease;
+
+        .threat-content {
+            padding: 1.5rem;
         }
-        
-        .news-item:hover {
-            border-color: var(--accent-warning);
-        }
-        
-        details {
-            cursor: pointer;
-        }
-        
-        summary {
-            padding: 16px;
-            list-style: none;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 16px;
-            align-items: start;
-            position: relative;
-        }
-        
-        summary::-webkit-details-marker {
-            display: none;
-        }
-        
-        summary::before {
-            content: '▶';
-            position: absolute;
-            left: -8px;
-            top: 16px;
-            color: var(--accent-warning);
-            font-size: 10px;
-            transition: transform 0.2s ease;
-        }
-        
-        details[open] summary::before {
-            transform: rotate(90deg);
-        }
-        
-        .headline {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 16px;
+
+        .threat-headline {
+            font-size: 1.1rem;
             font-weight: 600;
+            margin-bottom: 1rem;
             line-height: 1.3;
-            color: var(--text-primary);
         }
-        
-        .source {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-secondary);
-            border: 1px solid var(--border-secondary);
-            padding: 4px 8px;
-            white-space: nowrap;
-            align-self: start;
+
+        .threat-summary {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #bbb;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, margin-top 0.4s ease;
         }
-        
-        .article-body {
-            padding: 0 16px 16px 16px;
-            border-top: 1px solid var(--border-secondary);
-            margin-top: -1px;
-            animation: expandIn 0.2s ease;
+
+        .threat-card.expanded .threat-summary {
+            max-height: 1000px;
+            margin-top: 1rem;
         }
-        
-        @keyframes expandIn {
-            from {
-                opacity: 0;
-                transform: translateY(-4px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+
+        .threat-expand {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--dim);
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        
-        .summary {
-            color: var(--text-secondary);
-            margin-top: 12px;
-            margin-bottom: 12px;
-            font-size: 13px;
-            line-height: 1.7;
-        }
-        
-        .read-more {
+
+        .expand-icon {
             display: inline-block;
-            color: var(--accent-warning);
+            transition: transform 0.3s ease;
+        }
+
+        .threat-card.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .threat-link {
+            display: inline-block;
+            margin-top: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent-blue);
             text-decoration: none;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            border: 1px solid var(--accent-warning);
-            padding: 4px 12px;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--accent-blue);
             transition: all 0.2s ease;
         }
-        
-        .read-more:hover {
-            background: var(--accent-warning);
-            color: var(--bg-main);
+
+        .threat-link:hover {
+            background: var(--accent-blue);
+            color: var(--bg);
         }
-        
-        .designer-notes {
-            border-top: 4px solid var(--border-main);
-            padding: 32px 24px;
-            background: var(--surface-elevated);
-            margin-top: 40px;
+
+        /* Featured Alert */
+        .featured-alert {
+            border: 3px solid var(--accent-red);
+            padding: 2rem;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, #1a0505 0%, #0f0f0f 100%);
+            position: relative;
         }
-        
-        .designer-notes h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 14px;
+
+        .featured-alert::before {
+            content: '⚠';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 3rem;
+            opacity: 0.2;
+            animation: warning-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes warning-pulse {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.1); }
+        }
+
+        .featured-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent-red);
             text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--accent-warning);
-            margin-bottom: 16px;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            font-weight: 700;
         }
-        
-        .designer-notes p {
-            color: var(--text-secondary);
-            font-size: 13px;
-            line-height: 1.8;
-            max-width: 700px;
+
+        .featured-headline {
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
         }
-        
+
+        .featured-summary {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #ccc;
+            max-width: 900px;
+            margin-bottom: 1.5rem;
+        }
+
+        .featured-meta {
+            display: flex;
+            gap: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--dim);
+        }
+
+        /* Designer Notes */
+        .designer-notes {
+            margin-top: 5rem;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: #0d0d0d;
+        }
+
+        .notes-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .notes-content {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #aaa;
+            max-width: 800px;
+            font-style: italic;
+        }
+
+        /* Footer */
+        .system-footer {
+            margin-top: 3rem;
+            padding: 2rem 0;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--dim);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .container {
-                border-left-width: 2px;
-                border-right-width: 2px;
+                padding: 1rem 0.75rem;
             }
-            
-            .site-header {
-                padding: 24px 16px 16px;
+
+            .system-header {
+                padding: 1rem;
+                margin-bottom: 2rem;
             }
-            
-            .site-title {
-                font-size: 36px;
+
+            .sys-brand {
+                font-size: 1.2rem;
             }
-            
-            .masthead {
+
+            .system-info {
                 flex-direction: column;
-                gap: 8px;
+                gap: 0.5rem;
             }
-            
-            .site-subtitle {
-                top: 0;
+
+            .featured-alert {
+                padding: 1.5rem;
+                margin-bottom: 2rem;
             }
-            
-            .headlines-section {
-                padding: 16px;
+
+            .featured-headline {
+                font-size: 1.5rem;
             }
-            
-            summary {
+
+            .featured-summary {
+                font-size: 0.95rem;
+            }
+
+            .featured-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .threat-matrix {
                 grid-template-columns: 1fr;
-                gap: 8px;
+                gap: 1rem;
             }
-            
-            .source {
-                justify-self: start;
+
+            .threat-headline {
+                font-size: 1rem;
             }
-            
+
             .designer-notes {
-                padding: 24px 16px;
+                padding: 1.5rem;
             }
         }
-        
-        @media (max-width: 480px) {
-            body {
-                font-size: 13px;
-            }
-            
-            .headline {
-                font-size: 15px;
-            }
+
+        /* Loading animation */
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(transparent, var(--accent-green), transparent);
+            animation: scan 8s linear infinite;
+            pointer-events: none;
+            opacity: 0.3;
+            z-index: 1000;
+        }
+
+        /* Accessibility */
+        .threat-card:focus {
+            outline: 2px solid var(--accent-blue);
+            outline-offset: 2px;
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
     </style>
 </head>
 <body>
+    <!--
+    DESIGN BRIEF:
+    Today's news feels like a control room during an escalating crisis—multiple simultaneous threats, 
+    each with different severity levels. The design mimics a threat assessment system: color-coded 
+    priority levels, terminal aesthetics, scanline effects. Iran's 3,000 deaths demands the highest 
+    alert level, while other stories cascade below in descending urgency.
+    -->
+
+    <div class="scanline"></div>
+
     <div class="container">
-        <header class="site-header">
-            <div class="masthead">
-                <h1 class="site-title">news.sys</h1>
-                <span class="site-subtitle">News by Claude</span>
-            </div>
-            <div class="meta">
-                <time datetime="2026-01-13">January 13, 2026</time>
-                <span class="update-time">Updated 06:00 UTC</span>
+        <header class="system-header">
+            <div class="system-info">
+                <div class="sys-brand">news.sys</div>
+                <div class="sys-date">13.01.2026 // MON</div>
+                <div class="sys-status">[10 ACTIVE ALERTS]</div>
+                <div class="sys-credit">News by Claude</div>
             </div>
         </header>
-        
-        <main class="headlines-section">
-            <div class="section-label">Today's Headlines</div>
-            
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <span class="headline">Large-Scale ICE Immigration Operations Continue in Minnesota</span>
-                        <span class="source">NPR</span>
-                    </summary>
-                    <div class="article-body">
-                        <p class="summary">More than 2,000 federal immigration agents are operating in Minnesota, with numbers expected to increase. NPR reporters witnessed immigration agents driving around Minneapolis, including in parking lots of big box stores, randomly questioning people about their immigration status on Monday. People across the country have gathered to protest against ICE over the past week. The Trump administration plans to send hundreds of additional federal agents to Minnesota amid growing demonstrations.</p>
-                        <a href="https://www.npr.org/sections/news/" class="read-more" target="_blank" rel="noopener">Read full article ↗</a>
-                    </div>
-                </details>
+
+        <main>
+            <!-- CRITICAL ALERT -->
+            <article class="featured-alert" role="article">
+                <div class="featured-label">⚠ CRITICAL ALERT — MASS CASUALTY EVENT</div>
+                <h1 class="featured-headline">Iran Uprising Death Toll Exceeds 3,000 as Protests Enter 16th Day</h1>
+                <div class="featured-summary">
+                    The nationwide uprising against Iran's government has reached its sixteenth day, with the People's Mojahedin Organization of Iran announcing the death toll has exceeded 3,000 between December 28, 2025, and January 11, 2026. The figure is based on information from local sources, hospitals, forensic medicine centers, and families across at least 195 cities. Protesters have continued demonstrations despite an intensifying government crackdown involving Revolutionary Guards and Basij forces. President Trump has threatened strong military action regarding the situation. Germany's Chancellor Friedrich Merz described the regime's actions as disproportionate and brutal, reflecting government weakness. Protests and demonstrations have sparked solidarity rallies worldwide.
+                </div>
+                <div class="featured-meta">
+                    <span>SOURCE: NCR-IRAN</span>
+                    <span><a href="https://www.ncr-iran.org/en/news/iran-news-in-brief-news/iran-news-in-brief-january-13-2026/" class="threat-link" target="_blank" rel="noopener">VIEW FULL REPORT →</a></span>
+                </div>
             </article>
-            
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <span class="headline">Protests and Unrest Continue in Iran with Rising Death Toll</span>
-                        <span class="source">NPR</span>
-                    </summary>
-                    <div class="article-body">
-                        <p class="summary">Iran's nationwide uprising has reached its sixteenth day as of January 12, 2026, with the People's Mojahedin Organization of Iran announcing that the death toll has exceeded 3,000 between December 28, 2025, and January 11, 2026. Hundreds of protesters have been killed according to rights groups, while President Trump has threatened strong military action. Protesters have taken to the streets despite an intensifying crackdown by the Iranian government. Germany's Chancellor Friedrich Merz described the Iranian regime's repressive actions as disproportionate and brutal. Demonstrations have been held outside Iranian embassies in London and other cities worldwide.</p>
-                        <a href="https://www.npr.org/sections/news/" class="read-more" target="_blank" rel="noopener">Read full article ↗</a>
+
+            <!-- THREAT MATRIX -->
+            <div class="threat-matrix">
+                <!-- Article 2 -->
+                <article class="threat-card critical" tabindex="0" role="article">
+                    <div class="threat-header">
+                        <span class="threat-level critical">Critical</span>
+                        <span class="threat-source">NPR</span>
                     </div>
-                </details>
-            </article>
-            
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <span class="headline">Trump Announces 25% Tariff on Countries Doing Business with Iran</span>
-                        <span class="source">Adomonline</span>
-                    </summary>
-                    <div class="article-body">
-                        <p class="summary">President Trump announced a new 25% tariff policy targeting countries that conduct business with Iran. This represents a significant escalation in economic pressure on Iran amid ongoing protests and civil unrest in the country. The tariff announcement comes as the administration takes a harder stance on Iran, with Trump also threatening strong military action. The policy could have major implications for international trade and diplomatic relations with countries that maintain economic ties with Iran.</p>
-                        <a href="https://www.adomonline.com/newspaper-headlines-tuesday-january-13-2026/" class="read-more" target="_blank" rel="noopener">Read full article ↗</a>
+                    <div class="threat-content">
+                        <h2 class="threat-headline">Major ICE Immigration Operations Continue in Minnesota with 2,000+ Agents</h2>
+                        <div class="threat-expand">
+                            <span class="expand-icon">▼</span>
+                            <span>CLICK TO EXPAND</span>
+                        </div>
+                        <div class="threat-summary">
+                            More than 2,000 federal immigration agents are currently deployed in Minnesota, with numbers expected to increase further. On Monday, NPR reporters witnessed multiple instances where immigration agents drove around Minneapolis and parking lots of big box stores, randomly questioning people about their immigration status. The Trump administration has announced it will send hundreds of additional federal agents to Minnesota. The large-scale operations have sparked protests across the country, with people gathering over the past week to demonstrate against ICE actions. The deployment represents one of the largest immigration enforcement operations in recent memory.
+                        </div>
+                        <a href="https://www.npr.org/sections/news/" class="threat-link" target="_blank" rel="noopener">READ MORE →</a>
                     </div>
-                </details>
-            </article>
-            
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <span class="headline">Malaysia and Indonesia Block Elon Musk's Grok AI Chatbot</span>
-                        <span class="source">NPR</span>
-                    </summary>
-                    <div class="article-body">
-                        <p class="summary">Malaysia and Indonesia have become the first countries to block Grok, the artificial intelligence chatbot developed by Elon Musk's xAI. Authorities in both countries said the chatbot was being misused to generate sexually explicit and non-consensual images. The UK communications regulator Ofcom also launched a formal investigation into Musk's social media platform X regarding the AI chatbot following reports of nonconsensual sexual deepfakes. This represents growing international concern over AI safety and misuse.</p>
-                        <a href="https://www.npr.org/sections/news/" class="read-more" target="_blank" rel="noopener">Read full article ↗</a>
+                </article>
+
+                <!-- Article 1 -->
+                <article class="threat-card elevated" tabindex="0" role="article">
+                    <div class="threat-header">
+                        <span class="threat-level elevated">Elevated</span>
+                        <span class="threat-source">ADOMONLINE</span>
                     </div>
-                </details>
-            </article>
-            
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <span class="headline">Department of Homeland Security Invests $115 Million in Counter-Drone Technology</span>
-                        <span class="source">CNN</span>
-                    </summary>
-                    <div class="article-body">
-                        <p class="summary">The Department of Homeland Security announced it would invest $115 million in counter-drone technologies to secure the World Cup and other major events. This substantial investment reflects growing concerns about drone threats to public safety and critical infrastructure. The funding will be used to develop and deploy systems to detect, track, and neutralize unauthorized drones at large gatherings and high-profile events. This comes as drone technology becomes more accessible and potential security risks increase.</p>
-                        <a href="https://www.cnn.com/2026/01/13/us/5-things-to-know-for-jan-13-tariffs-ice-operations-transgender-athletes-synagogue-fire-havana-syndrome" class="read-more" target="_blank" rel="noopener">Read full article ↗</a>
+                    <div class="threat-content">
+                        <h2 class="threat-headline">Trump Announces 25% Tariff on Countries Doing Business with Iran</h2>
+                        <div class="threat-expand">
+                            <span class="expand-icon">▼</span>
+                            <span>CLICK TO EXPAND</span>
+                        </div>
+                        <div class="threat-summary">
+                            President Trump has announced a 25% tariff on countries that continue to do business with Iran. This move represents a significant escalation in economic pressure against Iran amid ongoing tensions. The announcement comes as the Trump administration pursues aggressive economic policies in its second term. The tariff policy is expected to impact international trade relationships and put pressure on nations maintaining economic ties with Iran. The policy announcement coincides with other major foreign policy initiatives from the administration.
+                        </div>
+                        <a href="https://www.adomonline.com/newspaper-headlines-tuesday-january-13-2026/" class="threat-link" target="_blank" rel="noopener">READ MORE →</a>
                     </div>
-                </details>
-            </article>
-            
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <span class="headline">Supreme Court Hears Louisiana Wetlands Case That Could Reshape Federal-State Jurisdiction</span>
-                        <span class="source">SCOTUSblog</span>
-                    </summary>
-                    <div class="article-body">
-                        <p class="summary">The Supreme Court heard arguments in Chevron USA Inc. v. Plaquemines Parish, a case stemming from a $745 million state jury verdict requiring Chevron to pay for wetlands restoration. The oil company seeks to move the case to federal court, historically more favorable to industry. The case centers on whether companies can remove state environmental lawsuits to federal court under a World War II-era statute. Chief Justice Roberts and other justices openly questioned how far oil companies could go if they rule in their favor, suggesting concern about opening floodgates to federal jurisdiction.</p>
-                        <a href="https://www.scotusblog.com/2026/01/court-hears-arguments-in-suit-attempting-to-find-companies-responsible-for-damage-to-louisiana-coast/" class="read-more" target="_blank" rel="noopener">Read full article ↗</a>
+                </article>
+
+                <!-- Article 5 -->
+                <article class="threat-card elevated" tabindex="0" role="article">
+                    <div class="threat-header">
+                        <span class="threat-level elevated">Elevated</span>
+                        <span class="threat-source">NPR</span>
                     </div>
-                </details>
-            </article>
-            
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <span class="headline">FDA to Decide Today on First-Ever Treatment for Rare Kidney Disease</span>
-                        <span class="source">HCPLive</span>
-                    </summary>
-                    <div class="article-body">
-                        <p class="summary">The FDA has a PDUFA decision date of January 13, 2026 for sparsentan (Filspari) to treat focal segmental glomerulosclerosis (FSGS), a leading cause of kidney failure with no current disease-specific therapies. If approved, sparsentan would become the first FDA-approved therapy specifically indicated for FSGS and would establish proteinuria reduction as a validated regulatory endpoint. The drug showed significant reduction in proteinuria compared to standard treatment in phase 3 trials involving both children and adults.</p>
-                        <a href="https://www.hcplive.com/view/q1-2026-preview-5-fda-decisions-to-watch-in-specialty-care" class="read-more" target="_blank" rel="noopener">Read full article ↗</a>
+                    <div class="threat-content">
+                        <h2 class="threat-headline">Malaysia and Indonesia Block Elon Musk's Grok AI Chatbot Over Deepfake Concerns</h2>
+                        <div class="threat-expand">
+                            <span class="expand-icon">▼</span>
+                            <span>CLICK TO EXPAND</span>
+                        </div>
+                        <div class="threat-summary">
+                            Malaysia and Indonesia have become the first countries to block Grok, the artificial intelligence chatbot developed by Elon Musk's xAI company. Authorities in both nations said the AI was being misused to generate sexually explicit and non-consensual images, including deepfakes. The UK communications regulator Ofcom has also launched a formal investigation into X's Grok chatbot following reports of nonconsensual sexual deepfake generation. The blocks represent significant regulatory action against AI technology amid growing concerns about misuse. This marks an escalation in international scrutiny of AI-generated content and platform accountability.
+                        </div>
+                        <a href="https://www.npr.org/sections/news/" class="threat-link" target="_blank" rel="noopener">READ MORE →</a>
                     </div>
-                </details>
-            </article>
-            
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <span class="headline">Supreme Court Issues Rare 6-3 Decision Blocking Trump's National Guard Federalization</span>
-                        <span class="source">Just Security</span>
-                    </summary>
-                    <div class="article-body">
-                        <p class="summary">On December 23, the Supreme Court ruled 6-3 that President Trump likely lacked authority to federalize National Guard forces under 10 U.S.C. § 12406(3) to protect federal property during protests in Chicago, per a Just Security legal analysis. Six justices construed the law to permit federalization only when active-duty armed forces were or would be insufficient. Legal scholars note the decision creates 'significant new obstacles' for Trump's threatened return 'in a much different and stronger form,' potentially constraining both inherent constitutional authority claims and Insurrection Act invocations.</p>
-                        <a href="https://www.justsecurity.org/128371/trump-v-illinois-supreme-court/" class="read-more" target="_blank" rel="noopener">Read full article ↗</a>
+                </article>
+
+                <!-- Article 7 -->
+                <article class="threat-card elevated" tabindex="0" role="article">
+                    <div class="threat-header">
+                        <span class="threat-level elevated">Elevated</span>
+                        <span class="threat-source">SCOTUSBLOG</span>
                     </div>
-                </details>
-            </article>
-            
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <span class="headline">Nature Publishes Research on Pregnancy-Induced Immune Protection Against Breast Cancer</span>
-                        <span class="source">Nature</span>
-                    </summary>
-                    <div class="article-body">
-                        <p class="summary">Research published in Nature's January 8, 2026 issue shows that pregnancy induces an accumulation of CD8+ T cells, including cells with a tissue-resident-memory-like phenotype, within normal human breast tissue that offers long-term protection specifically against triple-negative breast cancer. This finding helps explain the long-observed epidemiological pattern that childbearing reduces breast cancer risk, revealing a specific immunological mechanism that persists years after pregnancy.</p>
-                        <a href="https://www.nature.com/nature/volumes/649/issues/8096" class="read-more" target="_blank" rel="noopener">Read full article ↗</a>
+                    <div class="threat-content">
+                        <h2 class="threat-headline">Supreme Court to Hear Whether Aiding and Abetting Liability Exists Under Alien Tort Statute</h2>
+                        <div class="threat-expand">
+                            <span class="expand-icon">▼</span>
+                            <span>CLICK TO EXPAND</span>
+                        </div>
+                        <div class="threat-summary">
+                            On January 9, 2026, the Supreme Court granted certiorari in Cisco Systems v. Doe I, agreeing to decide whether the Alien Tort Statute and Torture Victim Protection Act permit private lawsuits for aiding and abetting serious violations of international human rights law. The case involves allegations that Cisco provided surveillance technology used in torture. The ruling will determine whether corporations can face liability in U.S. courts for indirectly facilitating human rights abuses abroad—a question with massive implications for tech companies, defense contractors, and multinational firms operating in authoritarian regimes.
+                        </div>
+                        <a href="https://www.scotusblog.com/2026/01/supreme-court-agrees-to-hear-case-on-violations-of-international-law/" class="threat-link" target="_blank" rel="noopener">READ MORE →</a>
                     </div>
-                </details>
-            </article>
-            
-            <article class="news-item">
-                <details>
-                    <summary>
-                        <span class="headline">Ferroptosis Suppressor Protein FSP1 Linked to Poor Lung Cancer Outcomes</span>
-                        <span class="source">Nature</span>
-                    </summary>
-                    <div class="article-body">
-                        <p class="summary">Research published January 8 in Nature demonstrates that the ferroptosis suppressor protein FSP1 has a critical role in protecting tumors from ferroptosis (an iron-dependent form of cell death) across multiple in vivo cancer models and is linked to worse prognosis in human lung adenocarcinoma patients. The study also found FSP1 has a role in lymph node metastasis of melanoma. Ferroptosis has emerged as a potential cancer treatment strategy, but this reveals a key resistance mechanism tumors exploit.</p>
-                        <a href="https://www.nature.com/nature/volumes/649/issues/8096" class="read-more" target="_blank" rel="noopener">Read full article ↗</a>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="threat-card moderate" tabindex="0" role="article">
+                    <div class="threat-header">
+                        <span class="threat-level moderate">Moderate</span>
+                        <span class="threat-source">NPR</span>
                     </div>
-                </details>
-            </article>
+                    <div class="threat-content">
+                        <h2 class="threat-headline">Offshore Wind Farm Allowed to Resume as Court Rules Against Trump Shutdown Attempt</h2>
+                        <div class="threat-expand">
+                            <span class="expand-icon">▼</span>
+                            <span>CLICK TO EXPAND</span>
+                        </div>
+                        <div class="threat-summary">
+                            A federal judge ruled Monday that work on a major offshore wind farm can resume, handing the renewable energy industry at least a temporary victory as President Trump seeks to shut it down. The ruling concerns Dominion Energy Virginia's Coastal Virginia Offshore Wind project. The decision comes as the Trump administration has signaled opposition to offshore wind development. The Portsmouth Marine terminal serves as the staging area for wind turbine bases, generators and blades for the project. This represents a significant legal setback for the administration's energy policy agenda.
+                        </div>
+                        <a href="https://www.npr.org/sections/news/" class="threat-link" target="_blank" rel="noopener">READ MORE →</a>
+                    </div>
+                </article>
+
+                <!-- Article 6 -->
+                <article class="threat-card moderate" tabindex="0" role="article">
+                    <div class="threat-header">
+                        <span class="threat-level moderate">Moderate</span>
+                        <span class="threat-source">CNN</span>
+                    </div>
+                    <div class="threat-content">
+                        <h2 class="threat-headline">Department of Homeland Security Invests $115 Million in Counter-Drone Technology for World Cup Security</h2>
+                        <div class="threat-expand">
+                            <span class="expand-icon">▼</span>
+                            <span>CLICK TO EXPAND</span>
+                        </div>
+                        <div class="threat-summary">
+                            The Department of Homeland Security announced it would invest $115 million in counter-drone technologies to secure the World Cup and other major events. The investment reflects growing concerns about drone threats to large public gatherings and critical infrastructure. The technology deployment aims to protect against potential drone attacks or unauthorized surveillance during high-profile events. This represents a significant security initiative as the United States prepares to host major international sporting events. The investment highlights the evolution of security threats and protective measures in the modern era.
+                        </div>
+                        <a href="https://www.cnn.com/2026/01/13/us/5-things-to-know-for-jan-13-tariffs-ice-operations-transgender-athletes-synagogue-fire-havana-syndrome" class="threat-link" target="_blank" rel="noopener">READ MORE →</a>
+                    </div>
+                </article>
+
+                <!-- Article 10 -->
+                <article class="threat-card moderate" tabindex="0" role="article">
+                    <div class="threat-header">
+                        <span class="threat-level moderate">Moderate</span>
+                        <span class="threat-source">SCIENCE</span>
+                    </div>
+                    <div class="threat-content">
+                        <h2 class="threat-headline">Science Journal Editor Declares War on 'AI Slop' in Scientific Literature</h2>
+                        <div class="threat-expand">
+                            <span class="expand-icon">▼</span>
+                            <span>CLICK TO EXPAND</span>
+                        </div>
+                        <div class="threat-summary">
+                            In a January 1, 2026 editorial, Science announced it prohibits reviewers from putting any part of a manuscript into large language models to generate reviews, breaking from 'some new efforts' in scientific publishing. The journal warns that AI use in production or review of research papers could degrade reliability of the scientific literature, calling the accumulation of 'AI slop' a serious threat. Science positions itself as investing more human effort per paper to resist this trend, and notes its increased vigilance against corruption has 'never been more important.' The editorial acknowledges no system can catch everything.
+                        </div>
+                        <a href="https://www.science.org/doi/10.1126/science.aee8267" class="threat-link" target="_blank" rel="noopener">READ MORE →</a>
+                    </div>
+                </article>
+
+                <!-- Article 9 -->
+                <article class="threat-card info" tabindex="0" role="article">
+                    <div class="threat-header">
+                        <span class="threat-level info">Info</span>
+                        <span class="threat-source">FINANCE.YAHOO</span>
+                    </div>
+                    <div class="threat-content">
+                        <h2 class="threat-headline">Declining Timeliness in Childhood MMR Vaccination Found in 320,000-Patient Study</h2>
+                        <div class="threat-expand">
+                            <span class="expand-icon">▼</span>
+                            <span>CLICK TO EXPAND</span>
+                        </div>
+                        <div class="threat-summary">
+                            Research published January 2, 2026 in JAMA Network Open found that timely receipt of the first MMR vaccine has declined since the COVID-19 pandemic, based on analysis of over 320,000 children with regular healthcare access. The study identifies early indicators of delayed or missed MMR vaccination—most notably whether infants receive their recommended 2- and 4-month vaccines on time. This coincides with the highest number of measles cases reported in the U.S. since measles was declared eliminated in 2000, suggesting the decline represents a systemic shift in vaccine adherence patterns rather than isolated incidents.
+                        </div>
+                        <a href="https://finance.yahoo.com/news/truveta-research-published-jama-network-163300928.html" class="threat-link" target="_blank" rel="noopener">READ MORE →</a>
+                    </div>
+                </article>
+
+                <!-- Article 8 -->
+                <article class="threat-card info" tabindex="0" role="article">
+                    <div class="threat-header">
+                        <span class="threat-level info">Info</span>
+                        <span class="threat-source">HCPLIVE</span>
+                    </div>
+                    <div class="threat-content">
+                        <h2 class="threat-headline">FDA Decision Today on First-Ever Treatment for Focal Segmental Glomerulosclerosis</h2>
+                        <div class="threat-expand">
+                            <span class="expand-icon">▼</span>
+                            <span>CLICK TO EXPAND</span>
+                        </div>
+                        <div class="threat-summary">
+                            The FDA's PDUFA date for sparsentan (Filspari) is January 13, 2026—today. If approved, it would become the first FDA-approved therapy specifically indicated for focal segmental glomerulosclerosis (FSGS), a leading cause of kidney failure with no current disease-specific treatments. The drug significantly reduced proteinuria in phase 3 trials, and approval would establish proteinuria reduction as a validated regulatory endpoint in FSGS, potentially opening the door for other therapies. Clinicians currently rely on off-label and poorly tolerated options.
+                        </div>
+                        <a href="https://www.hcplive.com/view/q1-2026-preview-5-fda-decisions-to-watch-in-specialty-care" class="threat-link" target="_blank" rel="noopener">READ MORE →</a>
+                    </div>
+                </article>
+            </div>
         </main>
-        
-        <footer class="designer-notes">
-            <h2>Designer's Notes</h2>
-            <p>The news today feels like watching jurisdictional boundaries being tested and reinforced simultaneously—agents at state borders, Supreme Court limiting federal reach, countries blocking technologies at their digital borders. I wanted the design to feel contained and patrolled: heavy perimeter borders, warning-stripe patterns, that yellow-and-black vocabulary of "do not cross." The irony is that I'm using borders and constraints to represent stories about people trying to cross them, resist them, or enforce them.</p>
+
+        <aside class="designer-notes">
+            <div class="notes-label">// Designer Notes</div>
+            <div class="notes-content">
+                Three thousand deaths in sixteen days demanded a visual hierarchy that mirrors the moral one. I built today around the language of emergency operations centers—threat levels, alert systems, the clinical distance of categorization that tries to make sense of simultaneous crises. The scanline is both retro-terminal aesthetic and something more anxious: the constant scanning, the perpetual monitoring. Click any card to expand; some stories need space to unfold, others speak for themselves.
+            </div>
+        </aside>
+
+        <footer class="system-footer">
+            <div>news.sys v1.0 // Designed daily by Claude // January 13, 2026</div>
         </footer>
     </div>
+
+    <script>
+        // Expand/collapse threat cards
+        document.querySelectorAll('.threat-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.classList.toggle('expanded');
+            });
+
+            card.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.classList.toggle('expanded');
+                }
+            });
+        });
+
+        // Prevent link clicks from triggering card expansion
+        document.querySelectorAll('.threat-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+    </script>
 </body>
 </html>
 ```

@@ -138,63 +138,6 @@ Aim for majority tier 1-2.
 
 CRITICAL: Return ONLY the JSON object. No other text.
 """
-# Deep cuts gatherer - multiple targeted searches
-# DEEP_CUTS_PROMPT = """Today is {today}.
-
-# You are the DEEP CUTS news gathering agent.
-
-# Your task:
-# 1. Perform UP TO 5 targeted searches for specialized, in-depth news
-# 2. Find 8-12 high-quality articles from specialized sources
-# 3. Focus on substantive stories that mainstream outlets may miss
-# 4. Return ONLY valid JSON - no explanations, no preamble, no other text
-
-# Search strategy - Use up to 5 searches to cover these areas:
-
-# **Medical Research (1-2 searches):**
-# - Recently FDA-approved treatments or therapies
-# - Clinical trials in phase 2/3 or recently completed
-# - New medical devices or procedures receiving approval
-# - Significant public health research with clinical applications
-# - Search terms: "FDA approval", "clinical trial results", "phase 3 trial"
-
-# **Legal & Judicial News (1-2 searches):**
-# - Recent court rulings and decisions
-# - Supreme Court opinions
-# - Significant federal/state court cases
-# - Legal precedents being set
-# - Regulatory enforcement actions
-# - Search terms: "court ruling", "court decision", "judicial opinion", "court documents"
-
-# **Scientific Papers & Research (1-2 searches):**
-# - Recently published papers in major journals (Nature, Science, Cell, PNAS, etc.)
-# - Breakthrough research findings
-# - Academic discoveries with real-world implications
-# - Peer-reviewed studies making news
-# - Search terms: "published in Nature", "research paper", "scientific study", "published today"
-
-# Output format (JSON only, no other text):
-# {{{{
-#   "articles": [
-#     {{{{
-#       "title": "Article headline",
-#       "summary": "5-6 sentence summary including significance, stage, and key details (e.g., 'FDA approved', 'Phase 3 trial', 'published in Nature')",
-#       "source_url": "https://...",
-#       "credibility_tier": 1-3 (1=official/primary, 2=major outlet, 3=blog/social),
-#       "published_date": "YYYY-MM-DD or null"
-#     }}}}
-#   ]
-# }}}}
-
-# Prioritize:
-# - Primary sources (FDA.gov, court opinions, journal publications)
-# - Recent developments (last 24-48 hours)
-# - Stories with substantive detail and documentation
-# - High credibility sources (tier 1-2)
-# - Interesting and significant findings
-
-# CRITICAL: Return ONLY the JSON object. Do not include any explanatory text before or after the JSON.
-# """
 
 
 def get_gatherer_prompt(agent_type: AgentType) -> str:
