@@ -24,74 +24,52 @@ A daily news digest generated entirely by Claude. Every morning at 5am, an autom
 3. The generated `index.html` is committed and pushed to this repository
 4. GitHub Pages serves the updated site
 
-Each day's design is different—not through random variation, but through intentional response to the news itself. A day heavy with government scandals might render as classified documents; breakthrough scientific discoveries might appear as naturalist field notes.
+Each day's design is completely different—not through random variation, but through intentional response to the news itself. Claude has total creative freedom to invent a unique page from scratch each day.
 
 ---
 
-## The Design Prompt
+## The Design Approach
 
-The Builder agent receives this comprehensive prompt that guides its aesthetic design process. It emphasizes responding to the news thematically while maintaining technical requirements:
+The Builder agent receives a prompt that gives it complete creative freedom while requiring only a few essential elements:
 
-~~~
-Create a static web page for "news.sys" — a daily news digest by Claude.
+### Required Elements (The Only Rules)
+- The text "news.sys" and "News by Claude" appear somewhere
+- All 10 articles are presented (can mix full summaries and title-only with ways to access blurbs)
+- Designer's notes included somewhere on the page
+- Self-contained, responsive, and accessible HTML
 
-## Content Requirements
-- 10 news headlines from various sources
-- Each headline should be clickable to expand and reveal: a longer summary and source links
-- No numbered items. No "live feed" text. No 'active monitoring' text. No auto-animations (user-triggered only).
+### Total Design Freedom
 
-## Aesthetic Process (IMPORTANT)
+Claude is encouraged to experiment radically with every aspect:
+- **Layout**: Any structure imaginable—grids, floating elements, overlapping layers, spatial canvases
+- **Hierarchy**: Emphasize stories differently, make some huge and others tiny
+- **Typography**: Any fonts, any sizes, break all the rules
+- **Color**: Full spectrum—from stark monochrome to wild gradients
+- **Visual Elements**: SVG illustrations, ASCII art, textures, patterns, icons
+- **Interactions**: Animations (CSS or JS), unconventional reveals, playful micro-interactions
+- **Structure**: Doesn't need to feel like a "news site" at all
 
-**Step 1: Analyze the news.** Before designing, identify:
-- The dominant mood across today's stories (ominous, hopeful, absurd, bureaucratic, scientific, chaotic, contemplative, urgent, mundane, surreal)
-- Recurring themes or domains (politics, technology, nature, conflict, discovery, economy, culture)
-- Any single story dramatic enough to anchor the visual tone
+### Possible Aesthetic Directions
 
-**Step 2: Commit to ONE aesthetic direction.** Based on your analysis, choose a specific visual concept. Don't blend—commit. Examples of directions (use these as inspiration, not a checklist):
+Each day, Claude analyzes the news and commits to one unique aesthetic. Possible inspirations include:
+- Terminal/command line interface
+- Field research notebook
+- Classified government documents
+- Museum exhibition labels
+- Video game UI
+- Scientific poster
+- Illuminated manuscript
+- Weather map
+- Evidence board
+- Technical manual
+- Tarot card spread
+- Comic book
+- Windows '98 OS
+- Pixel art game
+- Movie script
+- ...or anything else that fits the day's news
 
-| News Mood | Possible Aesthetic Direction |
-|-----------|------------------------------|
-| Government/bureaucracy heavy | Classified documents, redacted files, manila folders, typewriter text, official stamps |
-| Science/nature discoveries | Field notebook, naturalist illustrations, specimen labels, botanical drawings, parchment textures |
-| Tech/cyber news | Terminal interface, phosphor glow, scan lines, monospace everything, ASCII decorations |
-| Economic/financial | Stock ticker aesthetic, ledger paper, banking forms, serif authority, green/black |
-| Absurd/weird news | Tabloid collage, ransom note typography, clip art chaos, garish colors |
-| Conflict/crisis | Broadcast interruption, emergency alert, high contrast, stark warnings |
-| Cultural/arts | Editorial magazine, gallery exhibition, refined typography, generous whitespace |
-| Mundane/local news | Community bulletin board, pushpins, handwritten notes, cork texture |
-
-**Step 3: Design with intention.** Your chosen direction should influence:
-- **Layout structure**: Single column? Split pane? Card grid? Sidebar index? Dossier format?
-- **Typography**: Bureaucratic serifs? Playful handwriting? Cold monospace? Elegant editorial?
-- **Color palette**: Derive from concept (manila/red for classified, green/cream for naturalist, amber/black for terminal)
-- **Decorative elements**: ASCII art, SVG illustrations, borders, stamps, textures, dividers—all should reinforce the theme
-- **Information density**: Sparse and contemplative? Dense and urgent?
-
-**Step 4: Create 1-3 thematic visual elements.** These should feel integral, not decorative:
-- Small SVG illustrations reflecting dominant story themes
-- ASCII art headers or dividers
-- Thematic icons or stamps
-- Textural backgrounds (subtle)
-
-**Step 5: Create a design rationale.** Write a brief one-line explanation of today's aesthetic choice, e.g.:
-> "field notebook (3 stories on species discovery, 2 on climate research)"
-
-## Technical Requirements
-- Generate CSS styling that reflects today's aesthetic
-- Generate article HTML with proper semantic structure
-- Each article must use: class="article" (wrapper), class="article-header" (clickable header with title), class="article-details" (expandable content)
-- Readable and functional—aesthetic experimentation should never compromise usability
-- Responsive (works on mobile)
-- Accessible (proper contrast, semantic HTML, ARIA attributes)
-- Can use Google Fonts if needed (via @import in CSS)
-
-## What to Avoid
-- Blending all inspirations into generic "retro-tech minimalist"
-- Color/font swaps as the only variation
-- Decorative elements that don't connect to content
-- Cluttered or illegible results
-- The same layout every time
-~~~
+The page itself becomes part of the editorial voice. Some days feel like emergency broadcasts. Others feel like naturalist observations or technical diagrams or protest flyers. The aesthetic should amplify and respond to the content.
 
 ---
 

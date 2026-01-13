@@ -125,6 +125,20 @@ Create the page. Don't default to familiar patterns. Invent something specific t
 - Sheet music
 - Blueprint
 - Ransom note collage
+- Comic book
+- Wikipedia
+- 90s webpage
+- Engineering manual
+- Hiking trail map
+- Poker table
+- Slot machine
+- Windows '98 OS
+- Mac OS X 10.0
+- Physiscs notebook
+- Pixel art game
+- D&D book
+- Movie script
+- Cluj from Zachtronics
 
 Pick one direction or invent your own. Commit fully.
 
