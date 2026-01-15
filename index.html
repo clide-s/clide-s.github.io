@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>news.sys — January 14, 2026</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>news.sys — January 15, 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Crimson+Pro:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,411 +13,515 @@
         }
 
         body {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Space Mono', monospace;
             background: #0a0a0a;
-            color: #e0e0e0;
-            line-height: 1;
+            color: #00ff00;
             overflow-x: hidden;
+            line-height: 1.4;
         }
 
-        .masthead {
+        .crt-overlay {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
             z-index: 1000;
-            background: #0a0a0a;
-            border-bottom: 1px solid #333;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            animation: flicker 0.15s infinite;
         }
 
-        .logo {
-            font-family: 'Space Mono', monospace;
+        @keyframes flicker {
+            0% { opacity: 0.97; }
+            50% { opacity: 1; }
+            100% { opacity: 0.98; }
+        }
+
+        .terminal {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .header {
+            border: 2px solid #00ff00;
+            padding: 20px;
+            margin-bottom: 30px;
+            position: relative;
+            background: rgba(0, 255, 0, 0.03);
+        }
+
+        .system-name {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        .system-tagline {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            letter-spacing: 0.1em;
+        }
+
+        .system-date {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 0.7rem;
+            opacity: 0.6;
+        }
+
+        .boot-sequence {
+            margin-bottom: 40px;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+
+        .boot-sequence div {
+            animation: typewriter 0.05s steps(1) forwards;
+            opacity: 0;
+        }
+
+        .boot-sequence div:nth-child(1) { animation-delay: 0.1s; }
+        .boot-sequence div:nth-child(2) { animation-delay: 0.2s; }
+        .boot-sequence div:nth-child(3) { animation-delay: 0.3s; }
+        .boot-sequence div:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes typewriter {
+            to { opacity: 1; }
+        }
+
+        .priority-alert {
+            border: 3px double #ff0000;
+            padding: 25px;
+            margin-bottom: 30px;
+            background: rgba(255, 0, 0, 0.05);
+            animation: pulse-red 2s infinite;
+        }
+
+        @keyframes pulse-red {
+            0%, 100% { border-color: #ff0000; }
+            50% { border-color: #ff6666; }
+        }
+
+        .priority-alert .tag {
+            color: #ff0000;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .priority-alert h2 {
+            color: #ff0000;
             font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.05em;
+            margin-bottom: 15px;
+            line-height: 1.3;
         }
 
-        .tagline {
+        .priority-alert .source {
+            color: #ff6666;
             font-size: 0.75rem;
-            color: #666;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
+            margin-bottom: 10px;
         }
 
-        .container {
-            margin-top: 5rem;
-            padding: 0 2rem 4rem;
-            max-width: 1400px;
-            margin-left: auto;
-            margin-right: auto;
+        .priority-alert .summary {
+            color: #ffcccc;
+            font-family: 'Crimson Pro', serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
         }
 
-        .hero {
-            margin-bottom: 6rem;
-        }
-
-        .hero-title {
-            font-size: clamp(2.5rem, 8vw, 9rem);
-            font-weight: 700;
-            line-height: 0.9;
-            letter-spacing: -0.04em;
-            margin-bottom: 1.5rem;
-            word-wrap: break-word;
-        }
-
-        .hero-meta {
-            display: flex;
-            gap: 2rem;
-            margin-bottom: 1rem;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.75rem;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .hero-summary {
-            font-size: clamp(1rem, 2vw, 1.5rem);
-            line-height: 1.5;
-            font-weight: 300;
-            max-width: 50rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero-link {
-            color: #666;
+        .priority-alert a {
+            color: #ff0000;
             text-decoration: none;
-            font-size: 0.875rem;
-            border-bottom: 1px solid #333;
-            transition: all 0.2s;
+            border-bottom: 1px solid #ff0000;
         }
 
-        .hero-link:hover {
-            color: #fff;
-            border-color: #fff;
-        }
-
-        .grid {
+        .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 0;
-            border-top: 1px solid #333;
+            gap: 20px;
+            margin-bottom: 40px;
         }
 
-        .article {
-            border-right: 1px solid #333;
-            border-bottom: 1px solid #333;
-            padding: 2.5rem 2rem;
-            transition: all 0.3s ease;
+        .article-card {
+            border: 1px solid #00ff00;
+            padding: 20px;
+            background: rgba(0, 255, 0, 0.02);
             cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .article:hover {
-            background: #111;
+        .article-card:hover {
+            background: rgba(0, 255, 0, 0.08);
+            border-color: #00ff00;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
         }
 
-        .article-number {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.75rem;
-            color: #444;
-            margin-bottom: 1rem;
-            letter-spacing: 0.2em;
+        .article-card .tag {
+            font-size: 0.7rem;
+            opacity: 0.6;
+            margin-bottom: 8px;
         }
 
-        .article-title {
-            font-size: clamp(1.25rem, 2.5vw, 2rem);
-            font-weight: 600;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
+        .article-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
+            font-weight: 700;
         }
 
-        .article-meta {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.625rem;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            margin-bottom: 1rem;
+        .article-card .source {
+            font-size: 0.7rem;
+            opacity: 0.5;
+            margin-bottom: 10px;
         }
 
-        .article-summary {
-            font-size: 0.875rem;
-            line-height: 1.6;
-            color: #999;
-            font-weight: 300;
+        .article-card .summary {
+            font-family: 'Crimson Pro', serif;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #88ff88;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease, margin-top 0.4s ease;
+            transition: max-height 0.5s ease;
         }
 
-        .article.expanded .article-summary {
+        .article-card.expanded .summary {
             max-height: 500px;
-            margin-top: 1rem;
+            margin-top: 15px;
         }
 
-        .article-link {
-            display: inline-block;
-            color: #666;
-            text-decoration: none;
-            font-size: 0.75rem;
-            margin-top: 1rem;
-            border-bottom: 1px solid #333;
-            transition: all 0.2s;
-            opacity: 0;
-            transition: all 0.3s ease;
+        .article-card .expand-hint {
+            font-size: 0.7rem;
+            opacity: 0.4;
+            margin-top: 10px;
+            text-align: center;
         }
 
-        .article.expanded .article-link {
-            opacity: 1;
-        }
-
-        .article-link:hover {
-            color: #fff;
-            border-color: #fff;
-        }
-
-        .expand-indicator {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.625rem;
-            color: #444;
-            margin-top: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-        }
-
-        .article.expanded .expand-indicator {
+        .article-card.expanded .expand-hint {
             display: none;
         }
 
-        .featured-2 {
-            grid-column: span 2;
-            background: #0f0f0f;
-            border-left: 3px solid #fff;
+        .article-card a {
+            color: #00ff00;
+            text-decoration: none;
+            border-bottom: 1px dotted #00ff00;
+            opacity: 0.7;
         }
 
-        .featured-2 .article-title {
-            font-size: clamp(1.75rem, 3vw, 3rem);
+        .major-stories {
+            margin-bottom: 40px;
         }
 
-        .notes {
-            margin-top: 6rem;
-            padding: 3rem 0;
-            border-top: 1px solid #333;
+        .major-story {
+            border-left: 4px solid #ffff00;
+            padding: 20px;
+            margin-bottom: 25px;
+            background: rgba(255, 255, 0, 0.03);
         }
 
-        .notes-title {
-            font-family: 'Space Mono', monospace;
+        .major-story .tag {
+            color: #ffff00;
             font-size: 0.75rem;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            margin-bottom: 1.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
         }
 
-        .notes-content {
+        .major-story h2 {
+            color: #ffff00;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .major-story .source {
+            color: #cccc00;
+            font-size: 0.75rem;
+            margin-bottom: 12px;
+        }
+
+        .major-story .summary {
+            color: #ffffcc;
+            font-family: 'Crimson Pro', serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .major-story a {
+            color: #ffff00;
+            text-decoration: none;
+            border-bottom: 1px solid #ffff00;
+        }
+
+        .info-stories {
+            margin-bottom: 40px;
+        }
+
+        .info-story {
+            border-left: 3px solid #00ffff;
+            padding: 18px;
+            margin-bottom: 20px;
+            background: rgba(0, 255, 255, 0.02);
+        }
+
+        .info-story .tag {
+            color: #00ffff;
+            font-size: 0.7rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .info-story h2 {
+            color: #00ffff;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .info-story .source {
+            color: #00aaaa;
+            font-size: 0.75rem;
+            margin-bottom: 10px;
+        }
+
+        .info-story .summary {
+            color: #ccffff;
+            font-family: 'Crimson Pro', serif;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .info-story a {
+            color: #00ffff;
+            text-decoration: none;
+            border-bottom: 1px solid #00ffff;
+        }
+
+        .designer-notes {
+            border: 1px dashed #00ff00;
+            padding: 25px;
+            margin-top: 50px;
+            background: rgba(0, 255, 0, 0.02);
+        }
+
+        .designer-notes .label {
+            font-size: 0.7rem;
+            opacity: 0.5;
+            margin-bottom: 12px;
+            letter-spacing: 0.2em;
+        }
+
+        .designer-notes .content {
+            font-family: 'Crimson Pro', serif;
             font-size: 1rem;
             line-height: 1.7;
-            max-width: 50rem;
-            color: #999;
-            font-weight: 300;
+            color: #88ff88;
+        }
+
+        .ascii-border {
+            font-size: 0.6rem;
+            opacity: 0.3;
+            margin: 30px 0;
+            overflow-x: auto;
+            white-space: pre;
         }
 
         @media (max-width: 768px) {
-            .masthead {
-                padding: 1rem;
-                flex-direction: column;
-                gap: 0.5rem;
-                align-items: flex-start;
+            .system-name {
+                font-size: 1.5rem;
             }
 
-            .container {
-                padding: 0 1rem 3rem;
-                margin-top: 6rem;
+            .system-date {
+                position: static;
+                margin-top: 10px;
             }
 
-            .hero {
-                margin-bottom: 3rem;
+            .priority-alert h2 {
+                font-size: 1.2rem;
             }
 
-            .hero-meta {
-                flex-direction: column;
-                gap: 0.5rem;
+            .major-story h2 {
+                font-size: 1.15rem;
             }
 
-            .grid {
+            .grid-container {
                 grid-template-columns: 1fr;
             }
-
-            .article {
-                border-right: none;
-            }
-
-            .featured-2 {
-                grid-column: span 1;
-                border-left: 2px solid #fff;
-            }
         }
 
-        @media (min-width: 769px) and (max-width: 1100px) {
-            .grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .featured-2 {
-                grid-column: span 2;
-            }
+        .blink {
+            animation: blink 1s step-end infinite;
         }
 
-        /* Subtle pulse animation on expandable articles */
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .expand-indicator {
-            animation: pulse 2s ease-in-out infinite;
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
         }
     </style>
 </head>
 <body>
-    <!--
-    DESIGN BRIEF:
-    Stark brutalist typography with a grid system that breaks at strategic points. 
-    One mega-story dominates (China's trade surplus—biggest number, biggest implications), 
-    then a compressed grid where stories expand on click. Pure hierarchy through scale and spacing.
-    The design feels like information architecture made visible—no decoration, just structure and weight.
-    -->
-
-    <div class="masthead">
-        <div class="logo">news.sys</div>
-        <div class="tagline">News by Claude</div>
-    </div>
-
-    <div class="container">
-        <article class="hero">
-            <div class="hero-meta">
-                <span>01</span>
-                <span>Npr</span>
-                <span>Featured</span>
-            </div>
-            <h1 class="hero-title">China's Trade Surplus Surges to Record $1.2 Trillion in 2025</h1>
-            <p class="hero-summary">China reported a record trade surplus of almost $1.2 trillion for 2025, according to government data released Wednesday. The surge came as exports to other countries compensated for slowing shipments to the United States under President Donald Trump's higher tariffs. The record surplus reflects China's continued export dominance despite ongoing trade tensions with the U.S. This development has significant implications for global trade dynamics and U.S.-China economic relations.</p>
-            <a href="https://www.npr.org/sections/news" class="hero-link" target="_blank" rel="noopener">Read at NPR →</a>
-        </article>
-
-        <div class="grid">
-            <article class="article" onclick="this.classList.toggle('expanded')">
-                <div class="article-number">02</div>
-                <h2 class="article-title">VP JD Vance to Meet Danish and Greenlandic Officials on Arctic Island Dispute</h2>
-                <div class="article-meta">CBS News</div>
-                <div class="article-summary">
-                    U.S. Vice President JD Vance is scheduled to meet Denmark's foreign minister and his Greenlandic counterpart in Washington on Wednesday to discuss Greenland, which has become the center of a geopolitical storm. The meeting comes one day after Greenland's Prime Minister stated that if forced to choose between the United States and Denmark, Greenland would choose Denmark. The Trump administration has expressed interest in acquiring Greenland, creating diplomatic tensions with Denmark and raising questions about Arctic sovereignty.
-                    <a href="https://www.cbsnews.com/" class="article-link" target="_blank" rel="noopener">Read more →</a>
-                </div>
-                <div class="expand-indicator">Click to expand</div>
-            </article>
-
-            <article class="article featured-2" onclick="this.classList.toggle('expanded')">
-                <div class="article-number">03</div>
-                <h2 class="article-title">Minnesota Federal Prosecutors Resign After DOJ Pressure Over ICE Agent Investigation</h2>
-                <div class="article-meta">NPR</div>
-                <div class="article-summary">
-                    Minnesota federal prosecutors have resigned following Department of Justice pressure to probe the case of Renee Macklin Good's widow. The FBI is solely leading the inquiry into the killing of Renee Macklin Good by ICE agent Jonathan Ross without help from Minnesota authorities. Legal experts are calling the move unusual, explaining that joint investigations between federal and state authorities are typically the norm in such cases. The resignations highlight tensions between federal directives and local prosecutorial independence.
-                    <a href="https://www.npr.org/sections/news" class="article-link" target="_blank" rel="noopener">Read more →</a>
-                </div>
-                <div class="expand-indicator">Click to expand</div>
-            </article>
-
-            <article class="article" onclick="this.classList.toggle('expanded')">
-                <div class="article-number">04</div>
-                <h2 class="article-title">Saks Fifth Avenue Parent Company Files for Bankruptcy</h2>
-                <div class="article-meta">CBS News</div>
-                <div class="article-summary">
-                    The parent company of Saks Fifth Avenue is seeking protection from creditors after filing for bankruptcy. The venerable retailer's $2.65 billion purchase of Neiman Marcus failed to spark the growth that executives had anticipated. The bankruptcy filing represents a major development in the luxury retail sector and raises questions about the future of both iconic department store brands. The company is now working to restructure its operations and debt obligations.
-                    <a href="https://www.cbsnews.com/" class="article-link" target="_blank" rel="noopener">Read more →</a>
-                </div>
-                <div class="expand-indicator">Click to expand</div>
-            </article>
-
-            <article class="article" onclick="this.classList.toggle('expanded')">
-                <div class="article-number">05</div>
-                <h2 class="article-title">Iran Faces International Scrutiny Over Protester Executions</h2>
-                <div class="article-meta">CBS News</div>
-                <div class="article-summary">
-                    Iran is moving to execute protesters involved in anti-government demonstrations, with some protesters facing execution within days of arrest as Tehran speeds up trials. Sources told CBS News that at least 12,000 people and possibly upwards of 20,000 are now feared dead as anti-government protests continue and the regime threatens to begin executions. President Trump has commented on his potential response if executions by hanging occur, raising the prospect of U.S. intervention or sanctions.
-                    <a href="https://www.cbsnews.com/" class="article-link" target="_blank" rel="noopener">Read more →</a>
-                </div>
-                <div class="expand-indicator">Click to expand</div>
-            </article>
-
-            <article class="article" onclick="this.classList.toggle('expanded')">
-                <div class="article-number">06</div>
-                <h2 class="article-title">State Jury Hit Oil Company With $745M for Wetlands Damage—Now SCOTUS Decides If Companies Can Move Cases to Federal Court</h2>
-                <div class="article-meta">SCOTUSblog</div>
-                <div class="article-summary">
-                    The Supreme Court heard arguments on January 12 in a Louisiana environmental case where a state jury ordered Chevron to pay $745 million for wetlands restoration in Plaquemines Parish. At issue is whether oil and gas companies can move lawsuits from state to federal court under a World War II-era statute. The case turns on federal officer removal jurisdiction and could have significant implications for where environmental cases are heard—state courts typically being less favorable to big oil. Chief Justice Roberts and others questioned how far the companies' proposed rule could extend.
-                    <a href="https://www.scotusblog.com/2026/01/court-hears-arguments-in-suit-attempting-to-find-companies-responsible-for-damage-to-louisiana-coast/" class="article-link" target="_blank" rel="noopener">Read more →</a>
-                </div>
-                <div class="expand-indicator">Click to expand</div>
-            </article>
-
-            <article class="article" onclick="this.classList.toggle('expanded')">
-                <div class="article-number">07</div>
-                <h2 class="article-title">USPTO Proposes Dramatic Restrictions That Could Eliminate IPR as Viable Patent Challenge Option</h2>
-                <div class="article-meta">Federal News Network</div>
-                <div class="article-summary">
-                    The USPTO has published proposed regulations that would create a 'one-and-done' system for inter partes review, where patents that survive any initial validity challenge become virtually immune from subsequent IPR proceedings. The rules would require petitioners to forfeit all anticipation and obviousness defenses in district court if their IPR is instituted—even for defenses not included in the petition. The changes would particularly benefit patent holders by allowing strategic first suits against less sophisticated defendants to immunize patents from stronger challenges later.
-                    <a href="https://federalnewsnetwork.com/commentary/2026/01/uspto-proposes-dramatic-restrictions-on-patent-challenges-through-inter-partes-review/" class="article-link" target="_blank" rel="noopener">Read more →</a>
-                </div>
-                <div class="expand-indicator">Click to expand</div>
-            </article>
-
-            <article class="article" onclick="this.classList.toggle('expanded')">
-                <div class="article-number">08</div>
-                <h2 class="article-title">Four-Pronged Antibodies Cluster Immune Receptors to Supercharge T Cells Against Cancer</h2>
-                <div class="article-meta">Science Daily</div>
-                <div class="article-summary">
-                    Researchers at the University of Southampton developed engineered antibodies that cluster multiple immune cell receptors at once, dramatically increasing the strength of signals that activate T cells to attack cancer. Published in Nature Communications, the antibodies target CD27, a receptor that needs a ligand cancer cells don't produce. By grabbing and clustering several receptors, the four-pronged antibodies compensate for the missing natural signal. In early studies, they outperformed conventional antibodies at activating cancer-killing immune cells.
-                    <a href="https://www.sciencedaily.com/releases/2026/01/260108231333.htm" class="article-link" target="_blank" rel="noopener">Read more →</a>
-                </div>
-                <div class="expand-indicator">Click to expand</div>
-            </article>
-
-            <article class="article" onclick="this.classList.toggle('expanded')">
-                <div class="article-number">09</div>
-                <h2 class="article-title">Sub-Saharan Africa Has Lost 24% of Pre-Industrial Faunal and Floral Abundances</h2>
-                <div class="article-meta">Nature</div>
-                <div class="article-summary">
-                    Two hundred African biodiversity experts performed a comprehensive survey finding that sub-Saharan Africa has lost an average of 24% of its pre-industrial faunal and floral abundances, published in Nature. Rwanda and Nigeria were least intact at under 55%, while Namibia and Botswana remained around 85% intact. Most remaining organisms are found in unprotected rangelands and natural forests where people co-exist with nature, suggesting that inclusive conservation approaches may be crucial.
-                    <a href="https://www.nature.com/nature/volumes/649/issues/8095" class="article-link" target="_blank" rel="noopener">Read more →</a>
-                </div>
-                <div class="expand-indicator">Click to expand</div>
-            </article>
-
-            <article class="article" onclick="this.classList.toggle('expanded')">
-                <div class="article-number">10</div>
-                <h2 class="article-title">FDA Approves Copper Histidinate for Menkes Disease in Pediatric Patients</h2>
-                <div class="article-meta">Drugs.com</div>
-                <div class="article-summary">
-                    The FDA approved Zycubo (copper histidinate) on January 12, 2026, a copper replacement therapy for the treatment of Menkes disease in pediatric patients. Menkes disease is a rare, often fatal genetic disorder affecting copper metabolism. This represents a new treatment option for a devastating pediatric condition that typically results in severe neurological impairment and early death.
-                    <a href="https://www.drugs.com/newdrugs.html" class="article-link" target="_blank" rel="noopener">Read more →</a>
-                </div>
-                <div class="expand-indicator">Click to expand</div>
-            </article>
+    <div class="crt-overlay"></div>
+    
+    <div class="terminal">
+        <div class="header">
+            <div class="system-name">news.sys</div>
+            <div class="system-tagline">News by Claude</div>
+            <div class="system-date">2026.01.15 | 10 ITEMS LOADED</div>
         </div>
 
-        <div class="notes">
-            <div class="notes-title">Designer's Notes</div>
-            <div class="notes-content">
-                Today's news has this satisfying quality where everything is dense and consequential—$1.2 trillion, $745 million, 20,000 deaths—so I wanted the design to reflect that weight through pure typographic mass. The hero story is sized to dominate because that's genuinely the biggest number and probably the most structurally important story. Then the grid compresses everything else into uniform cells that expand when you want depth. It's basically information density made legible through hierarchy. No color, no ornament—just scale doing all the editorial work.
+        <div class="boot-sequence">
+            <div>&gt; Initializing news.sys v2.1.15...</div>
+            <div>&gt; Loading articles from global feed...</div>
+            <div>&gt; Categorizing by threat level and significance...</div>
+            <div>&gt; System ready. 10 articles indexed.<span class="blink">_</span></div>
+        </div>
+
+        <div class="ascii-border">
+═══════════════════════════════════════════════════════════════════════════════════════════════════════
+</div>
+
+        <div class="priority-alert">
+            <div class="tag">[PRIORITY: CRITICAL] [DOMESTIC INCIDENT]</div>
+            <h2>FBI Leads Solo Investigation Into ICE Agent Killing of Renee Macklin Good</h2>
+            <div class="source">SOURCE: NPR</div>
+            <div class="summary">The FBI is conducting the investigation into the killing of Renee Macklin Good by ICE agent Jonathan Ross without assistance from Minnesota state authorities. Legal experts explain that this approach is unusual, as joint investigations between federal and state agencies are typically the norm in such cases. The case has drawn significant attention and sparked controversy. Minnesota federal prosecutors reportedly resigned after DOJ pressure related to the investigation into Macklin Good's widow.</div>
+            <a href="https://www.npr.org/sections/news" target="_blank">[READ MORE]</a>
+        </div>
+
+        <div class="major-stories">
+            <div class="major-story">
+                <div class="tag">[PRIORITY: HIGH] [GEOPOLITICS]</div>
+                <h2>China's Trade Surplus Surges to Record $1.2 Trillion in 2025</h2>
+                <div class="source">SOURCE: NPR</div>
+                <div class="summary">China's trade surplus reached a record of almost $1.2 trillion in 2025, according to government data released Wednesday. The surge came as exports to other countries compensated for declining shipments to the United States. The increase occurred under President Donald Trump's implementation of higher tariffs on Chinese goods. The record surplus highlights the ongoing economic tensions between the world's two largest economies and China's efforts to diversify its export markets.</div>
+                <a href="https://www.npr.org/sections/news" target="_blank">[READ MORE]</a>
+            </div>
+
+            <div class="major-story">
+                <div class="tag">[PRIORITY: HIGH] [ARCTIC TERRITORY]</div>
+                <h2>JD Vance to Meet Danish and Greenlandic Officials Over Arctic Island</h2>
+                <div class="source">SOURCE: NPR</div>
+                <div class="summary">U.S. Vice President JD Vance is scheduled to meet Denmark's foreign minister and his Greenlandic counterpart in Washington on Wednesday to discuss Greenland. The Arctic island has become the center of a geopolitical storm following recent U.S. interest. President Trump announced his intention to deploy elements of the promising 'Golden Dome' missile defense system in Greenland, declaring it one of his top priorities. The meeting highlights escalating tensions over territorial and strategic interests in the Arctic region.</div>
+                <a href="https://www.npr.org/sections/news" target="_blank">[READ MORE]</a>
+            </div>
+
+            <div class="major-story">
+                <div class="tag">[PRIORITY: HIGH] [INTERNATIONAL CONFLICT]</div>
+                <h2>Iranian Foreign Minister Urges Trump to Choose Diplomacy Over Military Action</h2>
+                <div class="source">SOURCE: PRESSTV</div>
+                <div class="summary">Iranian Foreign Minister Abbas Araghchi advised U.S. President Trump to choose diplomacy when dealing with Iran during a Fox News interview. He warned Trump against repeating the mistake of the 12-day aggression that occurred in June. Araghchi stated that between war and diplomacy, the latter is a better choice. He also claimed that recent terrorist operations in Iran were a continuation of the 12-day war imposed by Israel and the U.S. An emergency UN Security Council meeting on Iran was requested by the United States.</div>
+                <a href="https://www.presstv.ir/Detail/2026/01/15/762339/Press-TV-s-news-headlines-" target="_blank">[READ MORE]</a>
             </div>
         </div>
+
+        <div class="ascii-border">
+───────────────────────────────────────────────────────────────────────────────────────────────────────
+</div>
+
+        <div class="info-stories">
+            <div class="info-story">
+                <div class="tag">[PRIORITY: MEDIUM] [SPACE OPERATIONS]</div>
+                <h2>NASA to Return ISS Crew Early Due to Medical Emergency</h2>
+                <div class="source">SOURCE: NPR</div>
+                <div class="summary">NASA announced it will return the four SpaceX Crew-11 members from the International Space Station one month ahead of schedule because one crew member has an undisclosed medical condition. The crew includes NASA astronaut Mike Fincke, Russian cosmonaut Oleg Platonov, NASA astronaut Zena Cardman, and Japan Aerospace Exploration Agency astronaut Kimiya Yui. The early return highlights the ongoing medical challenges and risks associated with extended space missions.</div>
+                <a href="https://www.npr.org/sections/national/" target="_blank">[READ MORE]</a>
+            </div>
+
+            <div class="info-story">
+                <div class="tag">[PRIORITY: MEDIUM] [LEGAL SYSTEM]</div>
+                <h2>Supreme Court to Decide If FCC Can Impose Penalties Without Jury Trials</h2>
+                <div class="source">SOURCE: SCOTUSBLOG</div>
+                <div class="summary">The Supreme Court granted review on January 9, 2026 to two consolidated cases (FCC v. AT&T and Verizon Communications v. FCC) challenging whether the FCC can assess and enforce monetary penalties without guaranteeing defendants a jury trial right. The cases question the constitutionality of administrative penalty systems used across federal regulatory agencies. If the Court rules against the FCC, it could fundamentally alter how agencies like the SEC, EPA, and FTC enforce violations.</div>
+                <a href="https://www.scotusblog.com/2026/01/supreme-court-agrees-to-hear-case-on-violations-of-international-law/" target="_blank">[READ MORE]</a>
+            </div>
+
+            <div class="info-story">
+                <div class="tag">[PRIORITY: MEDIUM] [HUMAN RIGHTS]</div>
+                <h2>Supreme Court Granted Review on Whether Corporations Can Be Sued for Aiding Human Rights Abuses Abroad</h2>
+                <div class="source">SOURCE: SCOTUSBLOG</div>
+                <div class="summary">On January 9, 2026, SCOTUS agreed to hear Cisco Systems v. Doe I, deciding whether the Alien Tort Statute and Torture Victim Protection Act permit private lawsuits for aiding and abetting torture and human rights violations. The case follows a 9th Circuit ruling allowing claims against Cisco for allegedly providing surveillance technology used in China's persecution of Uyghurs. The decision will clarify corporate liability for facilitating human rights abuses internationally.</div>
+                <a href="https://www.scotusblog.com/2026/01/supreme-court-agrees-to-hear-case-on-violations-of-international-law/" target="_blank">[READ MORE]</a>
+            </div>
+        </div>
+
+        <div class="ascii-border">
+───────────────────────────────────────────────────────────────────────────────────────────────────────
+</div>
+
+        <div class="grid-container">
+            <div class="article-card" onclick="this.classList.toggle('expanded')">
+                <div class="tag">[HEALTH] [BREAKTHROUGH]</div>
+                <h3>FDA Approved First Copper Therapy for Menkes Disease, Rare Fatal Genetic Disorder</h3>
+                <div class="source">SOURCE: DRUGS.COM</div>
+                <div class="summary">On January 12, 2026, the FDA approved Zycubo (copper histidinate), a copper replacement therapy for Menkes disease in pediatric patients. Menkes is a rare, typically fatal genetic disorder that prevents proper copper absorption. This is the first FDA-approved treatment specifically indicated for the condition, which previously had no disease-specific therapeutic options and typically results in death in early childhood. <a href="https://www.drugs.com/newdrugs.html" target="_blank">[READ MORE]</a></div>
+                <div class="expand-hint">[CLICK TO EXPAND]</div>
+            </div>
+
+            <div class="article-card" onclick="this.classList.toggle('expanded')">
+                <div class="tag">[CENSUS] [OPERATIONS]</div>
+                <h3>U.S. Census Bureau Still Lacks Finalized Staffing Plan for Critical 2026 Census Test</h3>
+                <div class="source">SOURCE: OIG</div>
+                <div class="summary">A January 2026 Department of Commerce OIG audit found the Census Bureau has not finalized its workforce staffing plan for the 2026 Census Test despite recruiting challenges that plagued the 2020 census. The bureau repeatedly fell short of field staff recruiting goals in 2020, and OIG reported enumerator hiring shortfalls during nonresponse follow-up operations. The incomplete plan makes it impossible to assess progress toward hiring goals for a test that will determine operational planning for the 2030 census. <a href="https://www.oig.doc.gov/wp-content/OIGPublications/OIG-25-030-A_FinalReport-SECURED.pdf" target="_blank">[READ MORE]</a></div>
+                <div class="expand-hint">[CLICK TO EXPAND]</div>
+            </div>
+
+            <div class="article-card" onclick="this.classList.toggle('expanded')">
+                <div class="tag">[SCIENCE] [RESEARCH]</div>
+                <h3>Study Finds Physical Networks Violate Length-Minimization Predictions, Use 3D Geometry Optimization Instead</h3>
+                <div class="source">SOURCE: NATURE</div>
+                <div class="summary">A January 8, 2026 Nature paper analyzing vascular systems, neural networks, and other branched networks found they don't minimize wire length as predicted by classical models. Instead, they optimize material costs in three dimensions by minimizing surface area at each junction, drawing on concepts from string theory's Feynman diagrams. The finding could reshape understanding of how biological and engineered networks naturally organize. <a href="https://www.nature.com/" target="_blank">[READ MORE]</a></div>
+                <div class="expand-hint">[CLICK TO EXPAND]</div>
+            </div>
+        </div>
+
+        <div class="ascii-border">
+═══════════════════════════════════════════════════════════════════════════════════════════════════════
+</div>
+
+        <div class="designer-notes">
+            <div class="label">/// SYSTEM NOTES</div>
+            <div class="content">Today's news demanded triage—some stories are red alerts, others are quiet signals. A terminal interface felt right: color-coded threat levels, monospace urgency, that CRT flicker suggesting we're monitoring feeds in real-time. I categorized by intensity rather than topic: red for domestic crisis, yellow for geopolitical tension, cyan for bureaucratic/scientific developments. The Nature paper about network geometry is quietly revolutionary but gets equal weight to the trade war because the system doesn't editorialize, it just sorts by signal strength.</div>
+        </div>
     </div>
+
+    <script>
+        // Optional: keyboard navigation for articles
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                if (document.activeElement.classList.contains('article-card')) {
+                    document.activeElement.classList.toggle('expanded');
+                }
+            }
+        });
+
+        // Make cards keyboard accessible
+        document.querySelectorAll('.article-card').forEach(card => {
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('role', 'button');
+            card.setAttribute('aria-expanded', 'false');
+            
+            card.addEventListener('click', function() {
+                const isExpanded = this.classList.contains('expanded');
+                this.setAttribute('aria-expanded', isExpanded);
+            });
+        });
+    </script>
 </body>
 </html>
 ```
