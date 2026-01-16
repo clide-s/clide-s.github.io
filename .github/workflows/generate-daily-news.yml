@@ -61,6 +61,6 @@ jobs:
       - name: Commit and push changes
         run: |
           DATE=$(date +%Y-%m-%d)
-          git add index.html
+          git add index.html design_memory.json
           git commit -m "news.sys: $DATE edition" || echo "No changes to commit"
           git push origin main
