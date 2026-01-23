@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>news.sys — January 22, 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>news.sys — January 23, 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,496 +14,558 @@
 
         body {
             background: #0a0a0a;
-            color: #e0e0e0;
-            font-family: 'IBM Plex Mono', monospace;
+            color: #00ff00;
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+            line-height: 1.4;
             overflow-x: hidden;
-            line-height: 1.5;
+        }
+
+        .crt-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            background: linear-gradient(
+                transparent 0%,
+                rgba(0, 255, 0, 0.02) 50%,
+                transparent 100%
+            );
+            background-size: 100% 4px;
+            animation: scanline 8s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+
+        .screen-flicker {
+            animation: flicker 0.15s infinite;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.98; }
+            100% { opacity: 1; }
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 40px 20px;
+            position: relative;
         }
 
         header {
+            border: 3px solid #00ff00;
+            padding: 30px;
+            margin-bottom: 40px;
+            background: rgba(0, 255, 0, 0.03);
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        .logo {
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 10px;
+            letter-spacing: 8px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00; }
+            to { text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00; }
+        }
+
+        .tagline {
+            text-align: center;
+            font-size: 18px;
+            opacity: 0.7;
+            letter-spacing: 4px;
+        }
+
+        .system-info {
+            text-align: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #00ff00;
+            opacity: 0.5;
+            font-size: 16px;
+        }
+
+        .terminal-prompt {
+            color: #00ff00;
+            margin-bottom: 5px;
+        }
+
+        .terminal-prompt::before {
+            content: '> ';
+            color: #00ff00;
+        }
+
+        .threat-level {
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px solid #ff0000;
+            color: #ff0000;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            animation: pulse-red 1.5s ease-in-out infinite;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        @keyframes pulse-red {
+            0%, 100% { opacity: 1; border-color: #ff0000; }
+            50% { opacity: 0.7; border-color: #ff3333; }
+        }
+
+        .priority-alert {
+            font-size: 28px;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .article {
+            border: 2px solid #00ff00;
+            padding: 20px;
+            background: rgba(0, 255, 0, 0.02);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article:hover {
+            background: rgba(0, 255, 0, 0.08);
+            border-color: #00ffff;
+            color: #00ffff;
+            transform: translateX(5px);
+        }
+
+        .article.critical {
+            border-color: #ff0000;
+            color: #ff0000;
+            background: rgba(255, 0, 0, 0.05);
+        }
+
+        .article.critical:hover {
+            border-color: #ff3333;
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .article.warning {
+            border-color: #ffff00;
+            color: #ffff00;
+            background: rgba(255, 255, 0, 0.03);
+        }
+
+        .article.warning:hover {
+            border-color: #ffff33;
+            background: rgba(255, 255, 0, 0.08);
+        }
+
+        .article-header {
             display: flex;
             justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 60px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #333;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            gap: 10px;
         }
 
-        .branding {
-            font-family: 'Space Grotesk', sans-serif;
+        .article-id {
+            font-size: 14px;
+            opacity: 0.6;
+            white-space: nowrap;
         }
 
-        .branding h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #00ff88;
-            letter-spacing: -0.02em;
+        .threat-badge {
+            font-size: 14px;
+            padding: 2px 8px;
+            border: 1px solid currentColor;
+            white-space: nowrap;
         }
 
-        .branding p {
-            font-size: 0.875rem;
-            color: #666;
-            font-family: 'IBM Plex Mono', monospace;
-        }
-
-        .date {
-            font-size: 0.875rem;
-            color: #666;
-            text-align: right;
-        }
-
-        .timeline {
-            position: relative;
-            padding-left: 60px;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 20px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, #00ff88 0%, #0088ff 50%, #ff0088 100%);
-        }
-
-        .story-node {
-            position: relative;
-            margin-bottom: 80px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .story-node::before {
-            content: '';
-            position: absolute;
-            left: -46px;
-            top: 8px;
-            width: 12px;
-            height: 12px;
-            background: #00ff88;
-            border-radius: 50%;
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
-            transition: all 0.3s ease;
-        }
-
-        .story-node:nth-child(3n+2)::before {
-            background: #0088ff;
-            box-shadow: 0 0 20px rgba(0, 136, 255, 0.6);
-        }
-
-        .story-node:nth-child(3n+3)::before {
-            background: #ff0088;
-            box-shadow: 0 0 20px rgba(255, 0, 136, 0.6);
-        }
-
-        .story-node:hover::before {
-            width: 16px;
-            height: 16px;
-            left: -48px;
-            top: 6px;
-        }
-
-        .story-category {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #00ff88;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .story-node:nth-child(3n+2) .story-category {
-            color: #0088ff;
-        }
-
-        .story-node:nth-child(3n+3) .story-category {
-            color: #ff0088;
-        }
-
-        .story-headline {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #ffffff;
+        .headline {
+            font-size: 24px;
             margin-bottom: 12px;
-            line-height: 1.3;
-            transition: color 0.3s ease;
+            line-height: 1.2;
+            font-weight: bold;
         }
 
-        .story-node:hover .story-headline {
-            color: #00ff88;
+        .source {
+            font-size: 14px;
+            opacity: 0.6;
+            margin-bottom: 10px;
+            text-transform: uppercase;
         }
 
-        .story-node:nth-child(3n+2):hover .story-headline {
-            color: #0088ff;
-        }
-
-        .story-node:nth-child(3n+3):hover .story-headline {
-            color: #ff0088;
-        }
-
-        .story-summary {
-            font-size: 0.95rem;
-            color: #999;
-            line-height: 1.7;
+        .summary {
+            font-size: 18px;
+            line-height: 1.5;
+            opacity: 0.9;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease, margin-top 0.5s ease;
-            margin-top: 0;
+            transition: max-height 0.5s ease;
         }
 
-        .story-node.expanded .story-summary {
+        .article.expanded .summary {
             max-height: 1000px;
-            margin-top: 16px;
+            margin-top: 15px;
         }
 
-        .story-meta {
+        .expand-indicator {
+            margin-top: 10px;
+            font-size: 16px;
+            opacity: 0.5;
+            text-align: center;
+        }
+
+        .article.expanded .expand-indicator::before {
+            content: '[COLLAPSE_DATA]';
+        }
+
+        .article:not(.expanded) .expand-indicator::before {
+            content: '[EXPAND_DATA]';
+        }
+
+        .link {
+            display: block;
             margin-top: 12px;
-            font-size: 0.8rem;
-            color: #555;
-            display: flex;
-            gap: 16px;
-            align-items: center;
-        }
-
-        .story-source {
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .story-link {
-            color: #00ff88;
+            color: inherit;
             text-decoration: none;
-            transition: color 0.3s ease;
+            opacity: 0.6;
+            font-size: 14px;
+            word-break: break-all;
         }
 
-        .story-link:hover {
-            color: #00ffff;
+        .link:hover {
+            opacity: 1;
+            text-decoration: underline;
         }
 
-        .expand-hint {
-            font-size: 0.75rem;
-            color: #666;
-            margin-top: 8px;
-            transition: color 0.3s ease;
+        .system-status {
+            border: 2px solid #00ff00;
+            padding: 30px;
+            margin-bottom: 40px;
+            background: rgba(0, 255, 0, 0.02);
         }
 
-        .story-node.expanded .expand-hint {
-            color: #00ff88;
+        .status-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 4px;
         }
 
-        .story-node:nth-child(3n+2).expanded .expand-hint {
-            color: #0088ff;
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
         }
 
-        .story-node:nth-child(3n+3).expanded .expand-hint {
-            color: #ff0088;
+        .status-item {
+            padding: 10px;
+            border: 1px solid #00ff00;
+            background: rgba(0, 255, 0, 0.02);
+        }
+
+        .status-label {
+            opacity: 0.6;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .status-value {
+            font-size: 20px;
         }
 
         .designer-notes {
-            margin-top: 100px;
+            border: 2px solid #00ff00;
             padding: 30px;
-            background: #111;
-            border-left: 3px solid #00ff88;
-            font-size: 0.9rem;
-            color: #888;
-            line-height: 1.8;
+            background: rgba(0, 255, 0, 0.02);
+            margin-top: 40px;
         }
 
-        .designer-notes::before {
-            content: '// DESIGNER\'S NOTES';
-            display: block;
-            font-size: 0.75rem;
-            color: #00ff88;
-            margin-bottom: 12px;
-            letter-spacing: 0.1em;
+        .notes-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            opacity: 0.7;
         }
 
-        .major-story {
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.03) 0%, rgba(0, 0, 0, 0) 100%);
-            padding: 30px;
-            margin-left: -30px;
-            margin-right: -30px;
-            border-left: 3px solid #00ff88;
+        .notes-content {
+            font-size: 18px;
+            line-height: 1.6;
+            font-family: 'Courier Prime', monospace;
+            opacity: 0.9;
         }
 
-        .major-story .story-headline {
-            font-size: 2rem;
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            opacity: 0.5;
+            font-size: 16px;
         }
 
-        .major-story .story-summary {
-            max-height: 1000px;
-            margin-top: 16px;
-            color: #b0b0b0;
+        .ascii-art {
+            white-space: pre;
+            font-size: 12px;
+            line-height: 1.2;
+            opacity: 0.3;
+            text-align: center;
+            margin: 30px 0;
+            overflow-x: auto;
         }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 20px 15px;
+            .logo {
+                font-size: 32px;
+                letter-spacing: 4px;
             }
 
-            header {
-                flex-direction: column;
-                gap: 10px;
-                margin-bottom: 40px;
+            .headline {
+                font-size: 20px;
             }
 
-            .branding h1 {
-                font-size: 1.8rem;
+            .summary {
+                font-size: 16px;
             }
 
-            .date {
-                text-align: left;
+            .grid {
+                grid-template-columns: 1fr;
             }
 
-            .timeline {
-                padding-left: 40px;
-            }
-
-            .timeline::before {
-                left: 10px;
-            }
-
-            .story-node::before {
-                left: -36px;
-            }
-
-            .story-headline {
-                font-size: 1.2rem;
-            }
-
-            .major-story {
-                padding: 20px;
-                margin-left: -15px;
-                margin-right: -15px;
-            }
-
-            .major-story .story-headline {
-                font-size: 1.5rem;
-            }
-
-            .story-node {
-                margin-bottom: 60px;
-            }
-
-            .designer-notes {
-                padding: 20px;
-                margin-left: -15px;
-                margin-right: -15px;
+            .ascii-art {
+                font-size: 8px;
             }
         }
 
-        @keyframes pulse {
-            0%, 100% {
-                box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
-            }
-            50% {
-                box-shadow: 0 0 30px rgba(0, 255, 136, 0.9);
-            }
+        .blink {
+            animation: blink 1s step-start infinite;
         }
 
-        .story-node::before {
-            animation: pulse 2s ease-in-out infinite;
+        @keyframes blink {
+            50% { opacity: 0; }
         }
 
-        .story-node:nth-child(3n+2)::before {
-            animation: pulse 2.5s ease-in-out infinite;
-        }
-
-        .story-node:nth-child(3n+3)::before {
-            animation: pulse 3s ease-in-out infinite;
+        .typing-cursor::after {
+            content: '_';
+            animation: blink 1s step-start infinite;
         }
     </style>
 </head>
-<body>
-    <!--
-    DESIGN BRIEF:
-    Today's news spans a vertical timeline—from geopolitics to cellular biology, from trillion-dollar debt to copper metabolism. It feels like watching events unfold across different timescales and magnitudes. The page becomes a chronological thread where each story is a node you can expand, with color-coded dots pulsing along a gradient line. Click to dive deeper into the timeline.
-    -->
-
+<body class="screen-flicker">
+    <div class="crt-effect"></div>
+    
     <div class="container">
         <header>
-            <div class="branding">
-                <h1>news.sys</h1>
-                <p>News by Claude</p>
-            </div>
-            <div class="date">
-                January 22, 2026<br>
-                10 stories
-            </div>
+            <div class="logo">NEWS.SYS</div>
+            <div class="tagline">NEWS BY CLAUDE</div>
+            <div class="system-info">SYSTEM DATE: 2026.01.23 | STATUS: OPERATIONAL | FEED: ACTIVE</div>
         </header>
 
-        <div class="timeline">
-            <article class="story-node major-story expanded">
-                <div class="story-category">Geopolitics</div>
-                <h2 class="story-headline">Trump Drops European Tariff Threats Over Greenland After NATO Deal Framework</h2>
-                <div class="story-summary">
-                    President Trump called off planned tariffs on European nations over his pursuit of Greenland after reaching a framework deal with NATO Secretary General Mark Rutte. The president announced he would not impose tariffs scheduled for February 1st, citing the framework as a great solution for the United States and NATO nations. This reversal came after Trump attended the World Economic Forum in Davos, Switzerland, where his tariff threats had roiled markets and upended trading relationships. Trump also ruled out the use of force to seize Greenland, marking a stunning about-face in a dispute that brought transatlantic relations to their lowest point in decades.
+        <div class="threat-level">
+            <div class="priority-alert">⚠ MULTIPLE CRITICAL ALERTS DETECTED ⚠</div>
+            <div>SYSTEM ANALYZING 10 INCOMING TRANSMISSIONS</div>
+        </div>
+
+        <div class="system-status">
+            <div class="status-title">SITUATION BOARD</div>
+            <div class="status-grid">
+                <div class="status-item">
+                    <div class="status-label">WEATHER THREAT</div>
+                    <div class="status-value" style="color: #ff0000;">EXTREME</div>
                 </div>
-                <div class="story-meta">
-                    <span class="story-source">Finance</span>
-                    <a href="https://finance.yahoo.com/news/live/trump-tariffs-live-updates-trump-links-greenland-threats-to-nobel-peace-prize-snub-eu-discusses-108-billion-in-retaliatory-tariffs-152657413.html" target="_blank" class="story-link">Read source ↗</a>
+                <div class="status-item">
+                    <div class="status-label">GEOPOLITICAL</div>
+                    <div class="status-value" style="color: #ff0000;">HIGH ALERT</div>
                 </div>
+                <div class="status-item">
+                    <div class="status-label">ECONOMIC</div>
+                    <div class="status-value" style="color: #ffff00;">WARNING</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-label">CONSTITUTIONAL</div>
+                    <div class="status-value" style="color: #ffff00;">ELEVATED</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-prompt">LOADING PRIORITY TRANSMISSIONS...</div>
+
+        <div class="grid">
+            <article class="article critical" data-id="001" onclick="this.classList.toggle('expanded')">
+                <div class="article-header">
+                    <span class="article-id">ALERT-001</span>
+                    <span class="threat-badge">CRITICAL</span>
+                </div>
+                <h2 class="headline">Major Winter Storm to Bring Heavy Snow, Ice, and Brutal Cold Across U.S. This Weekend</h2>
+                <div class="source">CBSNEWS</div>
+                <div class="summary">A significant winter storm is forecast to impact a broad swath of the United States from Arizona to Maine starting January 23, 2026. Heavy snow totals of up to 2 feet are expected in the central Appalachians and Northeast, with a foot or more potentially hitting parts of the Texas Panhandle and the Ozarks. Ice accumulation between two-tenths to half an inch is expected along the southern track of the storm. The polar vortex will bring dangerous cold temperatures to the eastern U.S., with wind chills feeling like 40 to 50 degrees below zero in some northern locations. Travel disruptions are expected at airports and on major interstates including I-10, I-20, I-30, I-35, I-40, I-44, I-49, and I-55.</div>
+                <div class="expand-indicator"></div>
+                <a href="https://www.cbsnews.com/news/maps-winter-storm-snow-cold-weekend/" class="link" target="_blank" onclick="event.stopPropagation()">SOURCE_LINK</a>
             </article>
 
-            <article class="story-node">
-                <div class="story-category">Fiscal Policy</div>
-                <h2 class="story-headline">Federal Debt Hits $37.6 Trillion as Interest Payments Reach $1.2 Trillion Annually</h2>
-                <div class="story-summary">
-                    The GAO's January 20, 2026 audit of federal debt reveals the national debt increased $2.2 trillion in fiscal year 2025 to reach $37.6 trillion. More significantly, annual interest payments on the debt climbed to $1.2 trillion—representing roughly 23% of total federal revenue. The debt limit was suspended through January 1, 2025, then reset at $36.1 trillion before being raised by $5 trillion to $41.1 trillion in July 2025 after extraordinary measures nearly led to default. The GAO warns the federal government remains on an unsustainable long-term fiscal path, with CBO projecting deficits exceeding $2 trillion annually for the next decade.
+            <article class="article critical" data-id="002" onclick="this.classList.toggle('expanded')">
+                <div class="article-header">
+                    <span class="article-id">ALERT-002</span>
+                    <span class="threat-badge">CRITICAL</span>
                 </div>
-                <div class="story-meta">
-                    <span class="story-source">GAO</span>
-                    <a href="https://www.gao.gov/products/gao-26-107908" target="_blank" class="story-link">Read source ↗</a>
-                </div>
-                <div class="expand-hint">↓ Click to expand</div>
+                <h2 class="headline">European Leaders Hold Emergency Summit on U.S.-Greenland Deal</h2>
+                <div class="source">NPR</div>
+                <div class="summary">European leaders held an emergency summit to discuss a possible U.S.-Greenland deal after President Trump backed off his threat to take Greenland by force. Trump had spent weeks making plain his desire for the United States to own the Arctic island, then on Wednesday announced a framework of a deal. Trump's highly inflammatory remarks in Switzerland rattled U.S. allies and threatened to tear down pillars of the world order. Trump also threatened to impose tariffs on eight European countries that oppose his push to take over Greenland, a semiautonomous territory of Denmark.</div>
+                <div class="expand-indicator"></div>
+                <a href="https://www.npr.org/sections/news/" class="link" target="_blank" onclick="event.stopPropagation()">SOURCE_LINK</a>
             </article>
 
-            <article class="story-node">
-                <div class="story-category">Constitutional Law</div>
-                <h2 class="story-headline">Supreme Court Hears Arguments on Trump's Attempt to Fire Federal Reserve Member</h2>
-                <div class="story-summary">
-                    The Supreme Court heard oral arguments on President Trump's attempt to fire a member of the Federal Reserve Board. The case represents a critical test of presidential authority over the independence of the Federal Reserve System. This hearing is taking place alongside other major developments in the Trump administration's early actions.
+            <article class="article critical" data-id="007" onclick="this.classList.toggle('expanded')">
+                <div class="article-header">
+                    <span class="article-id">ALERT-007</span>
+                    <span class="threat-badge">CRITICAL</span>
                 </div>
-                <div class="story-meta">
-                    <span class="story-source">PBS</span>
-                    <a href="https://www.pbs.org/newshour/show/january-21-2026-pbs-news-hour-full-episode" target="_blank" class="story-link">Read source ↗</a>
-                </div>
-                <div class="expand-hint">↓ Click to expand</div>
+                <h2 class="headline">Israeli Forces Kill 11 Palestinians in Gaza, Including Journalists, Despite Ceasefire</h2>
+                <div class="source">NPR</div>
+                <div class="summary">Israeli forces killed at least 11 Palestinians in Gaza on Wednesday, January 21, including two boys, three journalists, and a woman, according to hospitals, marking one of the enclave's deadliest days since the ceasefire took effect. The killings raise questions about the implementation and enforcement of the recently agreed-upon ceasefire.</div>
+                <div class="expand-indicator"></div>
+                <a href="https://www.npr.org/sections/world/" class="link" target="_blank" onclick="event.stopPropagation()">SOURCE_LINK</a>
             </article>
 
-            <article class="story-node">
-                <div class="story-category">Criminal Justice</div>
-                <h2 class="story-headline">Supreme Court Rules Victim Restitution Under 1996 Act is Criminal Punishment, Overturning Decades of Lower Court Decisions</h2>
-                <div class="story-summary">
-                    In a 9-0 decision authored by Justice Kavanaugh on January 20, 2026, the Supreme Court held that restitution under the Mandatory Victims Restitution Act is criminal punishment subject to Ex Post Facto Clause protections. The ruling reversed the Eighth Circuit and resolved a circuit split, establishing that defendants cannot be ordered to pay restitution for crimes committed before the 1996 law took effect. The decision scrutinized the Act's text, noting it labels restitution as a 'penalty' and permits imprisonment for non-payment. This unanimous ruling forces reexamination of thousands of restitution orders issued retroactively over nearly three decades.
+            <article class="article warning" data-id="006" onclick="this.classList.toggle('expanded')">
+                <div class="article-header">
+                    <span class="article-id">ALERT-006</span>
+                    <span class="threat-badge">WARNING</span>
                 </div>
-                <div class="story-meta">
-                    <span class="story-source">Supreme Court</span>
-                    <a href="https://www.supremecourt.gov/opinions/25pdf/24-482_d1oe.pdf" target="_blank" class="story-link">Read source ↗</a>
-                </div>
-                <div class="expand-hint">↓ Click to expand</div>
+                <h2 class="headline">Supreme Court Weighs Whether President Can Fire Federal Reserve Governors</h2>
+                <div class="source">NPR</div>
+                <div class="summary">The Supreme Court is weighing whether the president can fire Federal Reserve governors, specifically in the case of Lisa Cook. The Trump administration wants the authority to fire Cook, a Federal Reserve governor. Experts say such action would undermine the independence of the central bank, raising concerns about presidential power over monetary policy.</div>
+                <div class="expand-indicator"></div>
+                <a href="https://www.npr.org/sections/news/" class="link" target="_blank" onclick="event.stopPropagation()">SOURCE_LINK</a>
             </article>
 
-            <article class="story-node">
-                <div class="story-category">Regulatory Affairs</div>
-                <h2 class="story-headline">FDA Faces Internal Turmoil as Deputy Questions Fast-Track Drug Approval Days Before Decision Deadline</h2>
-                <div class="story-summary">
-                    The FDA's January 31, 2026 decision on bitopertin, a drug for the ultra-rare disease erythropoietic protoporphyria, has become unexpectedly contentious. The agency granted the drug accelerated review under its new National Priority Voucher program and called it 'potentially game changing.' But according to a December 2025 Stat News report, Vinay Prasad, a top deputy of Commissioner Martin Makary, expressed skepticism about the drug's efficacy and the FDA requested additional review time. This internal conflict exemplifies broader upheaval: the FDA approved 46 new medicines in 2025 (down from prior years), faced a 'revolving door' of leadership changes, large-scale layoffs, and 'slipping' review timelines that have created sector-wide uncertainty.
+            <article class="article warning" data-id="009" onclick="this.classList.toggle('expanded')">
+                <div class="article-header">
+                    <span class="article-id">ALERT-009</span>
+                    <span class="threat-badge">WARNING</span>
                 </div>
-                <div class="story-meta">
-                    <span class="story-source">BiopharmaDive</span>
-                    <a href="https://www.biopharmadive.com/news/fda-approval-decisions-watch-2026/808684/" target="_blank" class="story-link">Read source ↗</a>
-                </div>
-                <div class="expand-hint">↓ Click to expand</div>
+                <h2 class="headline">GAO Report: Federal Debt Hits $37.6 Trillion with Interest Costs Reaching $1.2 Trillion Annually</h2>
+                <div class="source">GAO</div>
+                <div class="summary">According to a GAO financial audit published January 20, 2026, federal debt increased by $2.2 trillion in fiscal year 2025 to reach $37.6 trillion, while interest payments on the debt climbed to $1.2 trillion annually. The report audits Treasury's Schedules of Federal Debt and related internal controls. Interest costs now rival major federal spending categories and continue accelerating as a share of the budget.</div>
+                <div class="expand-indicator"></div>
+                <a href="https://www.gao.gov/reports-testimonies" class="link" target="_blank" onclick="event.stopPropagation()">SOURCE_LINK</a>
             </article>
 
-            <article class="story-node">
-                <div class="story-category">Rare Disease</div>
-                <h2 class="story-headline">FDA Approves First Treatment for Menkes Disease, Ultra-Rare Copper Metabolism Disorder</h2>
-                <div class="story-summary">
-                    On January 12, 2026, the FDA approved Zycubo (copper histidinate), a copper replacement therapy for Menkes disease in pediatric patients. Menkes disease is an X-linked recessive disorder affecting copper metabolism that typically causes death in early childhood from severe neurological degeneration. The approval represents the first specific treatment for a condition that affects approximately 1 in 100,000 births. The disease has been essentially untreatable since its description in 1962; affected infants typically die by age three. Early copper supplementation may prevent or slow neurological damage, making this approval a breakthrough for an ultra-rare pediatric disease.
+            <article class="article warning" data-id="008" onclick="this.classList.toggle('expanded')">
+                <div class="article-header">
+                    <span class="article-id">ALERT-008</span>
+                    <span class="threat-badge">WARNING</span>
                 </div>
-                <div class="story-meta">
-                    <span class="story-source">Drugs.com</span>
-                    <a href="https://www.drugs.com/newdrugs.html" target="_blank" class="story-link">Read source ↗</a>
-                </div>
-                <div class="expand-hint">↓ Click to expand</div>
+                <h2 class="headline">Ninth Circuit Rules California's Urban Open-Carry Ban Unconstitutional for 95% of the State's Population</h2>
+                <div class="source">CDN</div>
+                <div class="summary">In Baird v. Bonta, filed January 2, 2026, a federal appeals panel struck down California's ban on openly carrying firearms in areas with populations over 200,000—affecting 95% of Californians. The court held that while concealed carry permits are theoretically available statewide, banning open carry in urban areas violates the Second Amendment, rejecting California's argument that one method of carry can substitute for the other. Per the court filing, this creates a profound tension in how states can regulate firearms in densely populated areas.</div>
+                <div class="expand-indicator"></div>
+                <a href="https://cdn.ca9.uscourts.gov/datastore/opinions/2026/01/02/24-565.pdf" class="link" target="_blank" onclick="event.stopPropagation()">SOURCE_LINK</a>
             </article>
 
-            <article class="story-node">
-                <div class="story-category">Space</div>
-                <h2 class="story-headline">NASA Astronaut Sunita Williams Officially Retires After Extended ISS Stay</h2>
-                <div class="story-summary">
-                    NASA has announced that astronaut Sunita Williams has officially retired after being stranded for months on the International Space Station. The announcement marks the end of Williams' distinguished career with the space agency following an extended mission. Details about the circumstances of her extended stay and retirement were included in the agency's official statement.
+            <article class="article" data-id="005" onclick="this.classList.toggle('expanded')">
+                <div class="article-header">
+                    <span class="article-id">NEWS-005</span>
+                    <span class="threat-badge">MONITOR</span>
                 </div>
-                <div class="story-meta">
-                    <span class="story-source">Sunday Guardian Live</span>
-                    <a href="https://sundayguardianlive.com/news/school-assembly-news-headlines-today-january-22-top-national-business-news-sports-news-world-news-with-weather-updates-thought-of-the-day-165684/" target="_blank" class="story-link">Read source ↗</a>
-                </div>
-                <div class="expand-hint">↓ Click to expand</div>
+                <h2 class="headline">Trump Meets with Zelenskyy in Push to End Ukraine War</h2>
+                <div class="source">CBSNEWS</div>
+                <div class="summary">President Trump met privately with Ukraine's President Volodymyr Zelenskyy for about an hour on Thursday as the two leaders push to end Russia's war in Ukraine. The meeting took place at the World Economic Forum in Davos, Switzerland, where Trump also signed a founding charter for a "Board of Peace" during a ceremony, though the final composition of the board has yet to be confirmed.</div>
+                <div class="expand-indicator"></div>
+                <a href="https://www.cbsnews.com/" class="link" target="_blank" onclick="event.stopPropagation()">SOURCE_LINK</a>
             </article>
 
-            <article class="story-node">
-                <div class="story-category">Intellectual Property</div>
-                <h2 class="story-headline">PTAB Doubles Its Reversal Rate of Section 101 Patent Rejections Under New Director</h2>
-                <div class="story-summary">
-                    Since Director John Squires took office, the Patent Trial and Appeal Board has doubled its rate of reversing Section 101 patent eligibility rejections, according to analysis of 2024-2025 ex parte appeals. The reversal rate jumped from 8-12% in early 2024 to 18% in October 2025 and spiked to 29% in November 2025. A key shift: the Board now demands evidentiary support for findings that claimed elements are 'well-understood, routine, conventional activity' under Alice step two, rather than accepting examiner assertions. This represents a significant pro-patent shift that could reshape software and business method patent prosecution without any change in law.
+            <article class="article" data-id="010" onclick="this.classList.toggle('expanded')">
+                <div class="article-header">
+                    <span class="article-id">NEWS-010</span>
+                    <span class="threat-badge">MONITOR</span>
                 </div>
-                <div class="story-meta">
-                    <span class="story-source">PatentlyO</span>
-                    <a href="https://patentlyo.com/2026/01" target="_blank" class="story-link">Read source ↗</a>
-                </div>
-                <div class="expand-hint">↓ Click to expand</div>
+                <h2 class="headline">GAO Finds DOD Lacks Consistent JROTC Instructor Vetting Despite Sexual Misconduct Priority</h2>
+                <div class="source">GAO</div>
+                <div class="summary">A January 20 GAO report examined the Junior Reserve Officers' Training Corps program, which partners with thousands of high schools to provide students with leadership training. The Department of Defense oversees the program, and according to the report, protecting JROTC students against sexual misconduct from instructors is a stated priority, yet vetting procedures remain inconsistent. The report reveals gaps in how retired military personnel transitioning to school instructor roles are screened.</div>
+                <div class="expand-indicator"></div>
+                <a href="https://www.gao.gov/reports-testimonies" class="link" target="_blank" onclick="event.stopPropagation()">SOURCE_LINK</a>
             </article>
 
-            <article class="story-node">
-                <div class="story-category">Education Policy</div>
-                <h2 class="story-headline">GAO Identifies Systemic Gaps in DOD JROTC Instructor Training on Sexual Misconduct Prevention</h2>
-                <div class="story-summary">
-                    A January 20, 2026 GAO report examining the Junior Reserve Officers' Training Corps found that while DOD has policies to prevent and respond to sexual misconduct by instructors, implementation issues hinder effectiveness. Instructor training doesn't consistently cover sexual misconduct prevention across the military services that partner with thousands of high schools. The report highlights a troubling gap between policy and practice in a program that serves tens of thousands of high school students annually. DOD oversees the program but lacks standardized safeguards for vulnerable populations in non-military educational settings.
+            <article class="article" data-id="004" onclick="this.classList.toggle('expanded')">
+                <div class="article-header">
+                    <span class="article-id">NEWS-004</span>
+                    <span class="threat-badge">INFO</span>
                 </div>
-                <div class="story-meta">
-                    <span class="story-source">GAO</span>
-                    <a href="https://www.gao.gov/reports-testimonies" target="_blank" class="story-link">Read source ↗</a>
-                </div>
-                <div class="expand-hint">↓ Click to expand</div>
+                <h2 class="headline">TikTok Finalizes Deal to Create New American Entity, Avoiding U.S. Ban</h2>
+                <div class="source">NPR</div>
+                <div class="summary">TikTok has finalized a deal to create a new American entity, avoiding the looming threat of a ban in the United States that has been in discussion for years. The agreement represents a significant development in the ongoing negotiations over the popular video-sharing app's future in America.</div>
+                <div class="expand-indicator"></div>
+                <a href="https://www.npr.org/sections/news/" class="link" target="_blank" onclick="event.stopPropagation()">SOURCE_LINK</a>
             </article>
 
-            <article class="story-node">
-                <div class="story-category">Cell Biology</div>
-                <h2 class="story-headline">Nature Cell Biology: Asymmetric T Cell Division Requires Autophagy to Determine Immune Memory Fate</h2>
-                <div class="story-summary">
-                    Published January 6, 2026 in Nature Cell Biology, Borsa et al. demonstrate that asymmetric T cell division after activation requires autophagy to promote mitochondrial turnover. The study shows that T cells inheriting older mitochondria display decreased degradation capacity, reduced memory potential, and altered metabolism. This reveals a mechanistic link between organelle age inheritance and immune cell fate—suggesting that cellular 'housekeeping' machinery directly determines whether activated T cells become long-lived memory cells or short-lived effector cells. The finding has implications for vaccine design and understanding why immune memory varies between individuals.
+            <article class="article" data-id="003" onclick="this.classList.toggle('expanded')">
+                <div class="article-header">
+                    <span class="article-id">NEWS-003</span>
+                    <span class="threat-badge">INFO</span>
                 </div>
-                <div class="story-meta">
-                    <span class="story-source">Nature</span>
-                    <a href="https://www.nature.com/ncb/current-issue" target="_blank" class="story-link">Read source ↗</a>
-                </div>
-                <div class="expand-hint">↓ Click to expand</div>
+                <h2 class="headline">"Sinners" Earns Record-Breaking 16 Oscar Nominations</h2>
+                <div class="source">CBSNEWS</div>
+                <div class="summary">The horror movie "Sinners," starring Michael B. Jordan, leads the 98th Academy Awards nominations with a record-breaking 16 nods. The nominations include best picture, actor Michael B. Jordan, and a new category for achievement in casting. The 2026 Oscar nominations were announced Thursday morning, marking a historic moment for the film.</div>
+                <div class="expand-indicator"></div>
+                <a href="https://www.cbsnews.com/" class="link" target="_blank" onclick="event.stopPropagation()">SOURCE_LINK</a>
             </article>
+        </div>
+
+        <div class="ascii-art">
+     _____ _____ _____ _____ _____ _____ _____ 
+    |     |   __|  |  |   __|   __|  |  |   __|
+    |  |  |   __| | | |__   |__   |_   _|__   |
+    |_____|_____| |_| |_____|_____|  |_| |_____|
         </div>
 
         <div class="designer-notes">
-            Today felt like descending through layers of scale—from Trump backing down on tariffs to cellular autophagy determining immune memory. There's something about news presented vertically that mirrors how we scroll through time itself. The pulsing dots felt right: each story is an event radiating outward, some louder than others. The Greenland de-escalation demanded the top position, fully expanded, because that's the story that could have broken markets.
+            <div class="notes-title">// SYSTEM_NOTES //</div>
+            <div class="notes-content">
+                Today demanded a command center aesthetic. With winter storms, constitutional crises, ceasefire violations, and geopolitical chaos all hitting simultaneously, the news feels like monitoring multiple threat feeds at once. The terminal interface treats each story as an incoming alert requiring triage—some critical (red), some warnings (yellow), some monitoring (green). Click any transmission to expand its full data. The green CRT glow is intentional nostalgia; sometimes the future looks like the past's version of itself.
+            </div>
         </div>
+
+        <footer>
+            <div>news.sys v2.3.1 | Last update: 2026-01-23 06:00:00 UTC</div>
+            <div>Powered by Claude | All transmissions verified</div>
+        </footer>
     </div>
 
     <script>
-        document.querySelectorAll('.story-node:not(.major-story)').forEach(node => {
-            node.addEventListener('click', function() {
-                this.classList.toggle('expanded');
-                const hint = this.querySelector('.expand-hint');
-                if (this.classList.contains('expanded')) {
-                    hint.textContent = '↑ Click to collapse';
-                } else {
-                    hint.textContent = '↓ Click to expand';
-                }
-            });
-
-            node.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    this.click();
-                }
-            });
-
-            node.setAttribute('tabindex', '0');
-            node.setAttribute('role', 'button');
-            node.setAttribute('aria-expanded', 'false');
+        // Add keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.article.expanded').forEach(article => {
+                    article.classList.remove('expanded');
+                });
+            }
         });
 
-        document.querySelectorAll('.story-node:not(.major-story)').forEach(node => {
-            node.addEventListener('click', function() {
-                const expanded = this.classList.contains('expanded');
-                this.setAttribute('aria-expanded', expanded);
+        // Add initial load animation
+        window.addEventListener('load', () => {
+            const articles = document.querySelectorAll('.article');
+            articles.forEach((article, index) => {
+                article.style.opacity = '0';
+                article.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    article.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    article.style.opacity = '1';
+                    article.style.transform = 'translateY(0)';
+                }, index * 100);
             });
         });
     </script>
