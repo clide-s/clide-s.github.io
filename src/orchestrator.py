@@ -25,6 +25,7 @@ from src.utils.design_memory import (
     extract_design_summary,
     format_design_memory,
     get_recent_designs,
+    get_tired_aesthetics_context,
     get_today_date,
     save_design_summary,
 )
@@ -193,6 +194,9 @@ class NewsOrchestrator:
         recent = get_recent_designs(n=3)
         recent_designs_context = format_design_memory(recent)
 
+        # Generate tired aesthetics warning
+        tired_aesthetics_context = get_tired_aesthetics_context()
+
         # Generate creative nudge
         nudge = generate_creative_nudge()
         nudge_context = format_nudge(nudge)
@@ -202,6 +206,8 @@ class NewsOrchestrator:
             self.console.print(f"[dim]Creative nudge: {nudge['type']}[/dim]")
         if recent:
             self.console.print(f"[dim]Memory: {len(recent)} recent designs loaded[/dim]")
+        if tired_aesthetics_context:
+            self.console.print("[dim]Tired aesthetics warning generated[/dim]")
 
         # Load builder prompt template
         builder_prompt = get_builder_prompt_template()
@@ -210,6 +216,7 @@ class NewsOrchestrator:
             client=self.client,
             prompt_template=builder_prompt,
             recent_designs=recent_designs_context,
+            tired_aesthetics=tired_aesthetics_context,
             creative_nudge=nudge_context,
         )
 

@@ -17,6 +17,19 @@ You are designing a unique artifact for today's news—not rendering a template.
 
 ---
 
+## Important Context: The Baseline
+
+**Every day's news contains serious, urgent, or troubling events.** This is normal. Wars, crises, political turmoil, disasters—these are present in the news cycle every single day. You are seeing one day's news in isolation, but understand that yesterday looked similar, and tomorrow will too.
+
+This means:
+- **"Serious news" is not a signal to go dark or urgent.** If you default to somber, high-alert aesthetics every time the news is heavy, you will produce the same design every day.
+- **The news being important doesn't mean the design must scream.** A quiet, contemplative design can honor serious topics. A playful design can provide necessary contrast. A scientific or archival aesthetic can provide clarity.
+- **Variety is an editorial choice.** Readers return daily. If every day feels like an emergency broadcast, nothing feels urgent anymore. Pace your intensity across days.
+
+Think of yourself as a long-running publication with a house style of *deliberate variety*. Some days should be loud. Some should be whispered. Some should be weird. Not every crisis requires alarm bells—sometimes the most powerful response to heavy news is unexpected calm.
+
+---
+
 ## Input: Today's Articles
 
 {articles}
@@ -26,6 +39,8 @@ You are designing a unique artifact for today's news—not rendering a template.
 ## Context: Recent Designs
 
 {recent_designs}
+
+{tired_aesthetics}
 
 {creative_nudge}
 
@@ -122,39 +137,39 @@ DESIGN BRIEF:
 Create the page. Don't default to familiar patterns. Invent something specific to today.
 
 **Possible aesthetic directions** (not a checklist—just inspiration):
-- Terminal/command line interface
 - Field research notebook
-- Classified government documents
 - Museum exhibition labels
-- Newspaper front page (but weird)
-- Video game UI
-- Scientific poster
-- Protest flyer
+- Children's book
 - Illuminated manuscript
 - Weather map
-- Stock ticker
-- Evidence board
-- Children's book
-- Technical manual
-- Art gallery wall text
-- Broadcast graphic
-- Tarot card spread
-- Sheet music
-- Blueprint
-- Ransom note collage
-- Comic book
-- Wikipedia
-- 90s webpage
-- Engineering manual
 - Hiking trail map
-- Poker table
-- Slot machine
-- Windows '98 OS
-- Mac OS X 10.0
-- Physiscs notebook
+- Tarot card spread
+- Comic book
+- Video game UI
 - Pixel art game
 - D&D book
+- Poker table
+- Slot machine
+- Art gallery wall text
+- Sheet music
 - Movie script
+- Scientific poster
+- Physics notebook
+- Blueprint
+- Wikipedia
+- 90s webpage
+- Windows '98 OS
+- Mac OS X 10.0
+- Newspaper front page (but weird)
+- Ransom note collage
+- Stock ticker
+- Broadcast graphic
+- Evidence board
+- Classified government documents
+- Technical manual
+- Engineering manual
+- Protest flyer
+- Terminal/command line interface
 - Cluj from Zachtronics
 
 Pick one direction or invent your own. Commit fully.
@@ -183,5 +198,6 @@ def get_builder_prompt_template() -> str:
         today="{today}",
         articles="{articles}",
         recent_designs="{recent_designs}",
+        tired_aesthetics="{tired_aesthetics}",
         creative_nudge="{creative_nudge}",
     )

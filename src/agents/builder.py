@@ -15,6 +15,7 @@ class BuilderAgent(BaseNewsAgent):
         client,
         prompt_template: str,
         recent_designs: str = "",
+        tired_aesthetics: str = "",
         creative_nudge: str = "",
     ):
         super().__init__(
@@ -22,6 +23,7 @@ class BuilderAgent(BaseNewsAgent):
         )
         self.prompt_template = prompt_template
         self.recent_designs = recent_designs
+        self.tired_aesthetics = tired_aesthetics
         self.creative_nudge = creative_nudge
 
     async def execute(self, articles: list[Article]) -> BuildResult:
@@ -34,11 +36,12 @@ class BuilderAgent(BaseNewsAgent):
             # Format articles for the prompt
             article_data = self._format_articles(articles)
 
-            # Format prompt with articles, memory, and nudge
+            # Format prompt with articles, memory, tired aesthetics, and nudge
             prompt = self._format_prompt(
                 self.prompt_template,
                 articles=article_data,
                 recent_designs=self.recent_designs,
+                tired_aesthetics=self.tired_aesthetics,
                 creative_nudge=self.creative_nudge,
             )
 
