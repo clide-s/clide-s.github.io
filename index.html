@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>news.sys - January 24, 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Sans+MS&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,253 +13,341 @@
 
         body {
             background: #008080;
-            background-image: 
-                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.03) 10px, rgba(255,255,255,.03) 20px),
-                url('data:image/svg+xml,<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><rect width="10" height="10" fill="%23006666"/><rect x="10" y="10" width="10" height="10" fill="%23006666"/></svg>');
-            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-            color: #000;
+            font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+            padding: 20px;
             overflow-x: hidden;
         }
 
-        .construction {
-            background: yellow;
-            border: 3px solid #000;
-            padding: 10px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .construction::before {
-            content: '🚧';
-            position: absolute;
-            left: 10px;
-            font-size: 24px;
-            animation: float 2s ease-in-out infinite;
-        }
-
-        .construction::after {
-            content: '🚧';
-            position: absolute;
-            right: 10px;
-            font-size: 24px;
-            animation: float 2s ease-in-out infinite 1s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .construction marquee {
-            font-weight: bold;
-            font-size: 18px;
-        }
-
-        .header {
-            background: #c0c0c0;
-            border: 3px outset #fff;
-            padding: 20px;
-            margin: 20px;
-            box-shadow: 5px 5px 0px rgba(0,0,0,0.3);
-        }
-
-        .header h1 {
-            font-size: 48px;
-            color: #0000ff;
-            text-shadow: 2px 2px #ff00ff;
-            text-align: center;
-            animation: rainbow 3s infinite;
-        }
-
-        @keyframes rainbow {
-            0% { color: #ff0000; }
-            16% { color: #ff7f00; }
-            33% { color: #ffff00; }
-            50% { color: #00ff00; }
-            66% { color: #0000ff; }
-            83% { color: #8b00ff; }
-            100% { color: #ff0000; }
-        }
-
-        .tagline {
-            text-align: center;
-            font-size: 14px;
-            margin-top: 10px;
-            color: #000080;
-        }
-
-        .counter-container {
-            text-align: center;
-            margin: 20px;
-        }
-
-        .counter {
-            background: #000;
-            color: #00ff00;
-            padding: 15px;
-            display: inline-block;
-            border: 3px ridge #666;
-            font-family: 'Courier New', monospace;
-            font-size: 20px;
-            box-shadow: inset 0 0 10px rgba(0,255,0,0.3);
-        }
-
-        .container {
+        .desktop {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
         }
 
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .news-card {
-            background: #fff;
-            border: 3px solid #000;
-            padding: 15px;
-            position: relative;
-            box-shadow: 5px 5px 0px rgba(0,0,0,0.5);
-            transition: transform 0.2s;
-        }
-
-        .news-card:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 7px 7px 0px rgba(0,0,0,0.5);
-        }
-
-        .news-card::before {
-            content: '📰';
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            font-size: 20px;
-        }
-
-        .news-card.featured {
-            grid-column: 1 / -1;
-            background: #ffff00;
-            border: 5px solid #ff0000;
-        }
-
-        .news-card.featured::before {
-            content: '⭐ NEW! ⭐';
-            font-size: 16px;
-            font-weight: bold;
-            color: #ff0000;
-        }
-
-        .headline {
-            font-size: 18px;
-            font-weight: bold;
-            color: #0000ff;
-            margin-bottom: 10px;
-            text-decoration: underline;
-            cursor: pointer;
-        }
-
-        .featured .headline {
-            font-size: 24px;
-            color: #ff0000;
-        }
-
-        .source {
-            background: #000080;
-            color: #fff;
-            padding: 3px 8px;
-            font-size: 12px;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-
-        .summary {
-            font-size: 14px;
-            line-height: 1.6;
-            color: #000;
-            margin: 10px 0;
-            display: none;
-        }
-
-        .summary.visible {
-            display: block;
-        }
-
-        .click-here {
-            color: #0000ff;
-            text-decoration: underline;
-            cursor: pointer;
-            font-size: 12px;
-            font-style: italic;
-        }
-
-        .click-here:hover {
-            color: #ff00ff;
-        }
-
-        .link {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 5px 10px;
+        .window {
             background: #c0c0c0;
-            border: 2px outset #fff;
-            text-decoration: none;
-            color: #000;
-            font-size: 12px;
+            border: 2px outset #ffffff;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+            margin-bottom: 20px;
         }
 
-        .link:hover {
+        .title-bar {
+            background: linear-gradient(to right, #000080, #1084d0);
+            padding: 3px 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .title-text {
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .title-icon {
+            width: 16px;
+            height: 16px;
+            background: #ffffff;
+            border: 1px solid #000;
+            display: inline-block;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 2px;
+        }
+
+        .control-btn {
+            width: 18px;
+            height: 18px;
+            background: #c0c0c0;
+            border: 1px outset #ffffff;
+            font-size: 10px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .control-btn:active {
             border-style: inset;
         }
 
-        .link::before {
-            content: '🔗 ';
-        }
-
-        .divider {
-            text-align: center;
-            margin: 30px 0;
-            position: relative;
-        }
-
-        .divider img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .footer {
+        .window-content {
+            padding: 15px;
             background: #c0c0c0;
-            border: 3px inset #fff;
+        }
+
+        .menu-bar {
+            background: #c0c0c0;
+            border-bottom: 2px solid #ffffff;
+            padding: 3px 5px;
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+        }
+
+        .menu-item {
+            cursor: pointer;
+        }
+
+        .menu-item:hover {
+            background: #000080;
+            color: white;
+        }
+
+        .menu-item u {
+            text-decoration: underline;
+        }
+
+        .toolbar {
+            background: #c0c0c0;
+            padding: 5px;
+            border-bottom: 2px solid #808080;
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .tool-btn {
+            background: #c0c0c0;
+            border: 2px outset #ffffff;
+            padding: 5px 10px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tool-btn:active {
+            border-style: inset;
+        }
+
+        .status-bar {
+            background: #c0c0c0;
+            border-top: 2px solid #ffffff;
+            padding: 3px 5px;
+            font-size: 12px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .status-section {
+            border: 2px inset #808080;
+            padding: 2px 8px;
+            flex-grow: 1;
+        }
+
+        .article-card {
+            background: #ffffff;
+            border: 2px outset #ffffff;
+            padding: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .article-card:active {
+            border-style: inset;
+        }
+
+        .article-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .article-icon {
+            width: 32px;
+            height: 32px;
+            background: #c0c0c0;
+            border: 1px solid #000;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .article-title {
+            font-weight: bold;
+            font-size: 13px;
+            line-height: 1.3;
+        }
+
+        .article-meta {
+            font-size: 11px;
+            color: #000080;
+            margin-bottom: 8px;
+        }
+
+        .article-summary {
+            font-size: 12px;
+            line-height: 1.4;
+            display: none;
+        }
+
+        .article-card.expanded .article-summary {
+            display: block;
+            margin-top: 8px;
+            padding: 8px;
+            background: #ffffc0;
+            border: 1px solid #808080;
+        }
+
+        .article-link {
+            color: #0000ff;
+            text-decoration: underline;
+            font-size: 11px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .article-card.expanded .article-link {
+            display: block;
+        }
+
+        .featured-window {
+            background: #ffffff;
             padding: 20px;
-            margin: 20px;
+        }
+
+        .featured-headline {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #000080;
+        }
+
+        .featured-summary {
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .weather-icon {
+            font-size: 64px;
             text-align: center;
+            margin: 20px 0;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 10px;
+        }
+
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #c0c0c0;
+            border-top: 2px solid #ffffff;
+            padding: 3px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            z-index: 1000;
+        }
+
+        .start-button {
+            background: #c0c0c0;
+            border: 2px outset #ffffff;
+            padding: 3px 8px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .start-button:active {
+            border-style: inset;
+        }
+
+        .start-icon {
+            width: 20px;
+            height: 20px;
+            background: #ff0000;
+            border: 1px solid #000;
+        }
+
+        .taskbar-time {
+            border: 2px inset #808080;
+            padding: 3px 8px;
+            font-size: 12px;
+            margin-left: auto;
         }
 
         .designer-notes {
-            background: #ffffcc;
-            border: 2px dashed #000;
+            background: #ffffc0;
+            border: 2px solid #000000;
             padding: 15px;
-            margin: 20px;
-            font-size: 14px;
-            line-height: 1.6;
+            font-size: 12px;
+            line-height: 1.5;
+            font-style: italic;
         }
 
-        .designer-notes::before {
-            content: '📝 Designer Notes: ';
-            font-weight: bold;
+        .dialog-box {
+            background: #c0c0c0;
+            border: 2px outset #ffffff;
+            padding: 15px;
+            max-width: 400px;
+            margin: 20px auto;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.5);
         }
 
-        .gif-animation {
-            display: inline-block;
-            animation: spin 2s linear infinite;
+        .dialog-icon {
+            float: left;
+            width: 48px;
+            height: 48px;
+            margin-right: 15px;
+            font-size: 40px;
         }
 
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        .dialog-buttons {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            clear: both;
+        }
+
+        .dialog-btn {
+            background: #c0c0c0;
+            border: 2px outset #ffffff;
+            padding: 5px 20px;
+            min-width: 80px;
+            cursor: pointer;
+        }
+
+        .dialog-btn:active {
+            border-style: inset;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .grid-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-headline {
+                font-size: 16px;
+            }
+
+            .taskbar {
+                position: relative;
+            }
         }
 
         .blink {
@@ -268,284 +355,375 @@
         }
 
         @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
         }
 
-        .webring {
-            margin: 20px;
-            text-align: center;
-            font-size: 12px;
+        .marquee-container {
+            background: #000080;
+            color: #ffffff;
+            padding: 5px;
+            overflow: hidden;
+            border: 2px inset #808080;
         }
 
-        .webring a {
-            color: #0000ff;
-            margin: 0 10px;
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 32px;
-            }
-            
-            .news-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .news-card.featured {
-                grid-column: 1;
-            }
-        }
-
-        .under-construction-gif {
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .badges {
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .badge {
+        .marquee {
             display: inline-block;
-            background: #fff;
-            border: 2px solid #000;
-            padding: 5px 10px;
-            margin: 5px;
-            font-size: 11px;
-            font-weight: bold;
+            white-space: nowrap;
+            animation: marquee 30s linear infinite;
         }
 
-        .guestbook {
-            background: #fff;
-            border: 3px double #000;
-            padding: 15px;
-            margin: 20px;
-            text-align: center;
-        }
-
-        .guestbook h3 {
-            color: #ff0000;
-            margin-bottom: 10px;
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
         }
     </style>
 </head>
 <body>
-    <!--
-    DESIGN BRIEF:
-    Today's news gets the full 1997 GeoCities treatment: tiled teal background, Comic Sans everywhere, under construction banners, visitor counters, and outset borders. The winter storm becomes the "featured" yellow card with star bursts, while serious geopolitical news sits in little hoverable boxes with link buttons. It's a commitment to the aesthetic chaos of early web optimism meeting today's heavy news cycle.
-    -->
+<!--
+DESIGN BRIEF:
+Two-thirds of America buried in snow—this is a system crash waiting to happen. The page becomes Windows 98 struggling under the weight of 200 million error messages, where each news story is a dialog box or window fighting for attention. The featured storm dominates like a frozen blue screen, while smaller windows cascade down with protests, diplomacy, and science updates. Everything feels like it's running on limited resources, just barely holding together.
+-->
 
-    <div class="construction">
-        <marquee>⚡ BREAKING NEWS ZONE ⚡ UPDATED DAILY ⚡ BEST VIEWED IN NETSCAPE NAVIGATOR ⚡</marquee>
-    </div>
-
-    <div class="header">
-        <h1>✨ news.sys ✨</h1>
-        <div class="tagline">
-            <span class="gif-animation">🌐</span>
-            News by Claude
-            <span class="gif-animation">🌐</span>
+<div class="desktop">
+    <!-- Main Featured Window - Winter Storm -->
+    <div class="window">
+        <div class="title-bar">
+            <div class="title-text">
+                <span class="title-icon" style="background: linear-gradient(135deg, #ffffff 0%, #0000ff 100%);"></span>
+                ⚠️ WEATHER ALERT - news.sys
+            </div>
+            <div class="window-controls">
+                <div class="control-btn">_</div>
+                <div class="control-btn">□</div>
+                <div class="control-btn">×</div>
+            </div>
+        </div>
+        <div class="menu-bar">
+            <span class="menu-item"><u>F</u>ile</span>
+            <span class="menu-item"><u>E</u>dit</span>
+            <span class="menu-item"><u>V</u>iew</span>
+            <span class="menu-item"><u>H</u>elp</span>
+        </div>
+        <div class="featured-window">
+            <div class="weather-icon">❄️🌨️❄️</div>
+            <div class="featured-headline">SYSTEM OVERLOAD: Massive Winter Storm Affects Over 200 Million Americans Across Two-Thirds of U.S.</div>
+            <div class="featured-summary">
+                A powerful winter storm is impacting more than 200 million people across the United States, stretching from New Mexico to Maine. At least 18 states have declared states of emergency, including Alabama, Arkansas, Georgia, Kentucky, North Carolina, Pennsylvania, Texas, and Virginia. The storm is expected to bring heavy snow, dangerous ice accumulation, and brutally cold temperatures through the weekend and into Monday. More than 9,000 flights have been canceled through the weekend. Federal offices in the Washington D.C. area will be closed Monday, affecting approximately 279,000 federal employees.
+            </div>
+            <div style="margin-top: 15px; padding: 10px; background: #ffcccc; border: 2px solid #ff0000;">
+                <strong>⚠️ CRITICAL WARNING:</strong> Extreme wind chills of more than 50 degrees below zero reported in parts of Minnesota and North Dakota. Frostbite possible in as little as 5 to 10 minutes.
+            </div>
+            <div class="article-meta" style="margin-top: 10px;">Source: Abcnews | <a href="https://abcnews.go.com/US/live-updates/winter-storm-live-updates-tracking-dangerous-ice-snow/?id=129469173" style="color: #0000ff;">View Full Report</a></div>
+        </div>
+        <div class="status-bar">
+            <div class="status-section">18 states of emergency declared</div>
+            <div class="status-section">9,000+ flights canceled</div>
+            <div class="status-section">279,000 federal workers affected</div>
         </div>
     </div>
 
-    <div class="under-construction-gif">
-        <div style="font-size: 48px;">🚧 👷 🚧</div>
-        <div style="font-weight: bold; margin-top: 10px;">UNDER CONSTRUCTION - ALWAYS!</div>
-    </div>
-
-    <div class="counter-container">
-        <div class="counter">
-            👁️ VISITORS TODAY: <span id="visitor-count">000847</span> 👁️
+    <!-- Secondary Storm Window -->
+    <div class="window">
+        <div class="title-bar">
+            <div class="title-text">
+                <span class="title-icon" style="background: #87ceeb;"></span>
+                Extended Forecast
+            </div>
+            <div class="window-controls">
+                <div class="control-btn">_</div>
+                <div class="control-btn">□</div>
+                <div class="control-btn">×</div>
+            </div>
         </div>
-    </div>
-
-    <div class="badges">
-        <span class="badge">⭐ 100% NEWS</span>
-        <span class="badge">🔥 HOT TAKES</span>
-        <span class="badge">✅ Y2K COMPLIANT</span>
-        <span class="badge">💯 NO SPAM</span>
-    </div>
-
-    <div class="container">
-        <div class="news-grid">
-            <div class="news-card featured">
-                <div class="source">Cbsnews</div>
-                <div class="headline" onclick="toggleSummary(this)">
-                    Major Winter Storm Affects Over 200 Million Americans with Ice, Snow, and Extreme Cold
+        <div class="window-content">
+            <div class="article-card" onclick="this.classList.toggle('expanded')">
+                <div class="article-header">
+                    <div class="article-icon">🌡️</div>
+                    <div class="article-title">Extreme Cold and Ice Threaten South as Winter Storm Moves East</div>
                 </div>
-                <div class="click-here" onclick="toggleSummary(this.previousElementSibling)">
-                    <span class="blink">>>> CLICK HERE FOR MORE INFO <<<</span>
+                <div class="article-meta">Source: Cbsnews</div>
+                <div class="article-summary">
+                    The winter storm is forecast to be the largest in at least five years, affecting about two-thirds of the U.S. with a 2,000-mile expanse of severe weather. Snowfall totals could reach 12-18 inches from the Southern Plains to the Northeast, with possibly up to 2 feet in the central Appalachians. Communities from Texas to New York City could see records set for the coldest high temperatures. Southern airports without deicing equipment may face widespread cancellations.
                 </div>
-                <div class="summary">
-                    A massive winter storm is impacting more than 200 million people across the United States, stretching from New Mexico to Maine over the weekend. The system is bringing a dangerous mix of heavy snow, freezing rain, and ice across a 2,000-mile expanse. At least 18 states have declared states of emergency, including Texas, Georgia, Missouri, and New York. Snow totals could reach up to 2 feet in some areas, particularly in the central Appalachians and Northeast. Extreme cold from a dipping polar vortex has brought wind chills of more than 50 degrees below zero to parts of Minnesota and North Dakota. Over 9,000 flights have been canceled through the weekend, with major impacts at Dallas Fort Worth, Charlotte, and Nashville airports.
-                </div>
-                <a href="https://www.cbsnews.com/news/maps-winter-storm-snow-cold-weekend/" target="_blank" class="link">Read Full Story</a>
+                <a href="https://www.cbsnews.com/news/maps-winter-storm-snow-cold-weekend/" class="article-link">Read more →</a>
             </div>
 
-            <div class="news-card">
-                <div class="source">Npr</div>
-                <div class="headline" onclick="toggleSummary(this)">
-                    Minnesota Holds Economic Blackout to Protest ICE Immigration Crackdown
+            <div class="article-card" onclick="this.classList.toggle('expanded')">
+                <div class="article-header">
+                    <div class="article-icon">🚨</div>
+                    <div class="article-title">States Mobilize National Guard and Emergency Resources for Storm Response</div>
                 </div>
-                <div class="click-here" onclick="toggleSummary(this.previousElementSibling)">Click to expand story...</div>
-                <div class="summary">
-                    Hundreds of businesses across Minnesota closed on January 23 as part of a one-day economic blackout protesting the ongoing ICE immigration crackdown. Organizers including faith leaders and unions called for people to not work, go to school, or shop, with notable closures including the Walker Art Center. Large crowds gathered in downtown Minneapolis in subzero temperatures to protest federal immigration enforcement. The demonstrations follow the controversial ICE detention of a 5-year-old boy named Liam Ramos and his father, an asylum seeker, in Columbia Heights. Civil rights activist Nekima Levy Armstrong was arrested on federal charges for peacefully protesting inside a church where a top ICE official serves as pastor.
+                <div class="article-meta">Source: Npr</div>
+                <div class="article-summary">
+                    More than 30 states are under National Weather Service watches, warnings, or advisories as of Saturday morning. Georgia Governor Brian Kemp's emergency order allows for 500 Georgia National Guard troops to be deployed and prohibits price gouging. Connecticut Governor Ned Lamont activated the state's Severe Cold Weather Protocol to help people find shelter, with parts of the state expected to receive more than a foot of snow. Missouri has deployed 3,000 Department of Transportation personnel working two shifts a day. Philadelphia Mayor Cherelle Parker announced a snow emergency beginning Saturday at 9 p.m., with schools closed Monday.
                 </div>
-                <a href="https://www.npr.org/sections/national/" target="_blank" class="link">Read Full Story</a>
-            </div>
-
-            <div class="news-card">
-                <div class="source">Democracynow</div>
-                <div class="headline" onclick="toggleSummary(this)">
-                    Trump Launches 'Board of Peace' at Davos as Jared Kushner Unveils Gaza Resort Vision
-                </div>
-                <div class="click-here" onclick="toggleSummary(this.previousElementSibling)">Click to expand story...</div>
-                <div class="summary">
-                    President Trump launched his so-called Board of Peace at the World Economic Forum in Davos, Switzerland, with his son-in-law Jared Kushner outlining a controversial vision for turning Gaza into a seaside resort with futuristic high-rise buildings. Kushner said the first phase would focus on rebuilding Rafah, which was leveled by Israel, and suggested such cities could be built in three years. The announcement came as Israeli tank shelling killed four Palestinians on Thursday. The Rafah border crossing with Egypt is expected to reopen next week. Many Palestinians fear Israel and the U.S. will move to forcibly displace them from Gaza.
-                </div>
-                <a href="https://www.democracynow.org/2026/1/23/headlines" target="_blank" class="link">Read Full Story</a>
-            </div>
-
-            <div class="news-card">
-                <div class="source">Aljazeera</div>
-                <div class="headline" onclick="toggleSummary(this)">
-                    Trump Signals Openness to Iran Talks While Moving Military Fleet to Middle East
-                </div>
-                <div class="click-here" onclick="toggleSummary(this.previousElementSibling)">Click to expand story...</div>
-                <div class="summary">
-                    President Trump indicated that diplomatic channels between Washington and Tehran remain open, stating at Davos that Iran wants to talk and the U.S. will engage. However, his remarks came as the U.S. moves a massive military fleet to the Middle East, likely as leverage for negotiations. Iran faces mounting pressure with a battered economy, weakened regional allies, and protests that recently gripped the country before authorities reasserted control. Tens of thousands have been arrested in connection with the unrest. At the height of tensions, Trump hinted at striking Iran but toned down rhetoric after Gulf Arab nations urged restraint, fearing regional chaos.
-                </div>
-                <a href="https://www.aljazeera.com/news/2026/1/24/change-is-inevitable-what-is-next-for-iran" target="_blank" class="link">Read Full Story</a>
-            </div>
-
-            <div class="news-card">
-                <div class="source">Euronews</div>
-                <div class="headline" onclick="toggleSummary(this)">
-                    Russia-Ukraine Peace Talks Progress in Abu Dhabi with Territorial Issues as Priority
-                </div>
-                <div class="click-here" onclick="toggleSummary(this.previousElementSibling)">Click to expand story...</div>
-                <div class="summary">
-                    Russia, Ukraine, and U.S. negotiators held trilateral talks in Abu Dhabi, with territorial issues identified as a priority topic. The negotiations come as Russia launched massive strikes on Ukraine's largest cities. Denmark's Prime Minister Mette Frederiksen visited Greenland for a show of support amid Trump's recent controversial statements about U.S. interest in the Arctic island. Trump had previously made plain he wants the United States to own Greenland, but on Wednesday appeared to back down and announced a framework of a deal.
-                </div>
-                <a href="https://www.euronews.com/video/2026/01/24/latest-news-bulletin-january-24th-2026-midday" target="_blank" class="link">Read Full Story</a>
-            </div>
-
-            <div class="news-card">
-                <div class="source">Supremecourt</div>
-                <div class="headline" onclick="toggleSummary(this)">
-                    Supreme Court Rules Unanimously That Restitution Under MVRA Is Criminal Punishment, Violates Ex Post Facto Clause
-                </div>
-                <div class="click-here" onclick="toggleSummary(this.previousElementSibling)">Click to expand story...</div>
-                <div class="summary">
-                    In a 9-0 decision authored by Justice Kavanaugh, the Supreme Court held that restitution under the Mandatory Victims Restitution Act of 1996 constitutes criminal punishment for purposes of the Ex Post Facto Clause. The ruling reversed the Eighth Circuit and found that applying the MVRA to crimes committed before the Act became law violates constitutional protections. The decision affects how courts can impose financial penalties on defendants for pre-enactment conduct, per the January 20, 2026 Supreme Court opinion.
-                </div>
-                <a href="https://www.supremecourt.gov/opinions/25pdf/24-482_d1oe.pdf" target="_blank" class="link">Read Full Story</a>
-            </div>
-
-            <div class="news-card">
-                <div class="source">Npr</div>
-                <div class="headline" onclick="toggleSummary(this)">
-                    Supreme Court Signals Federal Reserve Independence May Prevail Over Presidential Removal Power
-                </div>
-                <div class="click-here" onclick="toggleSummary(this.previousElementSibling)">Click to expand story...</div>
-                <div class="summary">
-                    During oral arguments on January 21, all nine justices expressed skepticism about President Trump's claim of absolute power to fire Federal Reserve Governor Lisa Cook without process or judicial review. Justice Kavanaugh warned the administration's position would 'weaken, if not shatter, the independence of the Federal Reserve.' The case centers on whether the president can unilaterally determine 'cause' for removal of Fed governors, with Chairman Jerome Powell attending the arguments as a likely next target, per NPR's courtroom coverage.
-                </div>
-                <a href="https://www.npr.org/2026/01/21/nx-s1-5683968/supreme-court-federal-reserve-lisa-cook" target="_blank" class="link">Read Full Story</a>
-            </div>
-
-            <div class="news-card">
-                <div class="source">Gao</div>
-                <div class="headline" onclick="toggleSummary(this)">
-                    Federal Debt Hits $37.6 Trillion as Interest Payments Reach $1.2 Trillion in FY 2025
-                </div>
-                <div class="click-here" onclick="toggleSummary(this.previousElementSibling)">Click to expand story...</div>
-                <div class="summary">
-                    The GAO's annual audit of the Bureau of Fiscal Service found that as of September 30, 2025, federal debt increased by $2.2 trillion from the previous year to $37.6 trillion total. Interest payments on the debt rose to $1.2 trillion in FY 2025, consuming an increasing share of federal spending. The GAO found the financial statements reliable and controls effective, but the trajectory underscores growing fiscal pressure, per the January 20, 2026 GAO audit report.
-                </div>
-                <a href="https://www.gao.gov/products/gao-26-107908" target="_blank" class="link">Read Full Story</a>
-            </div>
-
-            <div class="news-card">
-                <div class="source">Biopharmadive</div>
-                <div class="headline" onclick="toggleSummary(this)">
-                    FDA Faces Internal Turbulence Over 'National Priority' Fast-Track Program as Bitopertin Approval Delayed
-                </div>
-                <div class="click-here" onclick="toggleSummary(this.previousElementSibling)">Click to expand story...</div>
-                <div class="summary">
-                    The FDA's new 'Critical National Priority Voucher' program, promising ultra-fast reviews, is facing scrutiny after Disc Medicine's bitopertin for a rare blood disease missed its January deadline. According to Stat News, FDA Deputy Chief Vinay Prasad expressed skepticism about the drug's efficacy and requested more review time, despite the drug receiving priority designation. Congressional Democrats are investigating whether the resource-intensive program pulls reviewers from other work and allows political interference in FDA decisions, per BioPharma Dive's January reporting.
-                </div>
-                <a href="https://www.biopharmadive.com/news/fda-approval-decisions-watch-2026/808684/" target="_blank" class="link">Read Full Story</a>
-            </div>
-
-            <div class="news-card">
-                <div class="source">Supremecourt</div>
-                <div class="headline" onclick="toggleSummary(this)">
-                    Supreme Court Ruling Gives Political Candidates Standing to Challenge Election Procedures Without Showing Harm
-                </div>
-                <div class="click-here" onclick="toggleSummary(this.previousElementSibling)">Click to expand story...</div>
-                <div class="summary">
-                    In Bost v. Illinois State Board of Elections, a 5-4 Supreme Court decision held that political candidates have automatic standing to challenge election rules without proving the rules harm their electoral prospects or campaign finances. Chief Justice Roberts wrote that candidates have 'a concrete and particularized interest in the integrity of the election' itself, even if rules don't affect outcomes. The January 14, 2026 decision could open the door to more pre-election litigation over voting procedures, per the Supreme Court opinion.
-                </div>
-                <a href="https://www.supremecourt.gov/opinions/25pdf/24-568_gfbh.pdf" target="_blank" class="link">Read Full Story</a>
+                <a href="https://www.npr.org/2026/01/24/nx-s1-5687179/as-the-winter-storm-rages-heres-what-to-know-in-your-state" class="article-link">Read more →</a>
             </div>
         </div>
     </div>
 
-    <div class="divider">
-        <div style="font-size: 48px;">⭐ ✨ 🌟 ⭐ ✨ 🌟 ⭐ ✨ 🌟</div>
-    </div>
-
-    <div class="designer-notes">
-        Sometimes the best way to handle heavy news is to wrap it in the aesthetic innocence of 1997—when we thought tiled backgrounds and Comic Sans could make anything better. There's something weirdly honest about presenting winter storms, geopolitical tensions, and Supreme Court rulings in the visual language of "under construction" banners and visitor counters. The web was younger. We were all younger. The news was probably just as heavy, but at least we had spinning globe GIFs.
-    </div>
-
-    <div class="guestbook">
-        <h3>📖 Sign My Guestbook! 📖</h3>
-        <p style="font-size: 12px; margin-top: 10px;">You are visitor #847 to this page!</p>
-        <p style="font-size: 11px; margin-top: 5px; color: #666;">Last updated: January 24, 2026</p>
-    </div>
-
-    <div class="webring">
-        <strong>This site is part of the NEWS WEBRING:</strong><br>
-        <a href="#">&lt;&lt; Previous</a> |
-        <a href="#">Random</a> |
-        <a href="#">Next &gt;&gt;</a>
-    </div>
-
-    <div class="footer">
-        <div style="margin-bottom: 10px;">
-            <strong>news.sys</strong> - Your Daily News Experience
+    <!-- Grid of Other News Windows -->
+    <div class="grid-layout">
+        <!-- Immigration Protests -->
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-text">
+                    <span class="title-icon" style="background: #ff6b6b;"></span>
+                    National News
+                </div>
+                <div class="window-controls">
+                    <div class="control-btn">_</div>
+                    <div class="control-btn">×</div>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="article-card" onclick="this.classList.toggle('expanded')">
+                    <div class="article-header">
+                        <div class="article-icon">✊</div>
+                        <div class="article-title">Thousands Protest ICE Operations in Minnesota Amid Federal Immigration Crackdown</div>
+                    </div>
+                    <div class="article-meta">Source: Npr</div>
+                    <div class="article-summary">
+                        Minnesota residents took to the streets of downtown Minneapolis to protest the federal government's immigration enforcement campaign in the state after weeks of sustained resistance. Large crowds gathered downtown in subzero temperatures as hundreds of Minnesota businesses closed in a statewide 'ICE Out' protest and strike against federal immigration enforcement. The protests come after images of a 5-year-old boy being detained by ICE in Minnesota triggered widespread outrage. Federal officers have reportedly shot another person in Minneapolis amid the immigration crackdown.
+                    </div>
+                    <a href="https://www.npr.org/sections/national/" class="article-link">Read more →</a>
+                </div>
+            </div>
         </div>
-        <div style="font-size: 11px; color: #666;">
-            Powered by News by Claude™
+
+        <!-- Iran Talks -->
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-text">
+                    <span class="title-icon" style="background: #4ecdc4;"></span>
+                    World News
+                </div>
+                <div class="window-controls">
+                    <div class="control-btn">_</div>
+                    <div class="control-btn">×</div>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="article-card" onclick="this.classList.toggle('expanded')">
+                    <div class="article-header">
+                        <div class="article-icon">🌍</div>
+                        <div class="article-title">Trump Signals Willingness to Talk with Iran Amid Military Buildup</div>
+                    </div>
+                    <div class="article-meta">Source: Aljazeera</div>
+                    <div class="article-summary">
+                        President Trump said 'Iran does want to talk, and we'll talk' during a speech at the World Economic Forum in Davos on Thursday. His remarks came as the U.S. moves military assets to the Middle East, with Trump stating Friday that 'we have a massive fleet heading in that direction, and maybe we won't have to use them.' At the height of recent protests in Iran, tensions soared after Trump hinted he might strike Iran over what he said was a brutal crackdown, but he toned down rhetoric after Gulf Arab nations pushed him to refrain. Iran faces economic challenges including sanctions, electricity outages, and chronic water shortages. Any deal would require Iran's Supreme Leader Khamenei to make concessions on core foreign policy elements including the nuclear program and ballistic missiles.
+                    </div>
+                    <a href="https://www.aljazeera.com/news/2026/1/24/change-is-inevitable-what-is-next-for-iran" class="article-link">Read more →</a>
+                </div>
+            </div>
         </div>
-        <div style="margin-top: 10px; font-size: 10px;">
-            Best viewed in 800x600 resolution or higher<br>
-            This page is optimized for <span class="blink">MAXIMUM COMPATIBILITY</span>
+
+        <!-- TikTok -->
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-text">
+                    <span class="title-icon" style="background: #95e1d3;"></span>
+                    Technology
+                </div>
+                <div class="window-controls">
+                    <div class="control-btn">_</div>
+                    <div class="control-btn">×</div>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="article-card" onclick="this.classList.toggle('expanded')">
+                    <div class="article-header">
+                        <div class="article-icon">📱</div>
+                        <div class="article-title">TikTok Parent Company Finalizes Deal to Avoid U.S. Ban</div>
+                    </div>
+                    <div class="article-meta">Source: Pbs</div>
+                    <div class="article-summary">
+                        TikTok's parent company has finalized a deal to avoid a ban that would have affected millions of users in the United States. The agreement represents a significant development in the ongoing saga over TikTok's operations in America, which had faced regulatory pressure over national security concerns. The deal allows the popular social media platform to continue operating for its millions of U.S. users who had faced the prospect of losing access to the app.
+                    </div>
+                    <a href="https://www.pbs.org/newshour/show/january-23-2026-pbs-news-hour-full-episode" class="article-link">Read more →</a>
+                </div>
+            </div>
         </div>
-        <div style="margin-top: 15px; font-size: 12px;">
-            <a href="mailto:webmaster@news.sys" style="color: #0000ff;">📧 Email the Webmaster</a>
+
+        <!-- Italy-Swiss -->
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-text">
+                    <span class="title-icon" style="background: #ffd93d;"></span>
+                    Europe
+                </div>
+                <div class="window-controls">
+                    <div class="control-btn">_</div>
+                    <div class="control-btn">×</div>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="article-card" onclick="this.classList.toggle('expanded')">
+                    <div class="article-header">
+                        <div class="article-icon">🇮🇹</div>
+                        <div class="article-title">Italy Recalls Swiss Ambassador Over Bar Fire Suspect Release</div>
+                    </div>
+                    <div class="article-meta">Source: Euronews</div>
+                    <div class="article-summary">
+                        Italy has recalled its Swiss ambassador in response to Switzerland's release of a suspect connected to a bar fire incident. The diplomatic move represents a significant escalation in tensions between the two European neighbors. The recall of an ambassador is a serious diplomatic action that signals strong disapproval of another country's actions. The incident highlights ongoing challenges in European judicial cooperation and extradition matters.
+                    </div>
+                    <a href="https://www.euronews.com/video/2026/01/24/latest-news-bulletin-january-24th-2026-evening" class="article-link">Read more →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Medical Innovation -->
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-text">
+                    <span class="title-icon" style="background: #ff6b9d;"></span>
+                    Health & Science
+                </div>
+                <div class="window-controls">
+                    <div class="control-btn">_</div>
+                    <div class="control-btn">×</div>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="article-card" onclick="this.classList.toggle('expanded')">
+                    <div class="article-header">
+                        <div class="article-icon">💉</div>
+                        <div class="article-title">First Sublingual Epinephrine Film Could Bypass Needle Phobia Barrier</div>
+                    </div>
+                    <div class="article-meta">Source: Hcplive</div>
+                    <div class="article-summary">
+                        The FDA will decide by January 31 on epinephrine sublingual film (Anaphylm), which would be the first needle-free emergency treatment for anaphylaxis. Fear of needles and poor device adherence contribute to delayed epinephrine use during life-threatening allergic reactions. Approval could fundamentally alter emergency allergy care by removing the physical and psychological barriers that prevent timely treatment.
+                    </div>
+                    <a href="https://www.hcplive.com/view/q1-2026-preview-5-fda-decisions-to-watch-in-specialty-care" class="article-link">Read more →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- GSA Safety -->
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-text">
+                    <span class="title-icon" style="background: #c44569;"></span>
+                    Government
+                </div>
+                <div class="window-controls">
+                    <div class="control-btn">_</div>
+                    <div class="control-btn">×</div>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="article-card" onclick="this.classList.toggle('expanded')">
+                    <div class="article-header">
+                        <div class="article-icon">🔥</div>
+                        <div class="article-title">GSA Inspector General Warns of Fire Safety Hazards at Major Federal Courthouse</div>
+                    </div>
+                    <div class="article-meta">Source: Gsaig</div>
+                    <div class="article-summary">
+                        The GSA Office of Inspector General issued an alert memorandum on fire and life safety hazards at the Richard B. Russell Federal Building and U.S. Courthouse in Atlanta, Georgia. The alert indicates immediate safety concerns at a major federal facility housing courts, offices, and potentially thousands of workers and visitors daily. Details of specific violations weren't publicly disclosed in the brief notice.
+                    </div>
+                    <a href="https://www.gsaig.gov/reports" class="article-link">Read more →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gene Science -->
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-text">
+                    <span class="title-icon" style="background: #a29bfe;"></span>
+                    Research
+                </div>
+                <div class="window-controls">
+                    <div class="control-btn">_</div>
+                    <div class="control-btn">×</div>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="article-card" onclick="this.classList.toggle('expanded')">
+                    <div class="article-header">
+                        <div class="article-icon">🧬</div>
+                        <div class="article-title">Researchers Discover 'SOS Splicing' Mechanism That Fixes Gene Damage from Jumping Genes</div>
+                    </div>
+                    <div class="article-meta">Source: Nature</div>
+                    <div class="article-summary">
+                        Scientists identified a new RNA processing mode called 'SOS splicing' that provides a rapid repair mechanism when transposable elements disrupt protein-coding genes, published in Nature's January 8, 2026 issue. Transposable elements can insert into genes and destroy coding potential, but this newly discovered cellular response can quickly restore function. The finding reveals an adaptive system cells use to cope with genomic instability from mobile DNA.
+                    </div>
+                    <a href="https://www.nature.com/nature/volumes/649/issues/8096" class="article-link">Read more →</a>
+                </div>
+            </div>
         </div>
     </div>
 
-    <script>
-        function toggleSummary(element) {
-            const summaryElement = element.parentElement.querySelector('.summary');
-            if (summaryElement) {
-                summaryElement.classList.toggle('visible');
-            }
-        }
+    <!-- Designer Notes Dialog Box -->
+    <div class="dialog-box" style="margin-top: 30px;">
+        <div class="dialog-icon">💭</div>
+        <div style="font-size: 13px; line-height: 1.5;">
+            <strong>Designer's Notes</strong><br><br>
+            When 200 million people are buried in snow, the news itself starts to feel like a system crash—too many processes running at once, memory maxed out, everything buffering. Windows 98 seemed right: that aesthetic of barely-holding-together functionality, where you click something and wait to see if it'll respond or freeze. The winter storm gets the full blue-screen treatment while protests, diplomacy, and science updates cascade down like error messages you're trying to close before the whole thing locks up. Click the cards to expand them—if the system can handle it.
+        </div>
+        <div class="dialog-buttons">
+            <div class="dialog-btn">OK</div>
+        </div>
+    </div>
 
-        // Animated visitor counter
-        let count = 847;
-        setInterval(() => {
-            count += Math.floor(Math.random() * 3);
-            document.getElementById('visitor-count').textContent = String(count).padStart(6, '0');
-        }, 5000);
-    </script>
+    <!-- Branding Footer Window -->
+    <div class="window" style="margin-top: 20px; margin-bottom: 80px;">
+        <div class="title-bar">
+            <div class="title-text">
+                <span class="title-icon" style="background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);"></span>
+                About
+            </div>
+            <div class="window-controls">
+                <div class="control-btn">_</div>
+                <div class="control-btn">×</div>
+            </div>
+        </div>
+        <div class="window-content" style="text-align: center; padding: 25px;">
+            <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">news.sys</div>
+            <div style="font-size: 14px; color: #666;">News by Claude</div>
+            <div style="font-size: 11px; margin-top: 15px; color: #888;">
+                January 24, 2026 • A daily news page that responds aesthetically to its content
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Windows 98 Taskbar -->
+<div class="taskbar">
+    <div class="start-button">
+        <div class="start-icon"></div>
+        <span>Start</span>
+    </div>
+    <div class="status-section" style="flex-grow: 1;">
+        <span class="blink">●</span> 10 news windows open
+    </div>
+    <div class="taskbar-time">
+        <span id="current-time"></span>
+    </div>
+</div>
+
+<script>
+    function updateTime() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        document.getElementById('current-time').textContent = hours + ':' + minutes;
+    }
+    updateTime();
+    setInterval(updateTime, 1000);
+
+    // Make windows slightly draggable feel (just for visual effect on click)
+    document.querySelectorAll('.title-bar').forEach(bar => {
+        bar.addEventListener('mousedown', function() {
+            this.style.cursor = 'grabbing';
+            setTimeout(() => {
+                this.style.cursor = 'grab';
+            }, 200);
+        });
+    });
+</script>
+
 </body>
 </html>
 ```
