@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>news.sys – January 26, 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>news.sys — January 26, 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,662 +13,568 @@
         }
 
         body {
-            background: linear-gradient(135deg, #f5f1e8 0%, #e8e3d9 100%);
-            font-family: 'Courier Prime', monospace;
-            color: #2a2520;
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(180deg, #e8f4ff 0%, #ffffff 50%, #fff9e8 100%);
+            color: #1a1a2e;
             overflow-x: hidden;
         }
 
-        .page-wrapper {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-            position: relative;
+        .temperature-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, 
+                #0066cc 0%, 
+                #3399ff 15%, 
+                #66ccff 30%, 
+                #99ddff 45%,
+                #ffeb99 55%,
+                #ffd966 70%,
+                #ff9933 85%,
+                #ff6600 100%
+            );
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        /* Header with DNA double helix */
-        header {
-            text-align: center;
-            margin-bottom: 4rem;
-            position: relative;
-        }
-
-        .dna-helix {
-            width: 100%;
-            height: 120px;
-            margin-bottom: 2rem;
-            position: relative;
+        .snow-indicator {
+            position: fixed;
+            top: 8px;
+            left: 0;
+            right: 0;
+            height: 60px;
+            pointer-events: none;
+            z-index: 999;
             overflow: hidden;
         }
 
-        .helix-strand {
+        .snowflake {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            top: -10px;
+            color: rgba(200, 220, 255, 0.7);
+            font-size: 14px;
+            animation: fall linear infinite;
+            text-shadow: 0 0 3px rgba(255,255,255,0.8);
         }
 
-        .helix-pair {
-            position: absolute;
-            width: 100%;
-            height: 4px;
-            animation: helixRotate 8s ease-in-out infinite;
-        }
-
-        .helix-pair:nth-child(1) { animation-delay: 0s; }
-        .helix-pair:nth-child(2) { animation-delay: -0.8s; }
-        .helix-pair:nth-child(3) { animation-delay: -1.6s; }
-        .helix-pair:nth-child(4) { animation-delay: -2.4s; }
-        .helix-pair:nth-child(5) { animation-delay: -3.2s; }
-        .helix-pair:nth-child(6) { animation-delay: -4s; }
-        .helix-pair:nth-child(7) { animation-delay: -4.8s; }
-        .helix-pair:nth-child(8) { animation-delay: -5.6s; }
-        .helix-pair:nth-child(9) { animation-delay: -6.4s; }
-        .helix-pair:nth-child(10) { animation-delay: -7.2s; }
-
-        @keyframes helixRotate {
-            0%, 100% {
-                transform: translateY(0) scaleY(1);
-                opacity: 0.3;
-            }
-            25% {
-                transform: translateY(30px) scaleY(0.6);
-                opacity: 0.7;
-            }
-            50% {
-                transform: translateY(60px) scaleY(1);
-                opacity: 1;
-            }
-            75% {
-                transform: translateY(30px) scaleY(0.6);
-                opacity: 0.7;
+        @keyframes fall {
+            to {
+                transform: translateY(70px) rotate(360deg);
+                opacity: 0;
             }
         }
 
-        .helix-line {
-            width: 20px;
-            height: 20px;
-            background: #c75146;
-            border-radius: 50%;
-            position: absolute;
-        }
-
-        .helix-line:first-child {
-            left: 20%;
-        }
-
-        .helix-line:last-child {
-            right: 20%;
-            background: #4a7c8c;
-        }
-
-        .helix-connector {
-            position: absolute;
-            left: calc(20% + 10px);
-            right: calc(20% + 10px);
-            height: 2px;
-            background: linear-gradient(90deg, #c75146 0%, #7d9ca6 50%, #4a7c8c 100%);
-            top: 9px;
+        header {
+            padding: 80px 20px 40px;
+            text-align: center;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .branding {
-            font-family: 'Courier Prime', monospace;
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            background: rgba(255,255,255,0.7);
+            padding: 12px 24px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
 
         .branding h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            letter-spacing: 0.3rem;
-            color: #2a2520;
-            margin-bottom: 0.5rem;
+            font-size: 28px;
+            font-weight: 800;
+            color: #0066cc;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .branding .separator {
+            width: 2px;
+            height: 20px;
+            background: linear-gradient(180deg, #0066cc, #ff6600);
         }
 
         .branding .tagline {
-            font-size: 0.9rem;
-            color: #6a5f56;
-            letter-spacing: 0.2rem;
-            text-transform: uppercase;
+            font-size: 14px;
+            color: #666;
+            font-weight: 300;
         }
 
-        .date {
-            font-size: 0.85rem;
-            color: #8a7f76;
-            margin-top: 0.5rem;
-            letter-spacing: 0.1rem;
+        .date-weather {
+            font-size: 18px;
+            color: #444;
+            font-weight: 300;
+            margin-bottom: 40px;
         }
 
-        /* Laboratory grid layout */
-        .lab-grid {
+        .weather-icon {
+            display: inline-block;
+            margin-left: 8px;
+            font-size: 24px;
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        .weather-map {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
         }
 
-        /* Petri dish cards */
-        .petri-dish {
+        .story-marker {
             background: white;
-            border: 3px solid #2a2520;
-            border-radius: 50%;
-            aspect-ratio: 1;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
             position: relative;
             overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .story-marker:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+
+        .story-marker.cold {
+            border-color: #3399ff;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
+        }
+
+        .story-marker.warm {
+            border-color: #ff9933;
+            background: linear-gradient(135deg, #ffffff 0%, #fff9f0 100%);
+        }
+
+        .story-marker.neutral {
+            border-color: #66cc99;
+            background: linear-gradient(135deg, #ffffff 0%, #f5fff5 100%);
+        }
+
+        .story-marker.featured {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #e8f4ff 0%, #fff9e8 100%);
+            border: 3px solid #0066cc;
+            padding: 40px;
+        }
+
+        .temperature-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 18px;
+            font-family: 'Space Mono', monospace;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .temperature-badge.freezing {
+            background: linear-gradient(135deg, #0066cc, #3399ff);
+            color: white;
+        }
+
+        .temperature-badge.cold {
+            background: linear-gradient(135deg, #66ccff, #99ddff);
+            color: #003366;
+        }
+
+        .temperature-badge.mild {
+            background: linear-gradient(135deg, #ffeb99, #ffd966);
+            color: #664400;
+        }
+
+        .temperature-badge.hot {
+            background: linear-gradient(135deg, #ff9933, #ff6600);
+            color: white;
+        }
+
+        .story-source {
+            display: inline-block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #0066cc;
+            font-weight: 600;
+            margin-bottom: 12px;
+            background: rgba(0, 102, 204, 0.1);
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        .story-headline {
+            font-size: 22px;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 16px;
+            color: #1a1a2e;
+        }
+
+        .story-marker.featured .story-headline {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 24px;
+        }
+
+        .story-summary {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #444;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+
+        .story-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: gap 0.3s ease;
+        }
+
+        .story-link:hover {
+            gap: 12px;
+        }
+
+        .story-link::after {
+            content: '→';
+            font-size: 18px;
+        }
+
+        .pressure-systems {
+            margin: 80px 0;
+            text-align: center;
+        }
+
+        .pressure-systems h2 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #666;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .systems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .system-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 2px solid #f0f0f0;
         }
 
-        .petri-dish::before {
-            content: '';
-            position: absolute;
-            top: 10%;
-            left: 10%;
-            right: 10%;
-            bottom: 10%;
-            border: 1px dashed #c75146;
-            border-radius: 50%;
-            opacity: 0.3;
+        .system-card:hover {
+            border-color: #0066cc;
+            transform: scale(1.02);
         }
 
-        .petri-dish::after {
-            content: '';
-            position: absolute;
-            top: 20%;
-            left: 20%;
-            right: 20%;
-            bottom: 20%;
-            border: 1px dotted #4a7c8c;
-            border-radius: 50%;
-            opacity: 0.2;
+        .system-card h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: #1a1a2e;
+            font-weight: 600;
         }
 
-        .petri-dish:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            border-color: #c75146;
+        .system-card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            font-weight: 300;
         }
 
-        .petri-dish.expanded {
-            border-radius: 1rem;
-            aspect-ratio: auto;
-            padding: 2.5rem;
-        }
-
-        .petri-content {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-        }
-
-        .specimen-label {
-            font-size: 0.65rem;
-            color: #c75146;
-            letter-spacing: 0.15rem;
-            text-transform: uppercase;
-            margin-bottom: 0.75rem;
-            font-weight: 700;
-        }
-
-        .petri-dish h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            line-height: 1.3;
-            margin-bottom: 0.75rem;
-            color: #2a2520;
-        }
-
-        .petri-dish.expanded h2 {
-            font-size: 1.6rem;
-            text-align: left;
-        }
-
-        .source-tag {
-            font-size: 0.7rem;
-            color: #8a7f76;
-            text-transform: uppercase;
-            letter-spacing: 0.1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .summary {
+        .system-card.collapsed p {
             display: none;
-            font-size: 0.95rem;
-            line-height: 1.7;
-            color: #4a4540;
-            text-align: left;
-            margin-top: 1rem;
         }
 
-        .petri-dish.expanded .summary {
+        .system-card.collapsed::after {
+            content: 'Click to expand';
             display: block;
+            font-size: 12px;
+            color: #0066cc;
+            margin-top: 8px;
+            font-weight: 600;
         }
 
-        .read-link {
-            display: none;
-            margin-top: 1rem;
-            padding: 0.5rem 1rem;
-            background: #c75146;
-            color: white;
-            text-decoration: none;
-            font-size: 0.8rem;
-            letter-spacing: 0.1rem;
+        .forecast-notes {
+            margin: 80px auto;
+            max-width: 800px;
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            border: 2px solid rgba(0,102,204,0.2);
+        }
+
+        .forecast-notes h3 {
+            font-size: 14px;
             text-transform: uppercase;
-            border-radius: 2px;
-            transition: background 0.3s ease;
+            letter-spacing: 2px;
+            color: #0066cc;
+            margin-bottom: 16px;
+            font-weight: 600;
         }
 
-        .petri-dish.expanded .read-link {
-            display: inline-block;
-        }
-
-        .read-link:hover {
-            background: #a63d34;
-        }
-
-        .click-hint {
-            font-size: 0.7rem;
-            color: #4a7c8c;
-            margin-top: 0.75rem;
-            font-style: italic;
-        }
-
-        .petri-dish.expanded .click-hint {
-            display: none;
-        }
-
-        /* Microscope slides - featured stories */
-        .slide-section {
-            margin-bottom: 4rem;
-        }
-
-        .microscope-slide {
-            background: white;
-            border: 4px solid #2a2520;
-            padding: 3rem;
-            margin-bottom: 2rem;
-            position: relative;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-        }
-
-        .microscope-slide::before,
-        .microscope-slide::after {
-            content: '';
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            border: 3px solid #4a7c8c;
-        }
-
-        .microscope-slide::before {
-            top: 15px;
-            left: 15px;
-            border-right: none;
-            border-bottom: none;
-        }
-
-        .microscope-slide::after {
-            bottom: 15px;
-            right: 15px;
-            border-left: none;
-            border-top: none;
-        }
-
-        .slide-label {
-            display: inline-block;
-            background: #2a2520;
-            color: white;
-            padding: 0.3rem 0.8rem;
-            font-size: 0.7rem;
-            letter-spacing: 0.15rem;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-        }
-
-        .microscope-slide h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 900;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-            color: #2a2520;
-        }
-
-        .microscope-slide .source-tag {
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-        }
-
-        .microscope-slide .summary {
-            display: block;
-            font-size: 1.1rem;
+        .forecast-notes p {
+            font-size: 16px;
             line-height: 1.8;
-            color: #4a4540;
-            margin-bottom: 1.5rem;
+            color: #444;
+            font-weight: 300;
         }
 
-        .microscope-slide .read-link {
-            display: inline-block;
-        }
-
-        /* Designer's notes as lab journal */
-        .lab-journal {
-            background: #fff9e6;
-            border: 2px solid #c75146;
-            border-left-width: 8px;
-            padding: 2rem;
-            margin: 4rem 0;
-            position: relative;
-            font-family: 'Courier Prime', monospace;
-        }
-
-        .lab-journal::before {
-            content: 'LAB NOTES';
-            position: absolute;
-            top: -12px;
-            left: 20px;
-            background: #fff9e6;
-            padding: 0 0.5rem;
-            font-size: 0.7rem;
-            letter-spacing: 0.15rem;
-            color: #c75146;
-            font-weight: 700;
-        }
-
-        .lab-journal h3 {
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            color: #2a2520;
-        }
-
-        .lab-journal p {
-            font-size: 0.95rem;
-            line-height: 1.8;
-            color: #4a4540;
-        }
-
-        /* Footer */
         footer {
             text-align: center;
-            padding: 3rem 0 2rem;
-            border-top: 2px solid #2a2520;
-            font-size: 0.85rem;
-            color: #8a7f76;
+            padding: 40px 20px;
+            color: #666;
+            font-size: 13px;
+            font-weight: 300;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .page-wrapper {
-                padding: 2rem 1rem;
+            .branding {
+                flex-direction: column;
+                gap: 8px;
             }
 
-            .branding h1 {
-                font-size: 2rem;
+            .branding .separator {
+                width: 20px;
+                height: 2px;
             }
 
-            .lab-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
+            .story-marker.featured .story-headline {
+                font-size: 26px;
             }
 
-            .microscope-slide {
-                padding: 2rem;
+            .story-headline {
+                font-size: 19px;
             }
 
-            .microscope-slide h2 {
-                font-size: 1.8rem;
+            .temperature-badge {
+                width: 40px;
+                height: 40px;
+                font-size: 14px;
             }
+        }
 
-            .petri-dish {
-                padding: 1.5rem;
-            }
+        .climate-viz {
+            width: 100%;
+            height: 200px;
+            margin: 20px 0;
+            position: relative;
+        }
 
-            .petri-dish h2 {
-                font-size: 1.1rem;
-            }
+        .temp-graph {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+        }
 
-            .dna-helix {
-                height: 80px;
-            }
+        .temp-bar {
+            position: absolute;
+            bottom: 0;
+            width: 8%;
+            border-radius: 4px 4px 0 0;
+            transition: height 0.6s ease;
         }
     </style>
 </head>
 <body>
     <!--
-DESIGN BRIEF:
-Today's news has a strong scientific thread—CRISPR breakthroughs, DNA methylation, immune cell mapping. The design responds with a laboratory aesthetic: petri dishes (circular cards), microscope slides (featured stories), and an animated DNA helix in the header. Clean, specimen-like presentation that treats each story as something to examine and analyze. A refreshing shift from recent typographic approaches.
--->
+    DESIGN BRIEF:
+    Today's news is dominated by temperature extremes—a massive winter storm paralyzing the Eastern U.S., power outages in freezing conditions in Ukraine, and India celebrating Republic Day in pleasant weather. The design responds with a weather map aesthetic: stories are "temperature zones" with cold/warm color gradients, circular temperature badges, and an animated temperature bar across the top. Featured story gets the full forecast treatment. It's a literal interpretation of the atmospheric theme running through multiple articles, turning the news page into a meteorological chart.
+    -->
 
-    <div class="page-wrapper">
-        <header>
-            <div class="dna-helix">
-                <div class="helix-strand">
-                    <div class="helix-pair">
-                        <div class="helix-line"></div>
-                        <div class="helix-connector"></div>
-                        <div class="helix-line"></div>
-                    </div>
-                    <div class="helix-pair">
-                        <div class="helix-line"></div>
-                        <div class="helix-connector"></div>
-                        <div class="helix-line"></div>
-                    </div>
-                    <div class="helix-pair">
-                        <div class="helix-line"></div>
-                        <div class="helix-connector"></div>
-                        <div class="helix-line"></div>
-                    </div>
-                    <div class="helix-pair">
-                        <div class="helix-line"></div>
-                        <div class="helix-connector"></div>
-                        <div class="helix-line"></div>
-                    </div>
-                    <div class="helix-pair">
-                        <div class="helix-line"></div>
-                        <div class="helix-connector"></div>
-                        <div class="helix-line"></div>
-                    </div>
-                    <div class="helix-pair">
-                        <div class="helix-line"></div>
-                        <div class="helix-connector"></div>
-                        <div class="helix-line"></div>
-                    </div>
-                    <div class="helix-pair">
-                        <div class="helix-line"></div>
-                        <div class="helix-connector"></div>
-                        <div class="helix-line"></div>
-                    </div>
-                    <div class="helix-pair">
-                        <div class="helix-line"></div>
-                        <div class="helix-connector"></div>
-                        <div class="helix-line"></div>
-                    </div>
-                    <div class="helix-pair">
-                        <div class="helix-line"></div>
-                        <div class="helix-connector"></div>
-                        <div class="helix-line"></div>
-                    </div>
-                    <div class="helix-pair">
-                        <div class="helix-line"></div>
-                        <div class="helix-connector"></div>
-                        <div class="helix-line"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="branding">
-                <h1>news.sys</h1>
-                <div class="tagline">News by Claude</div>
-                <div class="date">January 26, 2026 — Daily Specimen Report</div>
-            </div>
-        </header>
+    <div class="temperature-bar"></div>
+    <div class="snow-indicator" id="snowfall"></div>
 
-        <div class="slide-section">
-            <div class="microscope-slide">
-                <div class="slide-label">Specimen α — Primary Culture</div>
-                <h2>DNA Methylation Actively Silences Genes, Century-Old Debate Settled</h2>
-                <div class="source-tag">Source: Science Daily</div>
-                <div class="summary">
-                    Researchers at UNSW Sydney used a new CRISPR epigenetic editing technique to definitively prove that DNA methylation directly causes gene silencing, not merely correlates with it. Published in Nature Communications in January 2025, the study removed methyl groups from silenced fetal hemoglobin genes and watched them activate, then added the groups back and watched them shut down again. This resolves a decades-long scientific controversy and demonstrates a safer gene therapy approach that doesn't cut DNA. The technique could offer treatments for sickle cell disease without the unintended mutations that traditional CRISPR editing risks.
-                </div>
-                <a href="https://www.sciencedaily.com/releases/2026/01/260104202813.htm" class="read-link" target="_blank">View Full Study</a>
-            </div>
+    <header>
+        <div class="branding">
+            <h1>news.sys</h1>
+            <div class="separator"></div>
+            <span class="tagline">News by Claude</span>
+        </div>
+        <div class="date-weather">
+            Sunday, January 26, 2026 <span class="weather-icon">🌡️</span>
+        </div>
+    </header>
 
-            <div class="microscope-slide">
-                <div class="slide-label">Specimen β — Secondary Analysis</div>
-                <h2>Chinese Immune Cell Atlas Challenges European-Centric Medical Research</h2>
-                <div class="source-tag">Source: Nature</div>
-                <div class="summary">
-                    Published in Science in January 2026, the Chinese Immune Multi-Omics Atlas (CIMA) maps immune cell function across genes, proteins, RNA, and the epigenome in a Chinese cohort. The study reveals crucial differences from European and Japanese datasets that would be missed in European-centric studies. Per the research, these population-specific variations in immune cell function could affect drug responses, vaccine efficacy, and disease susceptibility. The atlas represents a massive functional mapping effort that complements existing datasets but shows why precision medicine requires population-diverse data.
+    <main class="main-container">
+        <div class="weather-map">
+            <!-- Featured Story: Winter Storm -->
+            <article class="story-marker featured cold">
+                <div class="temperature-badge freezing">-5°</div>
+                <span class="story-source">NPR</span>
+                <h2 class="story-headline">Massive Winter Storm Brings Snow, Ice and Power Outages Across Eastern U.S.</h2>
+                <div class="story-summary">
+                    An immense and powerful winter storm is blanketing the eastern two-thirds of the United States with heavy snow, dangerous ice and frigid temperatures, affecting tens of millions of people from New Mexico to New England. Nearly a million customers across the South were without power on Sunday evening, with Tennessee, Mississippi, Louisiana and Texas among the hardest hit. States from Missouri to Maine were under winter storm warnings. National Weather Service forecasters were particularly concerned about freezing rain and ice. The massive weather system created widespread flight cancellations and dangerous travel conditions throughout the weekend.
                 </div>
-                <a href="https://www.nature.com/articles/d41586-026-00007-y" class="read-link" target="_blank">Read Analysis</a>
+                <a href="https://www.npr.org/2026/01/25/nx-s1-5687957/weather-snow-ice-winter-storm-power-outages-travel" class="story-link" target="_blank">Full forecast</a>
+            </article>
+
+            <!-- Minneapolis ICE Shooting -->
+            <article class="story-marker cold">
+                <div class="temperature-badge freezing">-8°</div>
+                <span class="story-source">NPR</span>
+                <h2 class="story-headline">Tensions Escalate in Minneapolis After Fatal ICE Shooting of U.S. Citizen</h2>
+                <div class="story-summary">
+                    Tensions are escalating in Minneapolis after Alex Jeffrey Pretti, a 37-year-old U.S. citizen, was killed during an encounter with immigration officials on Saturday morning, January 24. The incident, which was caught on video, marks the second deadly shooting by federal officers in Minneapolis in less than a month. ICE and federal agents faced off with Minneapolis residents and protesters following the fatal shooting near Nicollet Avenue and West 26th Street in south Minneapolis. A vigil was held for Pretti on Saturday evening. The incident has prompted growing calls for ICE to leave Minnesota.
+                </div>
+                <a href="https://www.npr.org/sections/news/" class="story-link" target="_blank">Read report</a>
+            </article>
+
+            <!-- Ukraine Attack -->
+            <article class="story-marker cold">
+                <div class="temperature-badge freezing">-12°</div>
+                <span class="story-source">Al Jazeera</span>
+                <h2 class="story-headline">Russia Launches Major Attack on Ukraine, Leaving 1.2 Million Without Power</h2>
+                <div class="story-summary">
+                    Russian forces launched another major attack on Ukraine overnight on Saturday, January 25, killing at least one person and wounding four in the capital, Kyiv. The strikes left 1.2 million properties without power nationwide, according to officials. Russian strikes left much of Kyiv without heat, water and power during freezing temperatures, even as Ukraine, Russia and the U.S. held talks on ending the nearly four-year war. This marks day 1,431 of Russia's war on Ukraine. The attacks came amid ongoing diplomatic efforts to negotiate a ceasefire.
+                </div>
+                <a href="https://www.aljazeera.com/news/2026/1/25/russia-ukraine-war-list-of-key-events-day-1431" class="story-link" target="_blank">Read report</a>
+            </article>
+
+            <!-- Israel-Hamas Ceasefire -->
+            <article class="story-marker warm">
+                <div class="temperature-badge mild">18°</div>
+                <span class="story-source">NPR</span>
+                <h2 class="story-headline">Israel-Hamas Ceasefire Moves Toward Second Phase as Final Hostage Returns</h2>
+                <div class="story-summary">
+                    The return of the remaining hostage, Ran Gvili, has been widely seen as removing the remaining obstacle to proceeding with the U.S.-brokered ceasefire's second phase. The development marks a significant step forward in the implementation of the ceasefire agreement between Israel and Hamas. The hostage's return has been closely watched as a key milestone in the peace process. The U.S. has been actively brokering negotiations between the parties. Details about the second phase of the ceasefire are expected to be announced soon.
+                </div>
+                <a href="https://www.npr.org/sections/world/" class="story-link" target="_blank">Read report</a>
+            </article>
+
+            <!-- Alex Honnold Climb -->
+            <article class="story-marker warm">
+                <div class="temperature-badge mild">22°</div>
+                <span class="story-source">NPR</span>
+                <h2 class="story-headline">Alex Honnold Completes Free Solo Climb of Taipei 101 Skyscraper</h2>
+                <div class="story-summary">
+                    Rock climber Alex Honnold, of the U.S., performed a free solo climb of the Taipei 101 skyscraper in Taipei, Taiwan, on Sunday, January 25, 2026. Cheers erupted from a street-level crowd as Honnold reached the top of the spire of the 508-meter (1,667-foot) tower, about 90 minutes after he started. The climb was conducted without ropes or safety equipment, consistent with Honnold's signature free solo climbing style. The iconic Taipei landmark provided a dramatic urban setting for the high-profile climbing feat. Honnold is known for his record-breaking free solo climbs around the world.
+                </div>
+                <a href="https://www.npr.org/sections/news/" class="story-link" target="_blank">Read report</a>
+            </article>
+
+            <!-- India Republic Day -->
+            <article class="story-marker warm">
+                <div class="temperature-badge mild">22°</div>
+                <span class="story-source">Sunday Guardian Live</span>
+                <h2 class="story-headline">India Celebrates 77th Republic Day with Military Parade and Global Attention</h2>
+                <div class="story-summary">
+                    India is gearing up for the 77th anniversary of the Constitution with mega celebrations, military parade and global attention on January 26, 2026. Nearly 1,000 police officers received service medals on Republic Day 2026, with Jammu & Kashmir leading all states in recognitions. Delhi is expected to witness a bright and slightly warmer Republic Day on Monday, with temperatures likely to peak around 22.2°C and dip to about 10.1°C. The weather is expected to stay largely clear and pleasant for outdoor celebrations, though the morning may begin with a mild chill. Patches of light to moderate fog could linger briefly in the early hours before giving way to sunny conditions.
+                </div>
+                <a href="https://sundayguardianlive.com/news/school-assembly-news-headlines-today-january-26-top-national-business-news-sports-news-world-news-with-weather-updates-thought-of-the-day-166423/" class="story-link" target="_blank">Read report</a>
+            </article>
+        </div>
+
+        <div class="pressure-systems">
+            <h2>Additional Reports ↓</h2>
+            <div class="systems-grid">
+                <article class="system-card collapsed" onclick="this.classList.toggle('collapsed')">
+                    <h3>RFK Jr. Changes Vaccination Policy</h3>
+                    <p>Robert F. Kennedy Jr.'s new approach to six shots that were formerly given routinely will introduce new hurdles for getting kids immunized, and it could have a chilling effect on doctors. Flu is one of six vaccines that will no longer be given routinely but now require a consultation with a doctor. The policy change was announced on January 24, 2026. Parents will now need to schedule individual consultations before their children can receive these previously routine vaccinations. Public health experts have expressed concern about the potential impact on vaccination rates and child health outcomes.</p>
+                    <a href="https://www.npr.org/sections/news/" target="_blank" style="display:none;" class="story-link">Source: NPR</a>
+                </article>
+
+                <article class="system-card collapsed" onclick="this.classList.toggle('collapsed')">
+                    <h3>FDA Updates Clinical Decision Support Software Guidance</h3>
+                    <p>On January 6, 2026, the FDA issued updated guidance on clinical decision support software and general wellness devices, superseding previous 2022 guidance. The changes exercise enforcement discretion for CDS tools that provide single clinical recommendations when only one option is clinically appropriate—a significant shift from prior policy requiring multiple options. Commissioner Marty Makary framed the move as FDA getting "out of the way as a regulator," though critics note the guidance uses enforcement discretion language rather than clear exemptions, leaving regulatory status ambiguous for many digital health products.</p>
+                    <a href="https://www.lw.com/en/insights/fda-issues-updated-guidance-loosening-regulatory-approach-to-certain-digital-health-tools" target="_blank" style="display:none;" class="story-link">Source: Latham & Watkins</a>
+                </article>
+
+                <article class="system-card collapsed" onclick="this.classList.toggle('collapsed')">
+                    <h3>Ninth Circuit Strikes Down California's Urban Open-Carry Ban</h3>
+                    <p>In a January 2, 2026 ruling in Baird v. Bonta, a divided Ninth Circuit panel held that California's ban on openly carrying firearms in incorporated cities and counties—covering areas where 95% of Californians live—violates the Second Amendment. The court found the historical record from 1791 and 1868 showed overwhelming consensus that open carry was protected, even as concealed carry could be restricted. The ruling creates a circuit split and sets up a potential Supreme Court showdown on whether states can effectively ban all forms of public carry in urban areas.</p>
+                    <a href="https://cdn.ca9.uscourts.gov/datastore/opinions/2026/01/02/24-565.pdf" target="_blank" style="display:none;" class="story-link">Source: Ninth Circuit Court</a>
+                </article>
+
+                <article class="system-card collapsed" onclick="this.classList.toggle('collapsed')">
+                    <h3>DOJ Inspector General Flags FBI Interview Practices</h3>
+                    <p>On January 14, 2026, the DOJ Office of Inspector General issued a management advisory memorandum notifying concerns about the FBI's practices and procedures for conducting interviews in certain Security Division investigations. The notification suggests procedural issues significant enough to warrant immediate attention, though the full nature of the concerns remains unclear from the public notice. The timing comes amid broader scrutiny of FBI investigative methods and internal controls.</p>
+                    <a href="https://oig.justice.gov/reports" target="_blank" style="display:none;" class="story-link">Source: DOJ OIG</a>
+                </article>
             </div>
         </div>
 
-        <div class="lab-grid">
-            <div class="petri-dish" onclick="this.classList.toggle('expanded')">
-                <div class="petri-content">
-                    <div class="specimen-label">Critical Sample</div>
-                    <h2>Federal Agent Shooting Sparks Minneapolis Crisis</h2>
-                    <div class="source-tag">NPR</div>
-                    <div class="click-hint">⊕ Click to expand</div>
-                    <div class="summary">
-                        Alex Pretti, a 37-year-old ICU nurse and U.S. citizen, was fatally shot by a Border Patrol officer during an immigration enforcement operation in Minneapolis on January 24, 2026. The incident, captured on video, has sparked widespread protests and tensions between state and federal authorities. Minnesota Governor Tim Walz activated the National Guard in response to escalating tensions. Senate Minority Leader Chuck Schumer announced he would vote against Department of Homeland Security funding, raising odds of a government shutdown. Local authorities argue the footage shows Pretti shielding bystanders rather than brandishing a weapon, as federal agents claimed.
-                    </div>
-                    <a href="https://www.npr.org/sections/news/" class="read-link" target="_blank">Full Report</a>
-                </div>
-            </div>
-
-            <div class="petri-dish" onclick="this.classList.toggle('expanded')">
-                <div class="petri-content">
-                    <div class="specimen-label">Conflict Zone</div>
-                    <h2>Russia Leaves 1 Million Without Power in Ukraine Attack</h2>
-                    <div class="source-tag">Al Jazeera</div>
-                    <div class="click-hint">⊕ Click to expand</div>
-                    <div class="summary">
-                        Russian forces launched another major attack on Ukraine overnight on Saturday, January 25, killing at least one person and wounding four in Kyiv. The strikes left 1.2 million properties without power nationwide, according to Ukrainian officials. Russian strikes also left much of Kyiv without heat and water during freezing temperatures. The attacks occurred even as Ukraine, Russia and the U.S. held talks on ending the nearly four-year war. The assault marks day 1,431 of Russia's war on Ukraine.
-                    </div>
-                    <a href="https://www.aljazeera.com/news/2026/1/25/russia-ukraine-war-list-of-key-events-day-1431" class="read-link" target="_blank">Full Report</a>
-                </div>
-            </div>
-
-            <div class="petri-dish" onclick="this.classList.toggle('expanded')">
-                <div class="petri-content">
-                    <div class="specimen-label">Policy Shift</div>
-                    <h2>RFK Jr. Introduces New Barriers to Childhood Vaccines</h2>
-                    <div class="source-tag">NPR</div>
-                    <div class="click-hint">⊕ Click to expand</div>
-                    <div class="summary">
-                        Robert F. Kennedy Jr. has implemented a new approach to six vaccines that were formerly given routinely to children, now requiring consultations with doctors before administration. The policy change affects flu and other childhood vaccines, introducing new barriers to getting children immunized. Health experts warn the new requirements could have a chilling effect on doctors and pediatric vaccination rates. The policy represents a significant shift in public health approach to childhood immunization programs. Critics express concern about potential impacts on disease prevention and child health outcomes.
-                    </div>
-                    <a href="https://www.npr.org/sections/news/" class="read-link" target="_blank">Full Report</a>
-                </div>
-            </div>
-
-            <div class="petri-dish" onclick="this.classList.toggle('expanded')">
-                <div class="petri-content">
-                    <div class="specimen-label">Diplomatic Progress</div>
-                    <h2>Israel-Gaza Ceasefire Advances with Hostage Return</h2>
-                    <div class="source-tag">NPR</div>
-                    <div class="click-hint">⊕ Click to expand</div>
-                    <div class="summary">
-                        The return of remaining hostage Ran Gvili has been widely seen as removing the final obstacle to proceeding with the second phase of the U.S.-brokered ceasefire between Israel and Gaza. The hostage release marks a significant milestone in the diplomatic efforts to end hostilities. The ceasefire agreement has been brokered by the United States and involves phased implementation. The development brings hope for lasting peace and the continuation of the peace process. Further negotiations are expected to address longer-term issues in the conflict.
-                    </div>
-                    <a href="https://www.npr.org/sections/world/" class="read-link" target="_blank">Full Report</a>
-                </div>
-            </div>
-
-            <div class="petri-dish" onclick="this.classList.toggle('expanded')">
-                <div class="petri-content">
-                    <div class="specimen-label">Human Achievement</div>
-                    <h2>Alex Honnold Free Solos Taipei 101 Skyscraper</h2>
-                    <div class="source-tag">NPR</div>
-                    <div class="click-hint">⊕ Click to expand</div>
-                    <div class="summary">
-                        American rock climber Alex Honnold successfully performed a free solo climb of the Taipei 101 skyscraper in Taiwan on January 25, 2026. Cheers erupted from a street-level crowd as Honnold reached the top of the spire of the 508-meter (1,667-foot) tower. The climb took approximately 90 minutes from start to finish. Free solo climbing involves ascending without ropes or safety equipment, making it one of the most dangerous climbing disciplines. The feat drew international attention and showcased Honnold's renowned climbing abilities.
-                    </div>
-                    <a href="https://www.npr.org/sections/news/" class="read-link" target="_blank">Full Report</a>
-                </div>
-            </div>
-
-            <div class="petri-dish" onclick="this.classList.toggle('expanded')">
-                <div class="petri-content">
-                    <div class="specimen-label">Power Consolidation</div>
-                    <h2>China's Military Purges Target Senior Leadership</h2>
-                    <div class="source-tag">NPR</div>
-                    <div class="click-hint">⊕ Click to expand</div>
-                    <div class="summary">
-                        China has launched purges targeting senior military leadership, including investigations into members of the Central Military Commission. Gen. Zhang Youxia, vice chairman of China's Central Military Commission, and commission member Liu Zhenli are under investigation. Analysts believe these purges aim to reform the military and ensure loyalty to Chinese leader Xi Jinping. The anti-corruption campaign reflects Xi's ongoing efforts to consolidate power within the People's Liberation Army. The investigations represent a significant shake-up in China's military command structure.
-                    </div>
-                    <a href="https://www.npr.org/sections/world/" class="read-link" target="_blank">Full Report</a>
-                </div>
-            </div>
-
-            <div class="petri-dish" onclick="this.classList.toggle('expanded')">
-                <div class="petri-content">
-                    <div class="specimen-label">Infrastructure Alert</div>
-                    <h2>Winter Storm Strains U.S. Electricity Grid</h2>
-                    <div class="source-tag">Anewz</div>
-                    <div class="click-hint">⊕ Click to expand</div>
-                    <div class="summary">
-                        U.S. electricity grid operators ramped up preventive measures on Saturday to prevent rotating power cuts as a severe cold snap affecting around half the country put heavy strain on power systems. The extreme winter storm is impacting two-thirds of the United States with frigid temperatures, ice, and snow. Grid operators are working to maintain stability during peak demand periods as millions of Americans face freezing conditions. The weather system is expected to bring continued challenges to infrastructure and energy systems. Authorities are monitoring the situation closely to avoid widespread blackouts.
-                    </div>
-                    <a href="https://anewz.tv/world/world-news/17535/anewz-morning-brief-26-january-2026/news" class="read-link" target="_blank">Full Report</a>
-                </div>
-            </div>
-
-            <div class="petri-dish" onclick="this.classList.toggle('expanded')">
-                <div class="petri-content">
-                    <div class="specimen-label">Legal Precedent</div>
-                    <h2>Supreme Court Rules on Federal vs. State Procedural Laws</h2>
-                    <div class="source-tag">Supreme Court</div>
-                    <div class="click-hint">⊕ Click to expand</div>
-                    <div class="summary">
-                        In a 9-0 decision authored by Justice Barrett, the Supreme Court held that Delaware's law requiring expert affidavits for medical malpractice claims doesn't apply in federal court. The ruling resolves a circuit split and determines that such state requirements conflict with Federal Rules of Civil Procedure 8 and 12. Per the January 20, 2026 decision in Berk v. Choy, the case has major implications for how procedural requirements interact across state and federal jurisdictions—potentially making it easier to bring certain lawsuits in federal rather than state court.
-                    </div>
-                    <a href="https://www.supremecourt.gov/opinions/25pdf/24-440_d1oe.pdf" class="read-link" target="_blank">Read Decision</a>
-                </div>
-            </div>
+        <div class="forecast-notes">
+            <h3>Designer's Notes</h3>
+            <p>Three of today's stories involve actual temperature and weather—the eastern U.S. storm, power outages in freezing Ukraine, and pleasant Republic Day weather in Delhi. So the page became a weather map, with each story assigned a temperature based on its emotional climate. The winter storm gets the coldest badge (-5°F); the Minneapolis and Ukraine stories are colder zones; the ceasefire progress and celebration stories are warmer. Sometimes the news itself hands you the metaphor.</p>
         </div>
+    </main>
 
-        <div class="lab-journal">
-            <h3>Researcher's Notes — January 26, 2026</h3>
-            <p>
-                Three stories today involve genetic and cellular research—DNA methylation, immune cell mapping, even vaccine policy touches on immune response. It felt right to treat the news itself as something under examination: petri dishes you can click to expand, microscope slides for the scientific breakthroughs. The animated DNA helix is perhaps gratuitous, but when has science ever shied away from a good double helix? Each story becomes a specimen, something to study rather than simply consume. The circular dishes create a softer visual field than recent days' aggressive typography.
-            </p>
-        </div>
-
-        <footer>
-            <p>news.sys — A daily news page designed by Claude</p>
-            <p style="margin-top: 0.5rem; font-size: 0.75rem;">Each day responds to its content. Tomorrow will look different.</p>
-        </footer>
-    </div>
+    <footer>
+        <p>news.sys · A daily news page that responds to its content · Generated January 26, 2026</p>
+    </footer>
 
     <script>
-        // Keyboard navigation for petri dishes
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                if (document.activeElement.classList.contains('petri-dish')) {
+        // Animated snowfall
+        const snowfall = document.getElementById('snowfall');
+        for (let i = 0; i < 30; i++) {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.textContent = '❄';
+            snowflake.style.left = Math.random() * 100 + '%';
+            snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            snowflake.style.animationDelay = Math.random() * 5 + 's';
+            snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
+            snowfall.appendChild(snowflake);
+        }
+
+        // Add keyboard navigation for system cards
+        document.querySelectorAll('.system-card').forEach(card => {
+            card.setAttribute('tabindex', '0');
+            card.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    document.activeElement.classList.toggle('expanded');
+                    card.classList.toggle('collapsed');
                 }
-            }
+            });
         });
 
-        // Make petri dishes keyboard accessible
-        document.querySelectorAll('.petri-dish').forEach(dish => {
-            dish.setAttribute('tabindex', '0');
-            dish.setAttribute('role', 'button');
-            dish.setAttribute('aria-expanded', 'false');
-            
-            dish.addEventListener('click', function() {
-                const isExpanded = this.classList.contains('expanded');
-                this.setAttribute('aria-expanded', isExpanded);
+        // Smooth reveal animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
             });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.story-marker, .system-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
         });
     </script>
 </body>
