@@ -51,10 +51,10 @@ class NewsOrchestrator:
         await self._stage_1_gather()
 
         # Check if we have enough articles
-        if self.state.total_articles_gathered < 10:
+        if self.state.total_articles_gathered < 5:
             raise ValueError(
                 f"Insufficient articles gathered: {self.state.total_articles_gathered} "
-                f"(need at least 10)"
+                f"(need at least 5)"
             )
 
         # Stage 2: Curate
