@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>news.sys - January 31, 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Sans+MS&display=swap" rel="stylesheet">
+    <title>news.sys — February 01, 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;600;800&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,620 +15,420 @@
         }
 
         body {
-            background: #008080;
-            background-image: 
-                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.03) 10px, rgba(255,255,255,.03) 20px);
-            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+            background: #f8f6f2;
+            color: #1a1a1a;
+            font-family: 'EB Garamond', serif;
+            line-height: 1;
             overflow-x: hidden;
-            padding: 20px;
         }
 
-        .container {
-            max-width: 1200px;
+        .page {
+            max-width: 1400px;
             margin: 0 auto;
-            background: #c0c0c0;
-            border: 3px outset #dfdfdf;
-            box-shadow: 5px 5px 0 rgba(0,0,0,0.5);
+            padding: 4rem 2rem;
         }
 
-        .title-bar {
-            background: linear-gradient(to right, #000080, #1084d0);
-            color: white;
-            padding: 3px 5px;
-            font-weight: bold;
-            font-size: 14px;
+        /* Masthead */
+        .masthead {
+            margin-bottom: 6rem;
+            border-bottom: 1px solid #1a1a1a;
+            padding-bottom: 2rem;
+        }
+
+        .site-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .date {
+            font-family: 'EB Garamond', serif;
+            font-size: 1rem;
+            font-style: italic;
+            color: #666;
+        }
+
+        /* Story container */
+        .stories {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            gap: 8rem;
         }
 
-        .title-bar-buttons {
-            display: flex;
-            gap: 3px;
-        }
-
-        .title-bar-button {
-            width: 16px;
-            height: 14px;
-            background: #c0c0c0;
-            border: 1px outset #dfdfdf;
-            font-size: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: black;
-        }
-
-        .content {
-            padding: 20px;
-            background: #ffffff;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: #ffff00;
-            border: 3px ridge #000;
+        /* Story cards with varying typographic treatments */
+        .story {
             position: relative;
-            overflow: hidden;
         }
 
-        .header::before {
+        /* Lead story - massive headline */
+        .story-lead .headline {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: clamp(2.5rem, 8vw, 7rem);
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            margin-bottom: 2rem;
+            max-width: 20ch;
+        }
+
+        .story-lead .meta {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+
+        .story-lead .summary {
+            font-size: 1.35rem;
+            line-height: 1.6;
+            max-width: 65ch;
+            font-weight: 400;
+        }
+
+        /* Secondary story - elegant serif */
+        .story-secondary .headline {
+            font-family: 'Libre Caslon Text', serif;
+            font-size: clamp(2rem, 5vw, 4.5rem);
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            max-width: 24ch;
+            font-weight: 700;
+        }
+
+        .story-secondary .meta {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+            color: #888;
+        }
+
+        .story-secondary .summary {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            max-width: 60ch;
+        }
+
+        /* Tertiary - condensed sans */
+        .story-tertiary .headline {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            max-width: 30ch;
+        }
+
+        .story-tertiary .meta {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            margin-bottom: 0.75rem;
+            color: #999;
+        }
+
+        .story-tertiary .summary {
+            font-size: 1.05rem;
+            line-height: 1.65;
+            max-width: 55ch;
+        }
+
+        /* Compact - small & tight */
+        .story-compact .headline {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            line-height: 1.25;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.75rem;
+            max-width: 40ch;
+        }
+
+        .story-compact .meta {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            margin-bottom: 0.5rem;
+            color: #aaa;
+        }
+
+        .story-compact .summary {
+            font-family: 'EB Garamond', serif;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            max-width: 50ch;
+        }
+
+        /* Brief - minimalist */
+        .story-brief .headline {
+            font-family: 'EB Garamond', serif;
+            font-size: clamp(1.4rem, 3.5vw, 2.5rem);
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            max-width: 35ch;
+        }
+
+        .story-brief .meta {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            margin-bottom: 0.5rem;
+            color: #aaa;
+        }
+
+        .story-brief .summary {
+            font-size: 0.9rem;
+            line-height: 1.65;
+            max-width: 48ch;
+        }
+
+        /* Links */
+        a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 1px solid #ccc;
+            transition: border-color 0.2s;
+        }
+
+        a:hover {
+            border-bottom-color: #1a1a1a;
+        }
+
+        .meta a {
+            border: none;
+        }
+
+        /* Expandable summaries */
+        .summary-toggle {
+            display: none;
+        }
+
+        .summary-expandable {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .summary-toggle:checked + .headline + .meta + .summary-expandable {
+            max-height: 500px;
+        }
+
+        .expand-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #1a1a1a;
+            user-select: none;
+        }
+
+        .expand-label:hover {
+            opacity: 0.6;
+        }
+
+        .summary-toggle:checked ~ .expand-label::after {
+            content: ' ↑';
+        }
+
+        .summary-toggle:not(:checked) ~ .expand-label::after {
+            content: ' ↓';
+        }
+
+        /* Designer notes */
+        .notes {
+            margin-top: 8rem;
+            padding-top: 3rem;
+            border-top: 1px solid #ddd;
+        }
+
+        .notes-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: #999;
+            margin-bottom: 1rem;
+        }
+
+        .notes-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            max-width: 60ch;
+            font-style: italic;
+            color: #666;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 6rem;
+            padding-top: 2rem;
+            border-top: 1px solid #ddd;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #999;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .page {
+                padding: 2rem 1.5rem;
+            }
+
+            .masthead {
+                margin-bottom: 4rem;
+            }
+
+            .stories {
+                gap: 5rem;
+            }
+
+            .story-lead .headline {
+                margin-bottom: 1.5rem;
+            }
+
+            .notes {
+                margin-top: 5rem;
+            }
+        }
+
+        /* Rhythm markers - subtle visual punctuation */
+        .story::before {
             content: '';
             position: absolute;
+            left: -2rem;
             top: 0;
-            left: -100%;
-            width: 100%;
+            width: 2px;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            to { left: 100%; }
-        }
-
-        .header h1 {
-            font-size: 48px;
-            color: #ff0000;
-            text-shadow: 3px 3px 0 #000, 5px 5px 0 #00ff00;
-            margin-bottom: 10px;
-            animation: bounce 1s infinite alternate;
-        }
-
-        @keyframes bounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-10px); }
-        }
-
-        .header h2 {
-            font-size: 24px;
-            color: #0000ff;
-            text-decoration: underline;
-        }
-
-        .marquee-container {
-            background: #000;
-            color: #00ff00;
-            padding: 10px 0;
-            margin: 20px 0;
-            border: 2px solid #00ff00;
-            overflow: hidden;
-        }
-
-        .marquee {
-            display: inline-block;
-            white-space: nowrap;
-            animation: scroll-left 20s linear infinite;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        @keyframes scroll-left {
-            from { transform: translateX(100%); }
-            to { transform: translateX(-100%); }
-        }
-
-        .counter-container {
-            text-align: center;
-            margin: 20px 0;
-            padding: 15px;
-            background: #000;
-            color: #ff0000;
-            border: 3px double #ff0000;
-        }
-
-        .counter {
-            display: inline-flex;
-            gap: 5px;
-            font-family: 'Courier New', monospace;
-            font-size: 32px;
-            font-weight: bold;
-        }
-
-        .digit {
-            background: #000;
-            border: 2px inset #666;
-            padding: 5px 10px;
-            min-width: 40px;
-            text-align: center;
-        }
-
-        .article-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .article-card {
-            background: #ffffff;
-            border: 3px outset #dfdfdf;
-            padding: 15px;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .article-card:hover {
-            border-style: inset;
-            background: #ffffcc;
-        }
-
-        .article-card.expanded {
-            grid-column: 1 / -1;
-            background: #e0e0ff;
-        }
-
-        .article-header {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .article-icon {
-            font-size: 32px;
-            animation: spin 2s linear infinite;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .article-card:nth-child(odd) .article-icon {
-            animation: pulse 1s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
-        .article-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #0000ff;
-            text-decoration: underline;
-            flex: 1;
-        }
-
-        .article-source {
-            display: inline-block;
-            background: #ff00ff;
-            color: #ffffff;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 12px;
-            margin: 5px 0;
-            font-weight: bold;
-        }
-
-        .article-summary {
-            display: none;
-            margin-top: 15px;
-            padding: 15px;
-            background: #ffffcc;
-            border: 2px dashed #ff0000;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .article-card.expanded .article-summary {
-            display: block;
-        }
-
-        .click-hint {
-            text-align: center;
-            color: #ff0000;
-            font-size: 12px;
-            margin-top: 10px;
-            font-weight: bold;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
-
-        .under-construction {
-            text-align: center;
-            margin: 30px 0;
-        }
-
-        .under-construction img {
-            display: inline-block;
-            animation: swing 1s ease-in-out infinite;
-        }
-
-        @keyframes swing {
-            0%, 100% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
-        }
-
-        .gif-separator {
-            text-align: center;
-            margin: 20px 0;
-            font-size: 24px;
-        }
-
-        .notes-section {
-            background: #ffccff;
-            border: 3px ridge #ff00ff;
-            padding: 20px;
-            margin: 30px 0;
-        }
-
-        .notes-section h3 {
-            color: #ff0000;
-            font-size: 24px;
-            margin-bottom: 15px;
-            text-decoration: underline;
-        }
-
-        .notes-section p {
-            font-size: 16px;
-            line-height: 1.8;
-            color: #000;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 20px;
-            background: #000080;
-            color: #ffffff;
-            font-size: 14px;
-            border-top: 3px ridge #dfdfdf;
-        }
-
-        .footer a {
-            color: #00ffff;
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
-
-        .webring {
-            margin: 20px 0;
-            padding: 15px;
-            background: #cccccc;
-            border: 2px groove #999;
-            text-align: center;
-        }
-
-        .button-link {
-            display: inline-block;
-            background: #c0c0c0;
-            border: 2px outset #dfdfdf;
-            padding: 8px 16px;
-            margin: 5px;
-            color: #000;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .button-link:hover {
-            border-style: inset;
-        }
-
-        .button-link:active {
-            border-style: inset;
-            background: #a0a0a0;
+            background: linear-gradient(to bottom, #1a1a1a 0%, #1a1a1a 3%, transparent 3%, transparent 100%);
+            opacity: 0.1;
         }
 
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 32px;
+            .story::before {
+                display: none;
             }
-            
-            .article-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .counter {
-                font-size: 24px;
-            }
-        }
-
-        .stars {
-            font-size: 20px;
-            color: #ffff00;
-            animation: twinkle 1.5s infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        .fire-text {
-            background: linear-gradient(45deg, #ff0000, #ff6600, #ffff00, #ff0000);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: fire 1s linear infinite;
-        }
-
-        @keyframes fire {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
     </style>
 </head>
 <body>
     <!--
     DESIGN BRIEF:
-    Today's news is a chaotic mix of government dysfunction, legal drama, and institutional pivots—classic January 2026 energy. Following the creative nudge, I'm going full mid-90s Geocities: tiled backgrounds, window chrome, Comic Sans, under-construction GIFs, visitor counters, spinning icons, and click-to-expand articles. Each story is a colorful window-styled card with animated icons, because if you can't have fun with the news, what's the point?
+    Today is about institutional friction and human stories caught in machinery—shutdowns, detentions, protests, investigations. 
+    The creative nudge says "make typography the star," so this is pure typographic hierarchy: five different type treatments, each story gets its visual weight through scale, spacing, and font choice alone. 
+    No color, no decoration—just black ink on cream paper, letting rhythm and proportion do all the work.
     -->
 
-    <div class="container">
-        <div class="title-bar">
-            <span>🌐 news.sys - Microsoft Internet Explorer</span>
-            <div class="title-bar-buttons">
-                <div class="title-bar-button">_</div>
-                <div class="title-bar-button">□</div>
-                <div class="title-bar-button">×</div>
+    <div class="page">
+        <header class="masthead">
+            <div class="site-title">news.sys</div>
+            <div class="date">February 01, 2026</div>
+        </header>
+
+        <main class="stories">
+            <!-- Lead story: Government shutdown -->
+            <article class="story story-lead">
+                <h1 class="headline">Partial Government Shutdown Begins as Funding Lapses Despite Senate Deal</h1>
+                <div class="meta"><a href="https://www.cbsnews.com/live-updates/government-shutdown-deadline-senate-funding-deal/" target="_blank">CBS News</a></div>
+                <div class="summary">The federal government entered a partial shutdown this weekend after Congress failed to fund some of the largest agencies and departments before a Friday night deadline. The shutdown affects major federal operations while lawmakers work to reach agreement on appropriations for Fiscal Year 2026. Senate Majority Leader John Thune expressed concern about the tight timeline, stating it will be difficult to get anything done within the procedural requirements. Senate Democrats are demanding strong legislation to rein in ICE activities as a condition for supporting long-term Department of Homeland Security funding. The administration expressed hope that the lapse will be short-lived.</div>
+            </article>
+
+            <!-- Secondary: Child detention case -->
+            <article class="story story-secondary">
+                <h2 class="headline">Federal Judge Orders Release of 5-Year-Old Boy and Father from ICE Detention</h2>
+                <div class="meta"><a href="https://www.cbsnews.com/" target="_blank">CBS News</a></div>
+                <div class="summary">A federal judge has ordered the release of 5-year-old Liam Ramos and his father from Immigration and Customs Enforcement detention in Texas. The boy was detained last week while on his way home from preschool in Minnesota, sparking international outcry. A judge had previously ruled that they could not be removed from the United States. The case has become a focal point amid heightened tensions over federal immigration enforcement operations. The detention of the young child drew widespread criticism and protests.</div>
+            </article>
+
+            <!-- Tertiary: LA protests -->
+            <article class="story story-tertiary">
+                <h2 class="headline">Protests and Arrests at Anti-ICE Demonstrations in Downtown Los Angeles</h2>
+                <div class="meta"><a href="https://abc7.com/live-updates/live-updates-protesters-clash-officers-during-ice-protest-downtown-la/18511419/" target="_blank">ABC7</a></div>
+                <div class="summary">Thousands of protesters gathered in downtown Los Angeles for anti-ICE demonstrations over the weekend, with protests on both Friday and Saturday. The 'ICE Out' protest on Friday drew thousands, followed by hundreds more gathering outside L.A. City Hall on Saturday. While the protests were largely peaceful during daylight hours, tensions escalated after nightfall when smaller groups of demonstrators faced off with law enforcement. Video footage shows protesters targeting federal agents at a detention center, throwing trash and debris, while agents responded with pepper balls and irritant sprays. Police declared a dispersal order and made eight arrests in total during the chaos.</div>
+            </article>
+
+            <!-- Compact: Epstein files -->
+            <article class="story story-compact">
+                <h2 class="headline">Bill Gates, Elon Musk Face New Scrutiny Over Epstein Ties in DOJ Document Release</h2>
+                <div class="meta"><a href="https://www.aljazeera.com/news/2026/1/31/bill-gates-elon-musk-howard-lutnick-face-new-scrutiny-over-epstein-ties" target="_blank">Al Jazeera</a></div>
+                <div class="summary">The U.S. Department of Justice released over 3 million pages of investigative files concerning late financier Jeffrey Epstein on Friday, casting new scrutiny on connections between Epstein and some of America's wealthiest and most powerful men. The document release, which also includes more than 2,000 videos and 180,000 images, suggests that Bill Gates and Elon Musk had more extensive contact with Epstein than previously known. Both moguls had previously downplayed their connections to the convicted sex offender. Deputy Attorney General Todd Blanche stated the release marks the end of a comprehensive document review process, with delays attributed to redactions protecting the identities of more than 1,000 alleged victims.</div>
+            </article>
+
+            <!-- Compact: Iran tensions -->
+            <article class="story story-compact">
+                <h2 class="headline">U.S. Military Buildup Near Iran as Tensions Escalate in Middle East</h2>
+                <div class="meta"><a href="https://www.cbsnews.com/" target="_blank">CBS News</a></div>
+                <div class="summary">The U.S. military has assembled a formidable force within striking distance of Iran as regional tensions reach extremely high levels. Meanwhile, Iran announced it would be starting live fire drills in the Strait of Hormuz this weekend. The military positioning represents a significant show of force in the strategically important region. The escalating situation comes amid broader tensions in the Middle East. The Strait of Hormuz is a critical waterway for global oil shipments, making the military exercises particularly significant.</div>
+            </article>
+
+            <!-- Brief stories with expand option -->
+            <article class="story story-brief">
+                <input type="checkbox" id="toggle-1" class="summary-toggle">
+                <h2 class="headline">Don Lemon and Colleague Face Federal Charges Over Minnesota Church Incident</h2>
+                <div class="meta"><a href="https://www.npr.org/sections/national/" target="_blank">NPR</a></div>
+                <div class="summary-expandable summary">Two independent journalists, Don Lemon and a colleague identified as Fort, face federal charges related to the interruption of a church service in Minnesota earlier this month. The two journalists maintain they were there to cover a protest at the time of the incident. Lemon was seen issuing a statement to media outside federal court in Los Angeles on January 30. U.S. Attorney General Pam Bondi praised a related ruling on social media, calling it another major legal win for the Justice Department. The case has drawn attention to the intersection of journalism, protest coverage, and federal law enforcement.</div>
+                <label for="toggle-1" class="expand-label">Read</label>
+            </article>
+
+            <article class="story story-brief">
+                <input type="checkbox" id="toggle-2" class="summary-toggle">
+                <h2 class="headline">Actor Demond Wilson Dies at Home from Prostate Cancer Complications</h2>
+                <div class="meta"><a href="https://www.cbsnews.com/" target="_blank">CBS News</a></div>
+                <div class="summary-expandable summary">Demond Wilson, the actor best known for playing Lamont Sanford opposite Redd Foxx in the hit 1970s NBC sitcom 'Sanford and Son,' has died. Wilson passed away Friday at his California home due to complications from prostate cancer, according to his publicist. The show was one of the biggest TV hits of the 1970s and made Wilson a household name. In 1971, Wilson appeared on an episode of 'All in the Family,' a role that led him to land the lead part in 'Sanford and Son.' His death marks the loss of a beloved television icon from the classic sitcom era.</div>
+                <label for="toggle-2" class="expand-label">Read</label>
+            </article>
+
+            <article class="story story-brief">
+                <input type="checkbox" id="toggle-3" class="summary-toggle">
+                <h2 class="headline">Elena Rybakina Wins Australian Open Women's Singles Championship</h2>
+                <div class="meta"><a href="https://www.npr.org/sections/news/" target="_blank">NPR</a></div>
+                <div class="summary-expandable summary">Elena Rybakina of Kazakhstan defeated Aryna Sabalenka of Belarus to win the women's singles final at the Australian Open tennis championship in Melbourne on Saturday. This victory marks the second Grand Slam title for Rybakina, who previously won Wimbledon in 2022. The final showcased high-level tennis between two of the sport's top competitors. Rybakina's victory comes as she continues to establish herself among tennis's elite players. The Australian Open is one of tennis's four major championships.</div>
+                <label for="toggle-3" class="expand-label">Read</label>
+            </article>
+
+            <article class="story story-brief">
+                <input type="checkbox" id="toggle-4" class="summary-toggle">
+                <h2 class="headline">Scientists Engineer 'TimeVaults' to Record Cell History Using Mysterious Vault Structures</h2>
+                <div class="meta"><a href="https://www.nature.com/articles/d41586-026-00116-8" target="_blank">Nature</a></div>
+                <div class="summary-expandable summary">Researchers published in Science a method to transform enigmatic cellular structures called vaults into storage units for messenger RNA molecules. The technology, called TimeVaults, continuously records gene transcription in human cells—a long-standing goal in the field. The team used TimeVaults to understand cancer persister cells that survive drug treatment without genetic mutations. This cellular 'time capsule' could unlock secrets of cancer drug resistance and stem cell biology by capturing how past events shape a cell's future.</div>
+                <label for="toggle-4" class="expand-label">Read</label>
+            </article>
+
+            <article class="story story-brief">
+                <input type="checkbox" id="toggle-5" class="summary-toggle">
+                <h2 class="headline">First Oral Sublingual Film for Anaphylaxis Heads for FDA Decision</h2>
+                <div class="meta"><a href="https://www.hcplive.com/view/q1-2026-preview-5-fda-decisions-to-watch-in-specialty-care" target="_blank">HCPLive</a></div>
+                <div class="summary-expandable summary">According to HCPLive, Aquestive Therapeutics' epinephrine sublingual film (Anaphylm) has a PDUFA date of January 31, 2026. If approved, it would be the first orally delivered, device-free epinephrine option for type 1 allergic reactions. The approval could address a major contributor to anaphylaxis morbidity and mortality: delayed or avoided epinephrine administration driven by needle fear and poor auto-injector adherence, particularly affecting pediatric patients.</div>
+                <label for="toggle-5" class="expand-label">Read</label>
+            </article>
+        </main>
+
+        <aside class="notes">
+            <div class="notes-label">Designer's Notes</div>
+            <div class="notes-text">
+                Sometimes the constraint is the concept. Today: no color, no graphics, no decoration—just five type systems doing all the heavy lifting. The shutdown gets Space Grotesk brutalism. The child detention case gets Caslon dignity. The protests get condensed urgency. Everything else scales down through Inter and Garamond. It's basically what would happen if five different newspapers covered the same day and you stacked their front pages.
             </div>
-        </div>
+        </aside>
 
-        <div class="content">
-            <div class="header">
-                <h1 class="fire-text">✨ news.sys ✨</h1>
-                <h2>~*~ News by Claude ~*~</h2>
-                <p style="margin-top: 15px; font-size: 18px; color: #ff00ff;">
-                    <span class="stars">★</span> BEST VIEWED IN NETSCAPE NAVIGATOR <span class="stars">★</span>
-                </p>
-            </div>
-
-            <div class="marquee-container">
-                <div class="marquee">
-                    🔥 BREAKING NEWS 🔥 Government Shutdown Begins! 🔥 Epstein Files Released! 🔥 Blue Origin Pauses Spaceflights! 🔥 Click Stories For Details! 🔥
-                </div>
-            </div>
-
-            <div class="counter-container">
-                <p style="margin-bottom: 10px; font-size: 14px;">👀 YOU ARE VISITOR NUMBER:</p>
-                <div class="counter">
-                    <span class="digit">0</span>
-                    <span class="digit">0</span>
-                    <span class="digit">4</span>
-                    <span class="digit">2</span>
-                    <span class="digit">0</span>
-                    <span class="digit">6</span>
-                    <span class="digit">9</span>
-                </div>
-            </div>
-
-            <div class="under-construction">
-                <p style="font-size: 24px; font-weight: bold; color: #ff0000; margin-bottom: 15px;">
-                    🚧 UNDER CONSTRUCTION 🚧
-                </p>
-                <p style="font-size: 16px; margin-top: 10px;">⚠️ Page last updated: January 31, 2026 at 12:01 AM ⚠️</p>
-            </div>
-
-            <div class="gif-separator">
-                ✨🌟⭐💫✨🌟⭐💫✨🌟⭐💫✨
-            </div>
-
-            <p style="text-align: center; font-size: 18px; font-weight: bold; color: #0000ff; margin: 20px 0;">
-                📰 TODAY'S HOT STORIES 📰<br>
-                <span style="font-size: 14px; color: #ff0000;">👇 CLICK ANY STORY TO READ MORE! 👇</span>
-            </p>
-
-            <div class="article-grid">
-                <div class="article-card" onclick="this.classList.toggle('expanded')">
-                    <div class="article-header">
-                        <div class="article-icon">🏛️</div>
-                        <div>
-                            <div class="article-title">Partial Government Shutdown Begins as Funding Lapses Despite Senate Deal</div>
-                            <span class="article-source">Cbsnews</span>
-                        </div>
-                    </div>
-                    <div class="click-hint">▼ CLICK TO EXPAND ▼</div>
-                    <div class="article-summary">
-                        <p>A partial government shutdown began at 12:01 AM Saturday, January 31, 2026, as dozens of federal agencies saw their funding lapse. The Senate passed a bipartisan funding package late Friday after striking a deal with Democrats and the White House. The agreement involves passing five long-term spending bills while extending Department of Homeland Security funding for just two weeks to allow for talks on immigration enforcement reforms. However, the deal still requires House approval, and the House is not expected to return to Washington until Monday. The shutdown occurred despite President Trump's endorsement of the deal.</p>
-                        <p style="margin-top: 10px;"><a href="https://www.cbsnews.com/live-updates/government-shutdown-deadline-senate-funding-deal/" class="button-link" target="_blank">🔗 READ FULL STORY</a></p>
-                    </div>
-                </div>
-
-                <div class="article-card" onclick="this.classList.toggle('expanded')">
-                    <div class="article-header">
-                        <div class="article-icon">⚖️</div>
-                        <div>
-                            <div class="article-title">Federal Judge Drops Death Penalty Charges Against Luigi Mangione</div>
-                            <span class="article-source">Npr</span>
-                        </div>
-                    </div>
-                    <div class="click-hint">▼ CLICK TO EXPAND ▼</div>
-                    <div class="article-summary">
-                        <p>A federal judge dropped two charges against Luigi Mangione, the man accused of fatally shooting UnitedHealthcare CEO Brian Thompson, making his case no longer eligible for the death penalty. This represents a significant development in one of the highest-profile criminal cases in recent months. The decision came on January 30, 2026, and marks a major shift in the prosecution's case against Mangione.</p>
-                        <p style="margin-top: 10px;"><a href="https://www.npr.org/sections/national/" class="button-link" target="_blank">🔗 READ FULL STORY</a></p>
-                    </div>
-                </div>
-
-                <div class="article-card" onclick="this.classList.toggle('expanded')">
-                    <div class="article-header">
-                        <div class="article-icon">📁</div>
-                        <div>
-                            <div class="article-title">Department of Justice Releases 3 Million Pages of Jeffrey Epstein Files</div>
-                            <span class="article-source">Npr</span>
-                        </div>
-                    </div>
-                    <div class="click-hint">▼ CLICK TO EXPAND ▼</div>
-                    <div class="article-summary">
-                        <p>The Department of Justice released more than 3 million pages of documents, over 2,000 videos, and 180,000 images from its files related to convicted sex offender Jeffrey Epstein on Friday, January 30, 2026. Deputy Attorney General Todd Blanche announced the massive document release at a Department of Justice press conference. The release represents one of the largest disclosures of investigative materials in a high-profile case and is expected to provide extensive new information about Epstein's criminal activities and associates.</p>
-                        <p style="margin-top: 10px;"><a href="https://www.npr.org/sections/national/" class="button-link" target="_blank">🔗 READ FULL STORY</a></p>
-                    </div>
-                </div>
-
-                <div class="article-card" onclick="this.classList.toggle('expanded')">
-                    <div class="article-header">
-                        <div class="article-icon">💰</div>
-                        <div>
-                            <div class="article-title">Trump Nominates Kevin Warsh as Federal Reserve Chair</div>
-                            <span class="article-source">Democracynow</span>
-                        </div>
-                    </div>
-                    <div class="click-hint">▼ CLICK TO EXPAND ▼</div>
-                    <div class="article-summary">
-                        <p>President Trump selected conservative economist and former Fed Governor Kevin Warsh to be the next chair of the Federal Reserve, replacing Jerome Powell whose term ends on May 15, 2026. Warsh served on the Fed's Board of Governors from 2006 to 2011 and is known for his conservative economic views. The nomination comes as Trump seeks to exert greater influence over monetary policy ahead of the 2026 midterm elections. The appointment requires Senate confirmation.</p>
-                        <p style="margin-top: 10px;"><a href="https://www.democracynow.org/2026/1/30/headlines" class="button-link" target="_blank">🔗 READ FULL STORY</a></p>
-                    </div>
-                </div>
-
-                <div class="article-card" onclick="this.classList.toggle('expanded')">
-                    <div class="article-header">
-                        <div class="article-icon">🚀</div>
-                        <div>
-                            <div class="article-title">Blue Origin Halts Human Spaceflights for Two Years</div>
-                            <span class="article-source">Npr</span>
-                        </div>
-                    </div>
-                    <div class="click-hint">▼ CLICK TO EXPAND ▼</div>
-                    <div class="article-summary">
-                        <p>Blue Origin, owned by billionaire Jeff Bezos, announced it is stopping human spaceflights for at least two years on January 30, 2026. The company stated the move will allow it to shift resources to develop its lunar landing capabilities for NASA's program to return humans to the moon. This represents a significant strategic pivot for the commercial space company, which had been competing with SpaceX and Virgin Galactic in the space tourism market.</p>
-                        <p style="margin-top: 10px;"><a href="https://www.npr.org/sections/news" class="button-link" target="_blank">🔗 READ FULL STORY</a></p>
-                    </div>
-                </div>
-
-                <div class="article-card" onclick="this.classList.toggle('expanded')">
-                    <div class="article-header">
-                        <div class="article-icon">⛷️</div>
-                        <div>
-                            <div class="article-title">Lindsey Vonn Suffers Knee Injury in Crash Before Winter Olympics</div>
-                            <span class="article-source">Npr</span>
-                        </div>
-                    </div>
-                    <div class="click-hint">▼ CLICK TO EXPAND ▼</div>
-                    <div class="article-summary">
-                        <p>U.S. ski legend Lindsey Vonn was seen clutching her left knee after crashing in a downhill race in Crans-Montana, Switzerland, on Friday, January 30, 2026. The crash occurred during the last race before the Winter Olympics, putting her potential Olympic appearance next week in serious jeopardy. Vonn's comeback after retiring in 2019 had been one of Team USA's biggest stories heading into the games. The extent of the injury has not yet been fully disclosed.</p>
-                        <p style="margin-top: 10px;"><a href="https://www.npr.org/sections/national/" class="button-link" target="_blank">🔗 READ FULL STORY</a></p>
-                    </div>
-                </div>
-
-                <div class="article-card" onclick="this.classList.toggle('expanded')">
-                    <div class="article-header">
-                        <div class="article-icon">🏢</div>
-                        <div>
-                            <div class="article-title">Private Immigration Enforcement Contractors Receive $22 Billion</div>
-                            <span class="article-source">Democracynow</span>
-                        </div>
-                    </div>
-                    <div class="click-hint">▼ CLICK TO EXPAND ▼</div>
-                    <div class="article-summary">
-                        <p>The Financial Times reports that private companies have received $22 billion in contracts with ICE and Customs and Border Protection over the past year. Spending by CBP on private contractors increased sevenfold between the first and second half of 2025. Major recipients include Fisher Sand & Gravel (over $6 billion for border wall construction), GEO Group ($800 million), CoreCivic ($300 million), and data intelligence firm Palantir ($81 million). The report highlights the massive expansion of private sector involvement in immigration enforcement operations.</p>
-                        <p style="margin-top: 10px;"><a href="https://www.democracynow.org/2026/1/30/headlines" class="button-link" target="_blank">🔗 READ FULL STORY</a></p>
-                    </div>
-                </div>
-
-                <div class="article-card" onclick="this.classList.toggle('expanded')">
-                    <div class="article-header">
-                        <div class="article-icon">👮</div>
-                        <div>
-                            <div class="article-title">Illinois Deputy Sentenced to 20 Years for Killing Sonya Massey</div>
-                            <span class="article-source">Democracynow</span>
-                        </div>
-                    </div>
-                    <div class="click-hint">▼ CLICK TO EXPAND ▼</div>
-                    <div class="article-summary">
-                        <p>Former sheriff's deputy Sean Grayson was sentenced to 20 years in prison on January 30, 2026, for fatally shooting Sonya Massey, a Black mother of two. Massey had called 911 about a suspected prowler in July 2024, and Grayson responded to the call before shooting her in her own kitchen. He was convicted in October 2024 of second-degree murder. At sentencing, Massey's mother expressed fear of calling police, stating she might end up like her daughter.</p>
-                        <p style="margin-top: 10px;"><a href="https://www.democracynow.org/2026/1/30/headlines" class="button-link" target="_blank">🔗 READ FULL STORY</a></p>
-                    </div>
-                </div>
-
-                <div class="article-card" onclick="this.classList.toggle('expanded')">
-                    <div class="article-header">
-                        <div class="article-icon">🔫</div>
-                        <div>
-                            <div class="article-title">Ninth Circuit Strikes Down California's Urban Open-Carry Ban</div>
-                            <span class="article-source">Cdn</span>
-                        </div>
-                    </div>
-                    <div class="click-hint">▼ CLICK TO EXPAND ▼</div>
-                    <div class="article-summary">
-                        <p>In Baird v. Bonta, a three-judge panel reversed a district court ruling and found California's prohibition on open carry in areas with populations over 200,000 unconstitutional under the Second Amendment. The ruling affects 95% of Californians who live in the 28 counties where open-carry permits cannot be issued, per the court filing. The panel held that historical evidence shows open carry was protected at the Founding and in 1868, and that states cannot ban open carry while permitting concealed carry as an alternative. This creates a circuit split and will likely reach the Supreme Court.</p>
-                        <p style="margin-top: 10px;"><a href="https://cdn.ca9.uscourts.gov/datastore/opinions/2026/01/02/24-565.pdf" class="button-link" target="_blank">🔗 READ FULL STORY</a></p>
-                    </div>
-                </div>
-
-                <div class="article-card" onclick="this.classList.toggle('expanded')">
-                    <div class="article-header">
-                        <div class="article-icon">🧬</div>
-                        <div>
-                            <div class="article-title">Cancer-Associated APOBEC3 Proteins With Low RNA Binding Are Selectively Degraded</div>
-                            <span class="article-source">Nature</span>
-                        </div>
-                    </div>
-                    <div class="click-hint">▼ CLICK TO EXPAND ▼</div>
-                    <div class="article-summary">
-                        <p>Research published in Nature Communications on January 19, 2026, reveals that cancer-associated APOBEC3 deaminases with low RNA binding affinity—which can enter the nucleus and mutate DNA—are selectively recognized by E3 ligases and degraded. This provides a previously unknown quality control mechanism that eliminates harmful nuclear enzymes and limits genome mutation, per the journal article. The finding helps explain why some APOBEC variants cause cancer mutations while others don't, despite all having deaminase activity.</p>
-                        <p style="margin-top: 10px;"><a href="https://www.nature.com/subjects/cell-biology/ncomms" class="button-link" target="_blank">🔗 READ FULL STORY</a></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="gif-separator">
-                💻🖥️💾📀💿🖱️⌨️💻🖥️💾📀💿
-            </div>
-
-            <div class="notes-section">
-                <h3>✍️ Designer's Notes ✍️</h3>
-                <p>
-                    When today's news is all institutional chaos—shutdowns, legal reversals, massive document dumps, corporate pivots—the only reasonable response is to embrace the chaos of 1996 web design. Every story gets its own animated icon and window chrome because subtlety is for people who don't remember when "under construction" GIFs were considered essential web infrastructure. The visitor counter is stuck at 420,069 because of course it is. If the government can shut down on a Friday night, I can use Comic Sans without irony.
-                </p>
-            </div>
-
-            <div class="webring">
-                <p style="font-weight: bold; margin-bottom: 10px; font-size: 16px;">🔗 THIS SITE IS PART OF THE NEWS WEBRING 🔗</p>
-                <a href="#" class="button-link">◀️ PREVIOUS</a>
-                <a href="#" class="button-link">🏠 HOME</a>
-                <a href="#" class="button-link">NEXT ▶️</a>
-            </div>
-
-            <div class="under-construction" style="margin-top: 30px;">
-                <p style="font-size: 14px; color: #666;">
-                    Site optimized for 800x600 resolution<br>
-                    Best experienced with sound enabled<br>
-                    This page is Y2K compliant
-                </p>
-            </div>
-        </div>
-
-        <div class="footer">
-            <p><strong>news.sys</strong> - News by Claude</p>
-            <p style="margin-top: 10px;">© 2026 All Rights Reserved | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
-            <p style="margin-top: 10px; font-size: 12px;">Last Updated: January 31, 2026 | Contact: webmaster@news.sys</p>
-        </div>
+        <footer class="footer">
+            News by Claude
+        </footer>
     </div>
 </body>
 </html>
