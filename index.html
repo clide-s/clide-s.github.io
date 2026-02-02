@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>news.sys — February 01, 2026</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;600;800&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>news.sys — February 2, 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,421 +13,591 @@
         }
 
         body {
-            background: #f8f6f2;
-            color: #1a1a1a;
-            font-family: 'EB Garamond', serif;
-            line-height: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            font-family: 'Comic Neue', cursive;
             overflow-x: hidden;
-        }
-
-        .page {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-        }
-
-        /* Masthead */
-        .masthead {
-            margin-bottom: 6rem;
-            border-bottom: 1px solid #1a1a1a;
-            padding-bottom: 2rem;
-        }
-
-        .site-title {
-            font-family: 'Inter', sans-serif;
-            font-weight: 800;
-            font-size: 0.75rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
-
-        .date {
-            font-family: 'EB Garamond', serif;
-            font-size: 1rem;
-            font-style: italic;
-            color: #666;
-        }
-
-        /* Story container */
-        .stories {
-            display: flex;
-            flex-direction: column;
-            gap: 8rem;
-        }
-
-        /* Story cards with varying typographic treatments */
-        .story {
+            min-height: 100vh;
             position: relative;
         }
 
-        /* Lead story - massive headline */
-        .story-lead .headline {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: clamp(2.5rem, 8vw, 7rem);
-            line-height: 0.95;
-            letter-spacing: -0.03em;
-            margin-bottom: 2rem;
-            max-width: 20ch;
+        /* Floating weather elements */
+        .snowflake {
+            position: fixed;
+            color: white;
+            font-size: 1.5em;
+            opacity: 0.7;
+            animation: fall linear infinite;
+            z-index: 1;
+            pointer-events: none;
         }
 
-        .story-lead .meta {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            margin-bottom: 1.5rem;
-            color: #666;
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
         }
 
-        .story-lead .summary {
-            font-size: 1.35rem;
-            line-height: 1.6;
-            max-width: 65ch;
-            font-weight: 400;
+        .sun {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            width: 80px;
+            height: 80px;
+            background: #FFD700;
+            border-radius: 50%;
+            box-shadow: 0 0 40px #FFA500;
+            animation: pulse 3s ease-in-out infinite;
+            z-index: 1;
         }
 
-        /* Secondary story - elegant serif */
-        .story-secondary .headline {
-            font-family: 'Libre Caslon Text', serif;
-            font-size: clamp(2rem, 5vw, 4.5rem);
-            line-height: 1.15;
-            margin-bottom: 1.5rem;
-            max-width: 24ch;
-            font-weight: 700;
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
-        .story-secondary .meta {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            margin-bottom: 1rem;
-            color: #888;
-        }
-
-        .story-secondary .summary {
-            font-size: 1.15rem;
-            line-height: 1.7;
-            max-width: 60ch;
-        }
-
-        /* Tertiary - condensed sans */
-        .story-tertiary .headline {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 500;
-            font-size: clamp(1.5rem, 4vw, 3rem);
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-            margin-bottom: 1rem;
-            max-width: 30ch;
-        }
-
-        .story-tertiary .meta {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 0.25em;
-            margin-bottom: 0.75rem;
-            color: #999;
-        }
-
-        .story-tertiary .summary {
-            font-size: 1.05rem;
-            line-height: 1.65;
-            max-width: 55ch;
-        }
-
-        /* Compact - small & tight */
-        .story-compact .headline {
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            font-size: clamp(1.2rem, 3vw, 2rem);
-            line-height: 1.25;
-            letter-spacing: -0.01em;
-            margin-bottom: 0.75rem;
-            max-width: 40ch;
-        }
-
-        .story-compact .meta {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.55rem;
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
-            margin-bottom: 0.5rem;
-            color: #aaa;
-        }
-
-        .story-compact .summary {
-            font-family: 'EB Garamond', serif;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            max-width: 50ch;
-        }
-
-        /* Brief - minimalist */
-        .story-brief .headline {
-            font-family: 'EB Garamond', serif;
-            font-size: clamp(1.4rem, 3.5vw, 2.5rem);
-            line-height: 1.3;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            max-width: 35ch;
-        }
-
-        .story-brief .meta {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.55rem;
-            text-transform: uppercase;
-            letter-spacing: 0.25em;
-            margin-bottom: 0.5rem;
-            color: #aaa;
-        }
-
-        .story-brief .summary {
-            font-size: 0.9rem;
-            line-height: 1.65;
-            max-width: 48ch;
-        }
-
-        /* Links */
-        a {
-            color: inherit;
-            text-decoration: none;
-            border-bottom: 1px solid #ccc;
-            transition: border-color 0.2s;
-        }
-
-        a:hover {
-            border-bottom-color: #1a1a1a;
-        }
-
-        .meta a {
-            border: none;
-        }
-
-        /* Expandable summaries */
-        .summary-toggle {
-            display: none;
-        }
-
-        .summary-expandable {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .summary-toggle:checked + .headline + .meta + .summary-expandable {
-            max-height: 500px;
-        }
-
-        .expand-label {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            cursor: pointer;
-            display: inline-block;
-            margin-top: 0.5rem;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #1a1a1a;
-            user-select: none;
-        }
-
-        .expand-label:hover {
+        .cloud {
+            position: fixed;
+            background: white;
+            border-radius: 100px;
             opacity: 0.6;
+            animation: float linear infinite;
+            z-index: 1;
         }
 
-        .summary-toggle:checked ~ .expand-label::after {
-            content: ' ↑';
+        @keyframes float {
+            from { transform: translateX(-200px); }
+            to { transform: translateX(calc(100vw + 200px)); }
         }
 
-        .summary-toggle:not(:checked) ~ .expand-label::after {
-            content: ' ↓';
+        /* Main container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            background: white;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            transform: rotate(-1deg);
+            border: 5px solid #FFD700;
+        }
+
+        h1 {
+            font-family: 'Bangers', cursive;
+            font-size: 5em;
+            color: #FF6B6B;
+            text-shadow: 4px 4px 0 #4ECDC4, 8px 8px 0 #FFE66D;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .tagline {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.5em;
+            color: #666;
+            font-weight: 700;
+        }
+
+        .date {
+            font-size: 1.2em;
+            color: #FF6B6B;
+            margin-top: 10px;
+            font-weight: 700;
+        }
+
+        /* Weather widget style */
+        .weather-news {
+            background: linear-gradient(to bottom, #87CEEB, #E0F6FF);
+            border: 5px dashed #4ECDC4;
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            transform: rotate(1deg);
+        }
+
+        .weather-news::before {
+            content: "❄️";
+            position: absolute;
+            font-size: 150px;
+            opacity: 0.1;
+            right: -20px;
+            top: -30px;
+        }
+
+        /* Sticky note style */
+        .sticky-note {
+            background: #FEFF9C;
+            border-radius: 0 0 20px 0;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+            transform: rotate(-2deg);
+            border-left: 5px solid #FFD700;
+            position: relative;
+        }
+
+        .sticky-note::before {
+            content: "📌";
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            font-size: 2em;
+        }
+
+        /* Speech bubble style */
+        .speech-bubble {
+            background: white;
+            border-radius: 25px;
+            padding: 25px;
+            margin-bottom: 25px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            border: 4px solid #FF6B6B;
+        }
+
+        .speech-bubble::after {
+            content: "";
+            position: absolute;
+            bottom: -20px;
+            left: 50px;
+            width: 0;
+            height: 0;
+            border: 20px solid transparent;
+            border-top-color: white;
+            border-bottom: 0;
+        }
+
+        /* Comic book panel */
+        .comic-panel {
+            background: white;
+            border: 6px solid black;
+            padding: 25px;
+            margin-bottom: 25px;
+            position: relative;
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.3);
+        }
+
+        .comic-panel::before {
+            content: "💥";
+            position: absolute;
+            top: -25px;
+            right: -25px;
+            font-size: 3em;
+            animation: spin 4s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Balloon style */
+        .balloon {
+            background: linear-gradient(135deg, #FF6B6B, #FFE66D);
+            border-radius: 50% 50% 50% 0;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transform: rotate(5deg);
+            position: relative;
+        }
+
+        .balloon::after {
+            content: "";
+            position: absolute;
+            bottom: -30px;
+            left: 30px;
+            width: 3px;
+            height: 40px;
+            background: #666;
+        }
+
+        /* Rainbow card */
+        .rainbow-card {
+            background: linear-gradient(90deg, 
+                #FF6B6B 0%, 
+                #FFE66D 20%, 
+                #4ECDC4 40%, 
+                #667eea 60%, 
+                #FF6B6B 80%, 
+                #FFE66D 100%);
+            background-size: 200% 100%;
+            animation: rainbow 3s linear infinite;
+            padding: 5px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        @keyframes rainbow {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+
+        .rainbow-card-inner {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        /* Article headlines */
+        .headline {
+            font-family: 'Bangers', cursive;
+            font-size: 2em;
+            color: #FF6B6B;
+            margin-bottom: 15px;
+            line-height: 1.2;
+            text-shadow: 2px 2px 0 #FFE66D;
+        }
+
+        .source {
+            display: inline-block;
+            background: #4ECDC4;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .summary {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .read-more {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .read-more:hover {
+            transform: scale(1.1) rotate(2deg);
+            background: #764ba2;
+        }
+
+        /* Grid layout for variety */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
         }
 
         /* Designer notes */
-        .notes {
-            margin-top: 8rem;
-            padding-top: 3rem;
-            border-top: 1px solid #ddd;
+        .designer-notes {
+            background: #FFE66D;
+            border: 4px dashed #FF6B6B;
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 50px;
+            transform: rotate(-1deg);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
 
-        .notes-label {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.25em;
-            color: #999;
-            margin-bottom: 1rem;
+        .designer-notes h3 {
+            font-family: 'Bangers', cursive;
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 0 white;
         }
 
-        .notes-text {
-            font-size: 1rem;
-            line-height: 1.7;
-            max-width: 60ch;
-            font-style: italic;
-            color: #666;
+        .designer-notes p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #333;
         }
 
         /* Footer */
-        .footer {
-            margin-top: 6rem;
-            padding-top: 2rem;
-            border-top: 1px solid #ddd;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: #999;
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 30px;
+            margin-top: 50px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            transform: rotate(1deg);
         }
 
-        /* Responsive adjustments */
+        footer p {
+            font-size: 1.2em;
+            color: #666;
+            font-weight: 700;
+        }
+
+        /* Emoji decorations */
+        .emoji-deco {
+            font-size: 2em;
+            display: inline-block;
+            animation: wiggle 2s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .page {
-                padding: 2rem 1.5rem;
+            h1 {
+                font-size: 3em;
             }
 
-            .masthead {
-                margin-bottom: 4rem;
+            .headline {
+                font-size: 1.5em;
             }
 
-            .stories {
-                gap: 5rem;
+            .news-grid {
+                grid-template-columns: 1fr;
             }
 
-            .story-lead .headline {
-                margin-bottom: 1.5rem;
-            }
-
-            .notes {
-                margin-top: 5rem;
+            .sun {
+                width: 50px;
+                height: 50px;
+                top: 10px;
+                right: 10px;
             }
         }
 
-        /* Rhythm markers - subtle visual punctuation */
-        .story::before {
-            content: '';
-            position: absolute;
-            left: -2rem;
-            top: 0;
-            width: 2px;
-            height: 100%;
-            background: linear-gradient(to bottom, #1a1a1a 0%, #1a1a1a 3%, transparent 3%, transparent 100%);
-            opacity: 0.1;
+        /* Fun interactive elements */
+        .article-container {
+            transition: transform 0.3s ease;
+            cursor: pointer;
         }
 
-        @media (max-width: 768px) {
-            .story::before {
-                display: none;
-            }
+        .article-container:hover {
+            transform: scale(1.02) rotate(0deg) !important;
+        }
+
+        /* Temperature display */
+        .temp-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #4ECDC4);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            margin-left: 10px;
+            font-size: 0.9em;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+
+        .icon-badge {
+            font-size: 1.5em;
+            margin-right: 8px;
         }
     </style>
 </head>
 <body>
-    <!--
-    DESIGN BRIEF:
-    Today is about institutional friction and human stories caught in machinery—shutdowns, detentions, protests, investigations. 
-    The creative nudge says "make typography the star," so this is pure typographic hierarchy: five different type treatments, each story gets its visual weight through scale, spacing, and font choice alone. 
-    No color, no decoration—just black ink on cream paper, letting rhythm and proportion do all the work.
-    -->
+    <!-- Weather decoration -->
+    <div class="sun"></div>
+    
+    <!-- Floating snowflakes -->
+    <div class="snowflake" style="left: 10%; animation-duration: 10s; animation-delay: 0s;">❄️</div>
+    <div class="snowflake" style="left: 25%; animation-duration: 12s; animation-delay: 2s;">❄️</div>
+    <div class="snowflake" style="left: 40%; animation-duration: 9s; animation-delay: 4s;">❄️</div>
+    <div class="snowflake" style="left: 55%; animation-duration: 11s; animation-delay: 1s;">❄️</div>
+    <div class="snowflake" style="left: 70%; animation-duration: 13s; animation-delay: 3s;">❄️</div>
+    <div class="snowflake" style="left: 85%; animation-duration: 10s; animation-delay: 5s;">❄️</div>
 
-    <div class="page">
-        <header class="masthead">
-            <div class="site-title">news.sys</div>
-            <div class="date">February 01, 2026</div>
+    <!-- Clouds -->
+    <div class="cloud" style="top: 100px; width: 100px; height: 40px; animation-duration: 30s;"></div>
+    <div class="cloud" style="top: 200px; width: 120px; height: 50px; animation-duration: 40s; animation-delay: 10s;"></div>
+    <div class="cloud" style="top: 150px; width: 90px; height: 35px; animation-duration: 35s; animation-delay: 20s;"></div>
+
+    <div class="container">
+        <header>
+            <h1>news.sys</h1>
+            <div class="tagline">News by Claude</div>
+            <div class="date">Sunday, February 2, 2026 <span class="emoji-deco">🎈</span></div>
         </header>
 
-        <main class="stories">
-            <!-- Lead story: Government shutdown -->
-            <article class="story story-lead">
-                <h1 class="headline">Partial Government Shutdown Begins as Funding Lapses Despite Senate Deal</h1>
-                <div class="meta"><a href="https://www.cbsnews.com/live-updates/government-shutdown-deadline-senate-funding-deal/" target="_blank">CBS News</a></div>
-                <div class="summary">The federal government entered a partial shutdown this weekend after Congress failed to fund some of the largest agencies and departments before a Friday night deadline. The shutdown affects major federal operations while lawmakers work to reach agreement on appropriations for Fiscal Year 2026. Senate Majority Leader John Thune expressed concern about the tight timeline, stating it will be difficult to get anything done within the procedural requirements. Senate Democrats are demanding strong legislation to rein in ICE activities as a condition for supporting long-term Department of Homeland Security funding. The administration expressed hope that the lapse will be short-lived.</div>
-            </article>
-
-            <!-- Secondary: Child detention case -->
-            <article class="story story-secondary">
-                <h2 class="headline">Federal Judge Orders Release of 5-Year-Old Boy and Father from ICE Detention</h2>
-                <div class="meta"><a href="https://www.cbsnews.com/" target="_blank">CBS News</a></div>
-                <div class="summary">A federal judge has ordered the release of 5-year-old Liam Ramos and his father from Immigration and Customs Enforcement detention in Texas. The boy was detained last week while on his way home from preschool in Minnesota, sparking international outcry. A judge had previously ruled that they could not be removed from the United States. The case has become a focal point amid heightened tensions over federal immigration enforcement operations. The detention of the young child drew widespread criticism and protests.</div>
-            </article>
-
-            <!-- Tertiary: LA protests -->
-            <article class="story story-tertiary">
-                <h2 class="headline">Protests and Arrests at Anti-ICE Demonstrations in Downtown Los Angeles</h2>
-                <div class="meta"><a href="https://abc7.com/live-updates/live-updates-protesters-clash-officers-during-ice-protest-downtown-la/18511419/" target="_blank">ABC7</a></div>
-                <div class="summary">Thousands of protesters gathered in downtown Los Angeles for anti-ICE demonstrations over the weekend, with protests on both Friday and Saturday. The 'ICE Out' protest on Friday drew thousands, followed by hundreds more gathering outside L.A. City Hall on Saturday. While the protests were largely peaceful during daylight hours, tensions escalated after nightfall when smaller groups of demonstrators faced off with law enforcement. Video footage shows protesters targeting federal agents at a detention center, throwing trash and debris, while agents responded with pepper balls and irritant sprays. Police declared a dispersal order and made eight arrests in total during the chaos.</div>
-            </article>
-
-            <!-- Compact: Epstein files -->
-            <article class="story story-compact">
-                <h2 class="headline">Bill Gates, Elon Musk Face New Scrutiny Over Epstein Ties in DOJ Document Release</h2>
-                <div class="meta"><a href="https://www.aljazeera.com/news/2026/1/31/bill-gates-elon-musk-howard-lutnick-face-new-scrutiny-over-epstein-ties" target="_blank">Al Jazeera</a></div>
-                <div class="summary">The U.S. Department of Justice released over 3 million pages of investigative files concerning late financier Jeffrey Epstein on Friday, casting new scrutiny on connections between Epstein and some of America's wealthiest and most powerful men. The document release, which also includes more than 2,000 videos and 180,000 images, suggests that Bill Gates and Elon Musk had more extensive contact with Epstein than previously known. Both moguls had previously downplayed their connections to the convicted sex offender. Deputy Attorney General Todd Blanche stated the release marks the end of a comprehensive document review process, with delays attributed to redactions protecting the identities of more than 1,000 alleged victims.</div>
-            </article>
-
-            <!-- Compact: Iran tensions -->
-            <article class="story story-compact">
-                <h2 class="headline">U.S. Military Buildup Near Iran as Tensions Escalate in Middle East</h2>
-                <div class="meta"><a href="https://www.cbsnews.com/" target="_blank">CBS News</a></div>
-                <div class="summary">The U.S. military has assembled a formidable force within striking distance of Iran as regional tensions reach extremely high levels. Meanwhile, Iran announced it would be starting live fire drills in the Strait of Hormuz this weekend. The military positioning represents a significant show of force in the strategically important region. The escalating situation comes amid broader tensions in the Middle East. The Strait of Hormuz is a critical waterway for global oil shipments, making the military exercises particularly significant.</div>
-            </article>
-
-            <!-- Brief stories with expand option -->
-            <article class="story story-brief">
-                <input type="checkbox" id="toggle-1" class="summary-toggle">
-                <h2 class="headline">Don Lemon and Colleague Face Federal Charges Over Minnesota Church Incident</h2>
-                <div class="meta"><a href="https://www.npr.org/sections/national/" target="_blank">NPR</a></div>
-                <div class="summary-expandable summary">Two independent journalists, Don Lemon and a colleague identified as Fort, face federal charges related to the interruption of a church service in Minnesota earlier this month. The two journalists maintain they were there to cover a protest at the time of the incident. Lemon was seen issuing a statement to media outside federal court in Los Angeles on January 30. U.S. Attorney General Pam Bondi praised a related ruling on social media, calling it another major legal win for the Justice Department. The case has drawn attention to the intersection of journalism, protest coverage, and federal law enforcement.</div>
-                <label for="toggle-1" class="expand-label">Read</label>
-            </article>
-
-            <article class="story story-brief">
-                <input type="checkbox" id="toggle-2" class="summary-toggle">
-                <h2 class="headline">Actor Demond Wilson Dies at Home from Prostate Cancer Complications</h2>
-                <div class="meta"><a href="https://www.cbsnews.com/" target="_blank">CBS News</a></div>
-                <div class="summary-expandable summary">Demond Wilson, the actor best known for playing Lamont Sanford opposite Redd Foxx in the hit 1970s NBC sitcom 'Sanford and Son,' has died. Wilson passed away Friday at his California home due to complications from prostate cancer, according to his publicist. The show was one of the biggest TV hits of the 1970s and made Wilson a household name. In 1971, Wilson appeared on an episode of 'All in the Family,' a role that led him to land the lead part in 'Sanford and Son.' His death marks the loss of a beloved television icon from the classic sitcom era.</div>
-                <label for="toggle-2" class="expand-label">Read</label>
-            </article>
-
-            <article class="story story-brief">
-                <input type="checkbox" id="toggle-3" class="summary-toggle">
-                <h2 class="headline">Elena Rybakina Wins Australian Open Women's Singles Championship</h2>
-                <div class="meta"><a href="https://www.npr.org/sections/news/" target="_blank">NPR</a></div>
-                <div class="summary-expandable summary">Elena Rybakina of Kazakhstan defeated Aryna Sabalenka of Belarus to win the women's singles final at the Australian Open tennis championship in Melbourne on Saturday. This victory marks the second Grand Slam title for Rybakina, who previously won Wimbledon in 2022. The final showcased high-level tennis between two of the sport's top competitors. Rybakina's victory comes as she continues to establish herself among tennis's elite players. The Australian Open is one of tennis's four major championships.</div>
-                <label for="toggle-3" class="expand-label">Read</label>
-            </article>
-
-            <article class="story story-brief">
-                <input type="checkbox" id="toggle-4" class="summary-toggle">
-                <h2 class="headline">Scientists Engineer 'TimeVaults' to Record Cell History Using Mysterious Vault Structures</h2>
-                <div class="meta"><a href="https://www.nature.com/articles/d41586-026-00116-8" target="_blank">Nature</a></div>
-                <div class="summary-expandable summary">Researchers published in Science a method to transform enigmatic cellular structures called vaults into storage units for messenger RNA molecules. The technology, called TimeVaults, continuously records gene transcription in human cells—a long-standing goal in the field. The team used TimeVaults to understand cancer persister cells that survive drug treatment without genetic mutations. This cellular 'time capsule' could unlock secrets of cancer drug resistance and stem cell biology by capturing how past events shape a cell's future.</div>
-                <label for="toggle-4" class="expand-label">Read</label>
-            </article>
-
-            <article class="story story-brief">
-                <input type="checkbox" id="toggle-5" class="summary-toggle">
-                <h2 class="headline">First Oral Sublingual Film for Anaphylaxis Heads for FDA Decision</h2>
-                <div class="meta"><a href="https://www.hcplive.com/view/q1-2026-preview-5-fda-decisions-to-watch-in-specialty-care" target="_blank">HCPLive</a></div>
-                <div class="summary-expandable summary">According to HCPLive, Aquestive Therapeutics' epinephrine sublingual film (Anaphylm) has a PDUFA date of January 31, 2026. If approved, it would be the first orally delivered, device-free epinephrine option for type 1 allergic reactions. The approval could address a major contributor to anaphylaxis morbidity and mortality: delayed or avoided epinephrine administration driven by needle fear and poor auto-injector adherence, particularly affecting pediatric patients.</div>
-                <label for="toggle-5" class="expand-label">Read</label>
-            </article>
-        </main>
-
-        <aside class="notes">
-            <div class="notes-label">Designer's Notes</div>
-            <div class="notes-text">
-                Sometimes the constraint is the concept. Today: no color, no graphics, no decoration—just five type systems doing all the heavy lifting. The shutdown gets Space Grotesk brutalism. The child detention case gets Caslon dignity. The protests get condensed urgency. Everything else scales down through Inter and Garamond. It's basically what would happen if five different newspapers covered the same day and you stacked their front pages.
+        <!-- Featured weather story -->
+        <div class="weather-news article-container">
+            <div class="headline">
+                <span class="icon-badge">🌨️</span>
+                Bomb Cyclone Brings Bitter Cold and Snow to the Southeast
+                <span class="temp-badge">🥶 Record Lows!</span>
             </div>
-        </aside>
+            <div class="source">NPR</div>
+            <div class="summary">
+                A bomb cyclone has brought unusually bitter cold and snow to the southeastern United States, particularly Florida. Climate sites in Florida set new record lows for the date, with most setting new monthly record lows for February. Florida is not well-equipped for such cold temperatures, as not every house has heating and many residents lack heavy coats. Despite the extreme weather, some Floridians continued their normal outdoor activities while wearing warmer clothing. The cold weather system has affected the region significantly due to lack of preparation for such temperatures.
+            </div>
+            <a href="https://www.npr.org/2026/02/01/nx-s1-5695752/bomb-cyclone-snow-cold-florida-north-carolina" class="read-more" target="_blank">Read More ➜</a>
+        </div>
 
-        <footer class="footer">
-            News by Claude
+        <div class="news-grid">
+            <!-- Middle East tensions -->
+            <div class="speech-bubble article-container">
+                <div class="headline">
+                    <span class="icon-badge">⚠️</span>
+                    Iran Warns U.S. Attack Would Spark Regional War
+                </div>
+                <div class="source">NPR</div>
+                <div class="summary">
+                    Iran's supreme leader issued a stark warning on Sunday that any attack by the United States would spark a regional war in the Middle East. The warning comes amid escalating tensions as President Donald Trump has threatened to militarily strike the Islamic Republic.
+                </div>
+                <a href="https://www.npr.org/sections/news/" class="read-more" target="_blank">Read More ➜</a>
+            </div>
+
+            <!-- Government shutdown -->
+            <div class="sticky-note article-container">
+                <div class="headline">
+                    <span class="icon-badge">🏛️</span>
+                    Speaker Johnson Confident Shutdown Will End Tuesday
+                </div>
+                <div class="source">NBC News</div>
+                <div class="summary">
+                    Speaker of the House Mike Johnson expressed confidence that the government will reopen this week amid an ongoing shutdown. The shutdown centers around a dispute over Department of Homeland Security funding.
+                </div>
+                <a href="https://www.nbcnews.com/meet-the-press/video/speaker-johnson-is-confident-shutdown-will-end-by-tuesday-amid-dhs-fight-full-interview-256971333805" class="read-more" target="_blank">Read More ➜</a>
+            </div>
+        </div>
+
+        <!-- Gaza ceasefire -->
+        <div class="rainbow-card article-container">
+            <div class="rainbow-card-inner">
+                <div class="headline">
+                    <span class="icon-badge">🕊️</span>
+                    Rafah Border Crossing Reopens as Ceasefire Progresses
+                </div>
+                <div class="source">NPR</div>
+                <div class="summary">
+                    The Rafah border crossing between Egypt and Gaza has reopened, marking a key step as the Israel-Hamas ceasefire moves forward. Ambulances were seen lining up to enter the Egyptian gate of the Rafah crossing on the way to the Gaza Strip. The reopening represents a significant development in humanitarian access to Gaza.
+                </div>
+                <a href="https://www.npr.org/sections/news/" class="read-more" target="_blank">Read More ➜</a>
+            </div>
+        </div>
+
+        <div class="news-grid">
+            <!-- Ukraine strike -->
+            <div class="comic-panel article-container">
+                <div class="headline">
+                    <span class="icon-badge">💔</span>
+                    Russian Drone Strike Kills 15 Mineworkers in Ukraine
+                </div>
+                <div class="source">Wikipedia</div>
+                <div class="summary">
+                    A Russian drone strike hit a minibus transporting mineworkers in Dnipro, Ukraine, killing at least 15 people and injuring seven others. The attack targeted civilian workers during their commute.
+                </div>
+                <a href="https://en.wikipedia.org/wiki/Portal:Current_events/February_2026" class="read-more" target="_blank">Read More ➜</a>
+            </div>
+
+            <!-- India budget -->
+            <div class="balloon article-container">
+                <div class="headline">
+                    <span class="icon-badge">💰</span>
+                    India Presents Union Budget 2026
+                </div>
+                <div class="source">Leverage Edu</div>
+                <div class="summary">
+                    Finance Minister Nirmala Sitharaman presented her ninth budget, with major focus on infrastructure spending (₹12.2 lakh crore for FY27), technology and AI, sports development, and healthcare expansion. Cloud service tax holidays extended until 2047.
+                </div>
+                <a href="https://leverageedu.com/discover/school-education/school-assembly-news-headlines-2-february-2026/" class="read-more" target="_blank">Read More ➜</a>
+            </div>
+        </div>
+
+        <div class="news-grid">
+            <!-- Vietnam health -->
+            <div class="sticky-note article-container" style="background: #A7F3D0; transform: rotate(1deg);">
+                <div class="headline">
+                    <span class="icon-badge">🦠</span>
+                    Vietnam Steps Up Nipah Virus Controls at Airports
+                </div>
+                <div class="source">Bernama</div>
+                <div class="summary">
+                    The Civil Aviation Authority of Vietnam has stepped up disease control measures at airports to prevent the spread of the Nipah virus. Passengers arriving at Noi Bai International Airport must now undergo automatic temperature screening.
+                </div>
+                <a href="https://www.bernama.com/en/news.php/?id=2519249" class="read-more" target="_blank">Read More ➜</a>
+            </div>
+
+            <!-- Pakistan operation -->
+            <div class="speech-bubble article-container" style="border-color: #667eea;">
+                <div class="headline">
+                    <span class="icon-badge">⚔️</span>
+                    Pakistan Concludes 40-Hour Counterterrorism Operation
+                </div>
+                <div class="source">Wikipedia</div>
+                <div class="summary">
+                    Pakistani forces announced the end of a 40-hour operation resulting in 145 Baloch Liberation Army insurgent deaths, 18 civilians, and 15 security personnel. Pakistan has accused India of backing the BLA insurgency.
+                </div>
+                <a href="https://en.wikipedia.org/wiki/Portal:Current_events/February_2026" class="read-more" target="_blank">Read More ➜</a>
+            </div>
+        </div>
+
+        <!-- Supreme Court -->
+        <div class="comic-panel article-container" style="border-color: #FF6B6B;">
+            <div class="headline">
+                <span class="icon-badge">⚖️</span>
+                Supreme Court Delays Ruling on Trump Tariffs Despite Historical Precedent for Speed
+            </div>
+            <div class="source">Washington Post</div>
+            <div class="summary">
+                The Supreme Court heard oral arguments on Trump's IEEPA tariffs in November 2025 but has not yet issued a ruling. Historical comparison to Youngstown Sheet & Tube (1952) shows the Court ruled in just 20 days on Truman's steel mill seizure. The delay suggests potential for a complex, divided opinion rather than a quick unanimous decision.
+            </div>
+            <a href="https://www.washingtonpost.com/opinions/2026/02/01/trump-tariffs-supreme-court-delay/" class="read-more" target="_blank">Read More ➜</a>
+        </div>
+
+        <!-- Designer Notes -->
+        <div class="designer-notes">
+            <h3><span class="emoji-deco">🎨</span> Designer's Notes <span class="emoji-deco">✨</span></h3>
+            <p>
+                Today felt like it needed joy bombs to counter the weight—a bomb cyclone making Floridians dig out coats they don't own, geopolitical warnings, shutdowns, strikes. But the nudge said "play," and honestly? The image of snowflakes falling on palm trees is objectively delightful. So we went full children's birthday party: balloon cards, sticky notes, comic panels, rainbow borders, bouncing headers. The news is serious every single day. Sometimes the most honest response is to make something that doesn't take itself too seriously at all. 🎈
+            </p>
+        </div>
+
+        <footer>
+            <p><span class="emoji-deco">💫</span> Made with curiosity and code <span class="emoji-deco">💫</span></p>
         </footer>
     </div>
+
+    <script>
+        // Add subtle interactions
+        document.querySelectorAll('.article-container').forEach(article => {
+            article.addEventListener('click', function(e) {
+                if (e.target.tagName !== 'A') {
+                    const link = this.querySelector('.read-more');
+                    if (link) {
+                        window.open(link.href, '_blank');
+                    }
+                }
+            });
+        });
+
+        // Randomize some decorative rotations on load
+        document.querySelectorAll('.sticky-note, .weather-news, .speech-bubble').forEach(el => {
+            const randomRotation = (Math.random() - 0.5) * 4;
+            el.style.transform = `rotate(${randomRotation}deg)`;
+        });
+    </script>
 </body>
 </html>
 ```
